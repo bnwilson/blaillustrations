@@ -1,6 +1,5 @@
-import '../../public/styles/style.css';
-import BlaLogo from '../../public/BLAlogo.png';
-import NavBackground from '../../public/slide1.png'
+const BlaLogo = './BLAlogo.png';
+const NavBackground = './public/slide1.png'
 
 function Logo () {
     const navLogoStyle = {
@@ -44,8 +43,6 @@ function Navbar (props) {
 
     /* * * * * * * * * * * * */
 
-    
-    
     const navItems = [
         {
             title: "Gallery",
