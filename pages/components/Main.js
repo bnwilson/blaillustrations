@@ -32,9 +32,10 @@ function Main () {
                 margin: 0 2rem 5rem;
             }`}</style>
             <Navbar onclick={navClick} />
-            {!state ? "loading" : state}
+            {!state ? "This is BLA Illustrations Home Page" : state}
             <Footer/>
         </div>
     )
-
 }
+
+export default Main;

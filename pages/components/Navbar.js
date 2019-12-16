@@ -1,5 +1,5 @@
 const BlaLogo = './BLAlogo.png';
-const NavBackground = './public/slide1.png'
+const NavBackground = './slide1.png';
 
 function Logo () {
     const navLogoStyle = {
@@ -41,8 +41,16 @@ function Navbar (props) {
         "color": "whitesmoke"
     }
 
+    const navBarStyle = {
+        "display": "flex",
+        "justifyContent": "center",
+        "width": "100%"
+    }
+
     /* * * * * * * * * * * * */
 
+    
+    
     const navItems = [
         {
             title: "Gallery",
