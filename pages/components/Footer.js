@@ -9,9 +9,9 @@ function Footer () {
     };
 
     return (
-        <footer className="footer" style={footerStyle}>
+        <footer >
             BLA Illustrations&copy;
-        </footer>
+        </footer>    
     )
 }
 

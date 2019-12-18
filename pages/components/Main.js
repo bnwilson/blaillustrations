@@ -1,15 +1,20 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import Head from 'next/head';
 
 
-function Main () {
+function Main (props) {
     const mainPages = {
+        "home": "This is BLA Illustrations Home Page",
         "gallery": "Gallery",
         "about": "About",
         "contact": "Contact"
     }
     const [state, setState] = useState("");
+    useEffect(() => {
+        setState(props.stateKey);
+    },[props])
 
     const navClick = (event) => {
         const value = event.target.getAttribute('value');
@@ -18,22 +23,15 @@ function Main () {
 
     return (
         <div className="main-wrapper">
-            <style jsx global>{`
-            .nav-item:hover {
-                color: yellow;
-                cursor: pointer;
-            }
-            
-            .nav-header {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                max-height: 10rem;
-                margin: 0 2rem 5rem;
-            }`}</style>
-            <Navbar onclick={navClick} />
-            {!state ? "This is BLA Illustrations Home Page" : state}
-            <Footer/>
+            <div className="nav">
+                <Navbar onclick={navClick} />
+            </div>
+            <div className="main">
+                {!state ? "Loading Page..." : state}
+            </div>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     )
 }

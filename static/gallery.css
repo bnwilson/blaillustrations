@@ -1,0 +1,13 @@
+.main-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: .5rem;
+    margin: 5rem 1rem;
+}
+
+.gallery-item {
+    background-color: rgba(233, 235, 222, .4);
+    border: 2px solid gray;
+    padding: 1px;
+}
