@@ -20,7 +20,6 @@ collections:
       - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
 
 # Store Uploads
-collections:
   - name: "store"
     label: "Store"
     folder: "/public/store"
