@@ -9,6 +9,7 @@ const Home = () => {
                     <title>BLA Illustrations</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link href="/static/style.css" rel="stylesheet" />
+                    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
                 </Head>
                 <Main stateKey="home" />
             </div>
