@@ -46,10 +46,7 @@ function Navbar (props) {
         "justifyContent": "center",
         "width": "100%"
     }
-
     /* * * * * * * * * * * * */
-
-    
     
     const navItems = [
         {
