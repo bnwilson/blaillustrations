@@ -1,52 +1,68 @@
+import React,{useEffect} from 'react';
+import Link from 'next/link';
+
 const BlaLogo = './BLAlogo.png';
 const NavBackground = './slide1.png';
 
-function Logo () {
-    const navLogoStyle = {
-        "marginTop": ".5rem"
-    }
-
-    return (
-        <a href="/">
-            <img 
-                className="nav-logo" 
-                alt="BLA Illustrations"
-                src={BlaLogo}
-                style={navLogoStyle}
-            />
-        </a>
-    )
-}
-
-function Navbar (props) {
-
-    /* * Style Objects * */
-
-    const navListStyle = {
+const styles = {
+    navListStyle: {
         "display": "flex",
         "flexDirection": "row",
         "marginBottom": ".50rem",
         "listStyle": "none"
-    }
-
-    const navItemStyle = {
+    },
+    navItemStyle: {
         "color": "whitesmoke",
         "borderStyle": "none",
         "background": "none",
         "fontStyle": "normal",
         "padding": ".25rem 1rem"
-    }
-
-    const navTitleStyle = {
+    },
+    navTitleStyle: {
         "color": "whitesmoke"
-    }
-
-    const navBarStyle = {
+    },
+    navBarStyle: {
         "display": "flex",
         "justifyContent": "center",
         "width": "100%"
+    },
+    navLogoStyle: {
+        "marginTop": ".5rem"
     }
-    /* * * * * * * * * * * * */
+}
+
+function Logo () {
+
+
+    return (
+        <Link href="/">
+            <a>
+                <img 
+                    className="nav-logo" 
+                    alt="BLA Illustrations"
+                    src={BlaLogo}
+                    style={styles.navLogoStyle}
+                />
+            </a>
+        </Link>
+    )
+}
+
+function AdminLink () {
+    return (
+    <Link href="/admin">
+        <a style={styles.navItemStyle}>Admin</a>
+    </Link>
+    )
+}
+
+
+function Navbar (props) {
+    /* * Style Objects * */
+    const navListStyle = styles.navListStyle;
+    const navItemStyle = styles.navItemStyle;
+    const navTitleStyle = styles.navTitleStyle;
+    const navBarStyle = styles.navBarStyle;
     
     const navItems = [
         {
@@ -90,7 +106,7 @@ function Navbar (props) {
                                     
                         </li>
                     ))}
-
+                    {props.user ? <AdminLink/> : ""}
                 </ul>
             </nav>
         </div>
