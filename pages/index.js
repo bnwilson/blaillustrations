@@ -26,7 +26,9 @@ const Home = () => {
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link href="/static/style.css" rel="stylesheet" />
                 </Head>
-                <Main stateKey="home" />
+                <label className="main-body">
+                    Dis is the Home page!
+                </label>
             </div>
         </div>
     )
