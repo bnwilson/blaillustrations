@@ -1,4 +1,4 @@
-.main-gallery {
+.gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr auto;
@@ -6,7 +6,7 @@
     margin: 5rem 1rem;
 }
 
-.gallery-item {
+.gallery_item {
     background-color: rgba(233, 235, 222, .4);
     border: 2px solid gray;
     padding: 1px;

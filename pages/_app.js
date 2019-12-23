@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import netlifyIdentity from 'netlify-identity-widget';
 import {loginUser, logoutUser} from '../utils/netlifyIdActions'
 import UserContext from '../components/userContext';
+import Head from 'next/head';
 
 // Local Storage User Key
 const USER_KEY = "currentBlaUser"
@@ -42,11 +43,18 @@ export default class thisApp extends App {
     render () {
         const { Component, pageProps } = this.props;
         return (
-            <UserContext.Provider value={{isLoggedIn: this.state.user.isLoggedIn, userId: this.state.user.id}}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </UserContext.Provider>
+            <div>
+                <Head>
+                    <title>BLA Illustrations</title>
+                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                    <link href="/static/style.css" rel="stylesheet" />
+                </Head>
+                <UserContext.Provider value={{isLoggedIn: this.state.user.isLoggedIn, userId: this.state.user.id}}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </UserContext.Provider>
+            </div>
         )
 
     }
