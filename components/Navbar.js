@@ -1,5 +1,6 @@
-import React,{useEffect} from 'react';
+import React,{useContext} from 'react';
 import Link from 'next/link';
+import UserContext from './userContext';
 
 const BlaLogo = './BLAlogo.png';
 const NavBackground = './slide1.png';
@@ -33,7 +34,6 @@ const styles = {
 
 function Logo () {
 
-
     return (
         <Link href="/">
             <a>
@@ -51,13 +51,14 @@ function Logo () {
 function AdminLink () {
     return (
     <Link href="/admin">
-        <a style={styles.navItemStyle}>Admin</a>
+        <a className="nav-item">Admin</a>
     </Link>
     )
 }
 
-
 function Navbar (props) {
+    const { isLoggedIn } = useContext(UserContext)
+
     /* * Style Objects * */
     const navListStyle = styles.navListStyle;
     const navItemStyle = styles.navItemStyle;
@@ -67,18 +68,18 @@ function Navbar (props) {
     const navItems = [
         {
             title: "Gallery",
-            onclick: props.onclick,
             value: "gallery",
+            url: "/gallery"
         },
         {
             title: "Contact",
-            onclick: props.onclick,
-            value: "contact"
+            value: "contact",
+            url: "/contact"
         },
         {
             title: "About",
-            onclick: props.onclick,
-            value: "about"
+            value: "about",
+            url: "/about"
         }
     ]
 
@@ -95,18 +96,12 @@ function Navbar (props) {
                 <ul className="nav-list" style={navListStyle}>
                     {navItems.map((item, index) => (
                         <li key={index}>
-                            <button className="nav-item" 
-                                    value={item.value}
-                                    name={item.value}
-                                    onClick={item.onclick}
-                                    style={navItemStyle}
-                            >
-                                {item.title}
-                            </button>
-                                    
+                            <Link href={item.url}>
+                                <a className="nav-item">{item.title}</a>
+                            </Link> 
                         </li>
                     ))}
-                    {props.user ? <AdminLink/> : ""}
+                    {isLoggedIn ? (<li><AdminLink/></li>) : ""}
                 </ul>
             </nav>
         </div>

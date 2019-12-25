@@ -1,0 +1,24 @@
+.contacts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    padding-left: .45rem;
+}
+
+
+.contactItem {
+    margin: .25rem 1rem;
+}
+
+.contactImg {
+    height: 2rem;
+    width: 2rem;
+    scale: 50%;
+    transition: .6s;
+}
+
+.contactImg:hover {
+    transform: scale(1.5);
+    transition-duration: .2s;
+}
