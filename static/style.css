@@ -17,13 +17,13 @@ html {
     max-width: 65rem;
     min-width: 35rem;
     margin: 0 auto;
-    width: 60%;
     
 }
 
 .main {
-    display: flex;
-    justify-content: center;
+    padding: 1px;
+    /* display: flex;
+    justify-content: center; */
     /* grid-template-areas: "nav nav nav"
                          "main main main"
                          "main main main"
