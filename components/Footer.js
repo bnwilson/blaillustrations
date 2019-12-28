@@ -9,7 +9,7 @@ function Footer () {
     };
 
     return (
-        <footer >
+        <footer className="footer" >
             BLA Illustrations&copy;
         </footer>    
     )
