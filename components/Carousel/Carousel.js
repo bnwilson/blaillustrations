@@ -57,13 +57,21 @@ function Carousel (props) {
     return (
         imageState.length > 0 ? 
             (<div className="carousel_wrapper">
+                <h2 style={{textAlign: "center", fontStyle: "italic"}}>
+                    {imageState[currentIndex].title}
+                </h2>
                 <div className="carousel">
                     <Arrow
                         direction="left"
                         onclick={prevSlide}
                         glyph="&#9664;" 
                     />
-                    <ImageSlide imageUrl={imageState[currentIndex].imgUrl} />
+                    <ImageSlide 
+                        imageUrl={imageState[currentIndex].imgUrl}
+                        imageDate={imageState[currentIndex].published}
+                        imageTitle={imageState[currentIndex].title}
+                        imageTags={imageState[currentIndex].tags}
+                    />
                     <Arrow
                         direction="right"
                         onclick={nextSlide}
@@ -80,7 +88,11 @@ function Carousel (props) {
                                     onTouchEnd={handlePictureSelect}
                                     style={{
                                         backgroundImage: `url(${imgItem.imgUrl})`,
-                                        backgroundSize: "cover"
+                                        backgroundSize: "cover",
+                                        maxWidth: "100%",
+                                        maxHeight: "100%",
+                                        minHeight: "90%",
+                                        minWidth: "90%"
                                     }}
                                     value={i}
                                 />)
