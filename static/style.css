@@ -15,7 +15,7 @@ html {
 .app {
     min-height: 100vh;
     max-width: 65rem;
-    min-width: 35rem;
+    min-width: 25rem;
     margin: 0 auto;
     
 }

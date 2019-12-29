@@ -47,24 +47,47 @@ function Carousel (props) {
         setCurrentIndex(newIndex);
     }
 
-    return (
-        <div className="carousel">
-            <Arrow
-                direction="left"
-                onclick={prevSlide}
-                glyph="&#9664;" 
-            />
-            {imageState.length > 0 ? 
-                <ImageSlide imageUrl={imageState[currentIndex].imgUrl} /> :
-                <div className="carousel">Loading...</div>
-            }
+    function handlePictureSelect (event) {
+        let selectionValue = Number(event.target.getAttribute('value'));
+        if (currentIndex !== selectionValue) {
+            setCurrentIndex(selectionValue)
+        }
+    }
 
-            <Arrow
-                direction="right"
-                onclick={nextSlide}
-                glyph="&#9654;"
-            />
-        </div>
+    return (
+        imageState.length > 0 ? 
+            (<div className="carousel_wrapper">
+                <div className="carousel">
+                    <Arrow
+                        direction="left"
+                        onclick={prevSlide}
+                        glyph="&#9664;" 
+                    />
+                    <ImageSlide imageUrl={imageState[currentIndex].imgUrl} />
+                    <Arrow
+                        direction="right"
+                        onclick={nextSlide}
+                        glyph="&#9654;"
+                    />
+                </div>
+                <div className="carousel_thumbnail_wrapper">
+                    {imageState.map((imgItem, i) => {
+                        const imgClassName = (i === currentIndex) ? 
+                            "carousel_thumbnail_active" :
+                            "carousel_thumbnail_inactive";
+                        return (<div className={imgClassName}
+                                    onClick={handlePictureSelect}
+                                    onTouchEnd={handlePictureSelect}
+                                    style={{
+                                        backgroundImage: `url(${imgItem.imgUrl})`,
+                                        backgroundSize: "cover"
+                                    }}
+                                    value={i}
+                                />)
+                    })}
+                </div>
+            </div>) :
+        <p className="carousel">Loading...</p>
     )
 }
 

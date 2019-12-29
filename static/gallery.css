@@ -1,6 +1,5 @@
 .carousel {
     display: grid;
-    min-width: 40rem;
     grid-template-areas: "left img right";
     grid-template-columns: .5fr 4fr .5fr;
     grid-template-rows: 30rem auto;
@@ -8,8 +7,37 @@
     background-color: rgba(4, 7, 29, 0.418);
 }
 
+.carousel_thumbnail_active {
+    opacity: .95;
+}
+
+.carousel_thumbnail_inactive {
+    opacity: .4;
+}
+
+.carousel_thumbnail_wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, 9rem);
+    grid-template-rows: 10rem auto;
+    grid-auto-flow: row;
+    gap: 1px;
+}
+
+/* .carousel_thumbnail_wrapper>div {
+    background-size: contain;
+} */
+
+.testcss {
+    background-size: ;
+}
+
+.carousel_thumbnail_wrapper>div:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
 .gallery {
-    padding: 5rem 10rem;
+    padding: 2rem 5rem;
     margin: 1rem auto;
 }
 
