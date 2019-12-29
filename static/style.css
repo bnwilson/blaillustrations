@@ -15,15 +15,15 @@ html {
 .app {
     min-height: 100vh;
     max-width: 65rem;
-    min-width: 35rem;
+    min-width: 25rem;
     margin: 0 auto;
-    width: 60%;
     
 }
 
 .main {
-    display: flex;
-    justify-content: center;
+    padding: 1px;
+    /* display: flex;
+    justify-content: center; */
     /* grid-template-areas: "nav nav nav"
                          "main main main"
                          "main main main"
@@ -44,6 +44,7 @@ html {
     background-color: #333;
     color: #fff;
     text-align: center;
+    padding: .5rem 0;
 }
 
 .main {
@@ -73,4 +74,10 @@ html {
     flex-direction: row;
     margin-bottom: .50rem;
     list-style: none;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.nav-list a:any-link {
+    font-style: normal;
 }

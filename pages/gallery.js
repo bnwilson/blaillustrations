@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import matter from 'gray-matter';
 import css from '../static/gallery.css';
+import Carousel from '../components/Carousel/Carousel';
 
 function Gallery (props) {
     // const galleryStyle = {
@@ -18,30 +19,42 @@ function Gallery (props) {
     //     "padding": "1px"
     // }
 
-    const galleryTempItems = ["One", "Two", "Three", "Four", "Fivers", "Sixers", "Se7en", "Eight", "Nine"]
+    // const galleryTempItems = ["One", "Two", "Three", "Four", "Fivers", "Sixers", "Se7en", "Eight", "Nine"]
 
+    // return (
+    //     <div>
+    //         {/* <Head>
+    //             <link rel="stylesheet" href="/static/gallery.css" key="gallery"/>
+    //         </Head> */}
+    //         <div className={css.gallery}>
+    //             {galleryTempItems.map((item, index) => (
+    //                 <label key={index} className={css.gallery_item}>
+    //                     {item}
+    //                 </label>
+    //             ))}
+    //         </div>
+    //         <div className={css.gallery}>
+    //             {props.galleryItems.map((item, index) => (
+    //                 <img 
+    //                     src={item.document.data.galleryImage} 
+    //                     className={css.gallery_item} 
+    //                     alt="Couldn't load, sorry!"
+    //                     key={index}
+    //                 />
+    //             ))}
+    //         </div>
+    //     </div>
+    // )
     return (
-        <div>
-            {/* <Head>
-                <link rel="stylesheet" href="/static/gallery.css" key="gallery"/>
-            </Head> */}
-            <div className={css.gallery}>
-                {galleryTempItems.map((item, index) => (
-                    <label key={index} className={css.gallery_item}>
-                        {item}
-                    </label>
-                ))}
-            </div>
-            <div className={css.gallery}>
-                {props.galleryItems.map((item, index) => (
-                    <img 
-                        src={item.document.data.galleryImage} 
-                        className={css.gallery_item} 
-                        alt="Couldn't load, sorry!"
-                        key={index}
-                    />
-                ))}
-            </div>
+        <div className={css.gallery}>
+            {props.galleryItems ? 
+                (<Carousel galleryItems={props.galleryItems}/>) :
+                (
+                    <p className={css.gallery_loading}>
+                        "Loading Gallery..."
+                    </p>
+                )
+            }
         </div>
     )
 }
@@ -65,7 +78,7 @@ Gallery.getInitialProps = async function() {
         })
         return data
     })(require.context("../public/gallery", true, /\.md$/))
-
+    console.log(gallery);
     return {
         galleryItems: gallery
     }

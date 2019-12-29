@@ -93,7 +93,7 @@ function Navbar (props) {
             <Logo/>
             <h1 className="nav-title" style={navTitleStyle}>BLA Illustrations</h1>
             <nav className="navbar" style={navBarStyle}>
-                <ul className="nav-list" style={navListStyle}>
+                <ul className="nav-list" >
                     {navItems.map((item, index) => (
                         <li key={index}>
                             <Link href={item.url}>

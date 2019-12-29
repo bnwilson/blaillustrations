@@ -1,13 +1,138 @@
-.gallery {
+.carousel_wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.carousel {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr auto;
-    gap: .5rem;
-    margin: 5rem 1rem;
+    grid-template-areas: "left img right";
+    grid-template-columns: .5fr 4fr .5fr;
+    grid-template-rows: minmax(20rem, 30rem);
+    background-color: rgba(4, 7, 29, 0.418);
+}
+
+.carousel_thumbnail_active {
+    opacity: .9;
+}
+
+.carousel_thumbnail_inactive {
+    opacity: .4;
+}
+
+.carousel_thumbnail_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    /* grid-template-rows: 8rem auto; */
+    grid-auto-rows: 8rem;
+    gap: 1px;
+    align-content: start;
+    background-color: rgba(7, 15, 58, 0.678);
+    padding: 0 .5rem;
+}
+
+.carousel_thumbnail_wrapper>div {
+    align-self: center;
+}
+
+.testcss {
+    background-size: 5;
+}
+
+.carousel_thumbnail_wrapper>div:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.gallery {
+    padding: 2rem 5rem;
+    margin: 1rem auto;
 }
 
 .gallery_item {
     background-color: rgba(233, 235, 222, .4);
     border: 2px solid gray;
     padding: 1px;
+}
+
+.gallery_loading {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: 10rem;
+    padding: 10rem;
+    color: black;
+    font-size: 2rem;
+}
+
+/* Slide Arrows */
+.left {
+    grid-area: left;
+    justify-content: left;
+    padding-right: 1rem;
+    text-shadow: .4rem 0 .5rem rgba(31, 41, 98, 0.678);
+    transition: text-shadow .7s;
+}
+
+.left:hover {
+    text-shadow: .8rem 0 1.2rem rgba(11, 19, 70, 0.801);
+}
+
+
+.right {
+    grid-area: right;
+    justify-content: right;
+    padding-left: 1rem;
+    text-shadow: -.4rem 0 .5rem rgba(31, 41, 98, 0.678);
+    transition: text-shadow .7s;
+}
+
+.right:hover {
+    text-shadow: -.8rem 0 1.2rem rgba(11, 19, 70, 0.801);
+}
+
+
+.slide_arrow {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: row;
+    color: slategray;
+    font-size: 4rem;
+    transition: color .4s;
+}
+
+.slide_arrow:hover {
+    color: rgba(207, 208, 221, 0.76);
+    cursor: pointer;
+}
+
+/* Carousel Image */
+
+
+.image_slide {
+    grid-area: img;
+    padding: 0 .5rem;
+}
+
+/* Carousel Image Hover */
+
+.image_hover {
+    opacity: .5;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.image_body {
+    color: whitesmoke;
+}
+
+.image_info {
+    padding: 1.5rem 0;
+    text-align: center;
+    background-color: rgba(31, 41, 98, 0.678);
+    width: 100%;
+}
+
+.image_hover_title {
+    color: yellow;
 }
