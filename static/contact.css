@@ -1,11 +1,10 @@
 .contacts {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-items: center;
+    align-content: center;
+    justify-content: center;
     padding-left: .45rem;
 }
-
 
 .contactItem {
     margin: .25rem 1rem;
@@ -21,4 +20,39 @@
 .contactImg:hover {
     transform: scale(1.5);
     transition-duration: .2s;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+/* Form Styling */
+.contact_body {
+    color: whitesmoke;
+}
+
+.contact_button {
+    color: whitesmoke;
+}
+
+.contact_form {
+    background-color: rgb(61, 61, 98);
+    color: whitesmoke;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+.contact_input {
+    margin: 1rem 1.5rem;
+    padding: 0 2rem;
+    border: 2px solid darkblue;
+}
+
+.contact_selection {
+    padding: .5rem .25rem;
+    margin: 0 auto;
+
 }
