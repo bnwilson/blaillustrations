@@ -25,9 +25,16 @@ export default function Contact () {
 
     const onSubmit = async (data) => {
         console.log(data);
-        const res = await fetch("/.netlify/functions/form_email");
-        const resData = await res.json();
-        console.log(resData);
+        await fetch("/.netlify/functions/form_email")
+            .then(res => {
+                console.log(res);
+                res.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+        
+        // console.log(resData);
     }
 
     const contacts = [
