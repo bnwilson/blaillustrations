@@ -23,12 +23,12 @@ export default function Contact () {
         validationSchema: validSchema
     })
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
         console.log(data);
-        await fetch("/.netlify/functions/form_email")
+        fetch("/.netlify/functions/form_email")
             .then(res => {
                 console.log(res);
-                res.json();
+                return res.json();
             })
             .then(data => {
                 console.log(data);
