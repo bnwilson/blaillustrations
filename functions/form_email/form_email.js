@@ -19,6 +19,7 @@
 
 // Packages
 const sgMail = require('@sendgrid/mail');
+
 // Env Variables
 const blaEmail = process.env.BLA_EMAIL || "test@example.com";
 const senderEmail = process.env.SENDER_EMAIL || "test@example.com";
@@ -31,23 +32,13 @@ exports.handler = (event, context, callback) => {
   const subjectText = (firstName || lastName) ? 
     `${subject} from ${firstName} ${lastName}` :
     `${subject} from ${email.split("@")[0]}`;
-  const emailBody = `${messageBody} \n\n\nFrom: ${email}`;
+  const plainTextBody = `${messageBody} \r\n\r\n\nFrom: ${email}`;
+  const emailHtmlBody = buildHtmlBody(data);
   const emailMessage = {
     to: blaEmail,
     from: senderEmail,
     subject: subjectText,
-    text: emailBody,
-    html: 
-      `
-        <p>
-          ${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}
-        </p>
-        <br><br>
-        <p>
-          <strong>
-            Respond to:  
-          </strong>${email}
-        </p>`
+    html: emailHtmlBody
   }
 
   sgMail.setApiKey(sendGridApiKey); 
@@ -75,3 +66,19 @@ exports.handler = (event, context, callback) => {
     });
   });
 };
+
+function buildHtmlBody (formData) {
+  const {firstName, lastName, subject, messageBody, email} = formData;
+  const tableStyle = "font-family:arial sans-serif;border-collapse: collapse; width:100%;"
+  const msgBody = `<p style="font-size:1.5rem">${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
+                  `<br><br>` +
+                  `<p><strong> Respond to: </strong>${email}</p>`
+  const msgTable =  `<table style=${tableStyle}>` + 
+                    `<tr><th>Subject</th><td>${subject}</td></tr>`
+                    `<tr><th>First Name</th><td>${firstName}</td></tr>` +
+                    `<tr><th>Last Name</th><td>${lastName}</td></tr>` +
+                    `<tr><th>Email</th><td>${email}</td></tr>` +
+                    `<tr><th>Message</th><td style="overflow:scroll">${messageBody}</td></tr>` +
+                    `</table>`
+  return `${msgBody}<br><br>${msgTable}`;
+}

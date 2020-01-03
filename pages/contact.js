@@ -24,8 +24,6 @@ export default function Contact () {
     })
 
     const onSubmit = (data) => {
-        console.log(data);
-        
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
             headers: {
@@ -37,8 +35,8 @@ export default function Contact () {
                 console.log(res);
                 return res.json();
             })
-            .then(data => {
-                console.log(data);
+            .then(msgData => {
+                console.log(msgData);
             })
         
         // console.log(resData);
