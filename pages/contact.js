@@ -29,7 +29,7 @@ export default function Contact () {
 
     const formSubmitText = {
         loading: <h2 className={css.form_header}>{loadingText}</h2>,
-        complete: <h2 className={css.form_header}>The form was submitted successfully!</h2>
+        complete: <h2 className={css.form_header}>Thank you for your submission!</h2>
     }
 
     const validSchema = yup.object().shape({
@@ -52,17 +52,22 @@ export default function Contact () {
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(data)
         })
         .then(res => {
             console.log(res);
             setFormState({isFormLoading: false, isFormComplete: true})
-            return res.json();
+            res.json();
         })
         .then(msgData => {
             console.log(msgData);
+        })
+        .catch(err => {
+            setFormState({isFormLoading: false, isFormComplete: true});
+            console.log(err);
         })
     }
 
