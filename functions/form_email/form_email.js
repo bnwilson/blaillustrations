@@ -70,12 +70,12 @@ exports.handler = (event, context, callback) => {
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
   const tableStyle = {
-    main: "font-family:arial sans-serif;border-collapse: collapse; width:100%;",
-    even: "background-color:#0f7757;color:whitesmoke;",
-    odd: "background-color:#6fa192;color:whitesmoke;",
-    header: "padding:.2rem .4rem;",
-    data: "padding:.1rem .25rem;",
-    message: "padding:.1rem .25rem;overflow:scroll"
+    main: "font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 80%; margin: 0 auto;",
+    even: "background-color: #0f7757; color: whitesmoke;",
+    odd: "background-color: #6fa192; color: whitesmoke;",
+    header: "padding: .2rem .4rem;",
+    data: "padding: .1rem .25rem;",
+    message: "padding: .1rem .25rem; overflow: scroll; white-space: pre-line;"
   }
   const msgBody = `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
                   `<br><br>` +
@@ -85,7 +85,7 @@ function buildHtmlBody (formData) {
                     `<tr style=${tableStyle.odd}><th style=${tableStyle.header}>First Name</th><td style=${tableStyle.data}>${firstName}</td></tr>` +
                     `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Last Name</th><td style=${tableStyle.data}>${lastName}</td></tr>` +
                     `<tr style=${tableStyle.odd}><th style=${tableStyle.header}>Email</th><td style=${tableStyle.data}>${email}</td></tr>` +
-                    `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Message</th><td style=${tableStyle.message}>${messageBody}</td></tr>` +
+                    `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Message</th><td style=${tableStyle.message}>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</td></tr>` +
                     `</table>`
   return `${msgBody}<br><br>${msgTable}`;
 }
