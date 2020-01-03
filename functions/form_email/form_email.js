@@ -70,7 +70,7 @@ exports.handler = (event, context, callback) => {
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
   const tableStyle = "font-family:arial sans-serif;border-collapse: collapse; width:100%;"
-  const msgBody = `<p style="font-size:1.5rem">${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
+  const msgBody = `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
                   `<br><br>` +
                   `<p><strong> Respond to: </strong>${email}</p>`
   const msgTable =  `<table style=${tableStyle}>` + 
