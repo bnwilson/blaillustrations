@@ -15,7 +15,7 @@ export default function Contact () {
         isFormLoading: false
     })
 
-    const loadingText = () => {
+    const loadingTextAnimation = () => {
         let loaderText = setTimeout(() => {
             setLoadingText("Loading .")
             loaderText = setTimeout(() => {
@@ -47,7 +47,7 @@ export default function Contact () {
     })
 
     const onSubmit = (data) => {
-        loadingText();
+        loadingTextAnimation();
         setFormState({...formState, isFormLoading: true})
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
