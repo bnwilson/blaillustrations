@@ -74,7 +74,7 @@ function buildHtmlBody (formData) {
                   `<br><br>` +
                   `<p><strong> Respond to: </strong>${email}</p>`
   const msgTable =  `<table style=${tableStyle}>` + 
-                    `<tr><th>Subject</th><td>${subject}</td></tr>`
+                    `<tr><th>Subject</th><td>${subject}</td></tr>` +
                     `<tr><th>First Name</th><td>${firstName}</td></tr>` +
                     `<tr><th>Last Name</th><td>${lastName}</td></tr>` +
                     `<tr><th>Email</th><td>${email}</td></tr>` +
