@@ -70,8 +70,8 @@ exports.handler = (event, context, callback) => {
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
   const blaEmailHeader = "BLAIllustrations Form Inquery"
-  const headerStyle = "'text-align: center; color: #B3FF00; background-color: #065d19; border: 1px solid #068d24; box-shadow: 8px 5px 6px #02360dcc; padding: 1rem .2rem;'"
-  const messageStyle = "'display: inline-block; background-color: #0a7020; border: 1px groove #0c4418; box-shadow: 6px 4px 6px #02360dcc; padding: .25rem 3rem;'"
+  const headerStyle = "'text-align: center; color: #B3FF00; background-color: #065d19; border: 1px solid #068d24; padding: 1rem .2rem; box-shadow: 8px 5px 6px #02360dcc;'"
+  const messageStyle = "'display: inline-block; background-color: #0a7020; border: 1px groove #0c4418; padding: .25rem 3rem; box-shadow: 6px 4px 6px #02360dcc;'"
   const spanStyle = "'background-color: #99BF33; margin: 0 auto; padding: .5rem 5rem; color: whitesmoke; font-size: 1.1rem; border: 2px solid #B3FF00; display: inline-block;'"
   const tableStyle = {
     main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 80%; margin: 0 auto;'",
