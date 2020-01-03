@@ -79,6 +79,6 @@ function buildHtmlBody (formData) {
                     `<tr><th>Last Name</th><td>${lastName}</td></tr>` +
                     `<tr><th>Email</th><td>${email}</td></tr>` +
                     `<tr><th>Message</th><td style="overflow:scroll">${messageBody}</td></tr>` +
-                  `</table>`
+                    `</table>`
   return `${msgBody}<br><br>${msgTable}`;
 }
