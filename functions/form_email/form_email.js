@@ -81,7 +81,7 @@ function buildHtmlBody (formData) {
     message: "'padding: .1rem .25rem; overflow: scroll; white-space: pre-line;'"
   }
   const msgBody = `<span style=${spanStyle}><h2 style=${headerStyle}>${blaEmailHeader}</h2>` +
-                  `<br><br>`
+                  `<br><br>` +
                   `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
                   `<br><br>` +
                   `<p><strong> Respond to: </strong>${email}</p>`
