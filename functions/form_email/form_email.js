@@ -26,7 +26,9 @@ const sendGridApiKey = process.env.SENDGRID_API_KEY;
 
 // handler for Netlify/Lambda function
 exports.handler = (event, context, callback) => {
-  const {firstName, lastName, subject, messageBody, email} = JSON.parse(event.body).data;
+  const body = JSON.parse(event.body);
+  console.log(body);
+  const {firstName, lastName, subject, messageBody, email} = body.data;
   const subjectText = (firstName || lastName) ? 
     `${subject} from ${firstName} ${lastName}` :
     `${subject} from ${email.split("@")[0]}`;
