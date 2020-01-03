@@ -26,10 +26,10 @@ const sendGridApiKey = process.env.SENDGRID_API_KEY;
 
 // handler for Netlify/Lambda function
 exports.handler = (event, context, callback) => {
-  console.log(event);
-  const body = JSON.parse(event.body);
-  console.log(body);
-  const {firstName, lastName, subject, messageBody, email} = body.data;
+  console.log(event, context);
+  const data = JSON.parse(event.body);
+  console.log(data);
+  const {firstName, lastName, subject, messageBody, email} = data;
   const subjectText = (firstName || lastName) ? 
     `${subject} from ${firstName} ${lastName}` :
     `${subject} from ${email.split("@")[0]}`;
@@ -42,14 +42,14 @@ exports.handler = (event, context, callback) => {
     html: `<p><strong>Respond to:  </strong>${email}`
   }
 
-  sgMail.setApiKey(sendGridApiKey); //grab env variable API key
+  sgMail.setApiKey(sendGridApiKey); 
 
   sgMail
   .send(emailMessage)
-  .then(() => {
+  .then((response) => {
     // If the message was successfully sent, we log the object to the console.
     // This enables us to see what was sent directly in the Netlify logs.
-    console.log(emailMessage);
+    console.log("Message sent => ", emailMessage, "\nResponse => ", response);
     // The callback in this form tells the service initiating this function
     // that it was successful.
     callback(null, {
