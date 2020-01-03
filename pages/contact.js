@@ -14,7 +14,7 @@ export default function Contact () {
         lastName: yup.string().notRequired(),
         email: yup.string().email().required(),
         messageBody: yup.string()
-            .min(15, (msg => {console.log("min-->  ",msg); return `Must be at least ${msg.min} characters.`}))
+            .min(15, (msg => {return `Must be at least ${msg.min} characters.`}))
             .max(1000),
         subject: yup.string()
     })
