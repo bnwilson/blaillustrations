@@ -26,9 +26,7 @@ const sendGridApiKey = process.env.SENDGRID_API_KEY;
 
 // handler for Netlify/Lambda function
 exports.handler = (event, context, callback) => {
-  console.log(event, context);
   const data = JSON.parse(event.body);
-  console.log(data);
   const {firstName, lastName, subject, messageBody, email} = data;
   const subjectText = (firstName || lastName) ? 
     `${subject} from ${firstName} ${lastName}` :
@@ -39,7 +37,17 @@ exports.handler = (event, context, callback) => {
     from: senderEmail,
     subject: subjectText,
     text: emailBody,
-    html: `<p><strong>Respond to:  </strong>${email}`
+    html: 
+      `
+        <p>
+          ${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}
+        </p>
+        <br><br>
+        <p>
+          <strong>
+            Respond to:  
+          </strong>${email}
+        </p>`
   }
 
   sgMail.setApiKey(sendGridApiKey); 
