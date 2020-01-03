@@ -15,7 +15,7 @@ export default function Contact () {
         isFormLoading: false
     })
 
-    const loadingText = () => {
+    const loadingTextAnimation = () => {
         let loaderText = setTimeout(() => {
             setLoadingText("Loading .")
             loaderText = setTimeout(() => {
@@ -47,7 +47,7 @@ export default function Contact () {
     })
 
     const onSubmit = (data) => {
-        loadingText();
+        loadingTextAnimation();
         setFormState({...formState, isFormLoading: true})
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
@@ -108,23 +108,26 @@ export default function Contact () {
                         </li>
                         <li>
                             <label htmlFor="message_body">Enter your message: </label>
-                            <textarea id="message_body" className={css.contact_body} name="messageBody" ref={register}>
-                                Please Enter your message body here...
-                            </textarea>
+                            <textarea id="message_body" 
+                                className={css.contact_body} 
+                                name="messageBody" 
+                                ref={register}
+                                value="Please Enter your message body here..."
+                            />
                             {errors.messageBody && <p className={css.contact_error}>{errors.messageBody.message}</p>}
                         </li>
                         <button className={css.contact_button}>sSubmit</button>
                     </ul>
                 </form>
-                 : formState.isFormComplete ? 
+                // Render Loading or Success banner after submit
+                : formState.isFormComplete ? 
                     formSubmitText.complete : formSubmitText.loading
             }
-                <div className={css.contacts}>
-                    {contacts.map((item, index) => (
-                        <a className={css.contactItem} key={index} href={item.url || "https://google.com"}>{item.title}</a>
-                        ))}
-                </div>
-             
+            <div className={css.contacts}>
+                {contacts.map((item, index) => (
+                    <a className={css.contactItem} key={index} href={item.url || "https://google.com"}>{item.title}</a>
+                    ))}
+            </div> 
         </div>
     )
 }
