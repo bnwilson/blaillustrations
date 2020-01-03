@@ -69,16 +69,23 @@ exports.handler = (event, context, callback) => {
 
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
-  const tableStyle = "font-family:arial sans-serif;border-collapse: collapse; width:100%;"
-  const msgBody = `<p style="font-size:1.5rem">${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
+  const tableStyle = {
+    main: "font-family:arial sans-serif;border-collapse: collapse; width:100%;",
+    even: "background-color:#0f7757;color:whitesmoke;",
+    odd: "background-color:6fa192;color:whitesmoke;",
+    header: "padding:.2rem .4rem;",
+    data: "padding:.1rem .25rem;",
+    message: "padding:.1rem .25rem;overflow:scroll"
+  }
+  const msgBody = `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
                   `<br><br>` +
                   `<p><strong> Respond to: </strong>${email}</p>`
-  const msgTable =  `<table style=${tableStyle}>` + 
-                    `<tr><th>Subject</th><td>${subject}</td></tr>` +
-                    `<tr><th>First Name</th><td>${firstName}</td></tr>` +
-                    `<tr><th>Last Name</th><td>${lastName}</td></tr>` +
-                    `<tr><th>Email</th><td>${email}</td></tr>` +
-                    `<tr><th>Message</th><td style="overflow:scroll">${messageBody}</td></tr>` +
+  const msgTable =  `<table style=${tableStyle.main}>` + 
+                    `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Subject</th><td style=${tableStyle.data}>${subject}</td></tr>` +
+                    `<tr style=${tableStyle.odd}><th style=${tableStyle.header}>First Name</th><td style=${tableStyle.data}>${firstName}</td></tr>` +
+                    `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Last Name</th><td style=${tableStyle.data}>${lastName}</td></tr>` +
+                    `<tr style=${tableStyle.odd}><th style=${tableStyle.header}>Email</th><td style=${tableStyle.data}>${email}</td></tr>` +
+                    `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Message</th><td style=${tableStyle.message}>${messageBody}</td></tr>` +
                     `</table>`
   return `${msgBody}<br><br>${msgTable}`;
 }
