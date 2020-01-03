@@ -32,7 +32,6 @@ exports.handler = (event, context, callback) => {
   const subjectText = (firstName || lastName) ? 
     `${subject} from ${firstName} ${lastName}` :
     `${subject} from ${email.split("@")[0]}`;
-  const plainTextBody = `${messageBody} \r\n\r\n\nFrom: ${email}`;
   const emailHtmlBody = buildHtmlBody(data);
   const emailMessage = {
     to: blaEmail,
@@ -48,6 +47,7 @@ exports.handler = (event, context, callback) => {
   .then((response) => {
     // If the message was successfully sent, we log the object to the console.
     // This enables us to see what was sent directly in the Netlify logs.
+    // *NOTE* - Log output of functions will appear on Netlify.com
     console.log("Message sent => ", emailMessage, "\nResponse => ", response);
     // The callback in this form tells the service initiating this function
     // that it was successful.
@@ -69,25 +69,32 @@ exports.handler = (event, context, callback) => {
 
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
+  const subHeaderText = (firstName || lastName) ? 
+    `Message from <strong>${firstName} ${lastName}</strong>` :
+    `Message from <strong>${email.split("@")[0]}</strong>`;
   const blaEmailHeader = "BLAIllustrations Form Inquery"
-  const headerStyle = "'text-align: center; color: #B3FF00; background-color: #065d19; border: 1px solid #068d24; padding: 1rem .2rem; box-shadow: 8px 5px 6px #02360dcc;'"
-  const messageStyle = "'display: inline-block; background-color: #0a7020; border: 1px groove #0c4418; padding: .25rem 3rem; box-shadow: 6px 4px 6px #02360dcc;'"
+  const headerStyle = "'text-align: center; color: #B3FF00; background-color: #065d19; border: 1px solid #068d24; padding: 1rem .2rem; font-style: italic; width: 100%;'"
+  const subHeaderStyle = "'text-align: center; color: whitesmoke; font-style: italic;'"
+  const messageStyle = "'display: inline-block; background-color: #0a7020; border: 1px groove #0c4418; padding: .25rem 3rem;'"
   const spanStyle = "'background-color: #99BF33; margin: 0 auto; padding: .5rem 5rem; color: whitesmoke; font-size: 1.1rem; border: 2px solid #B3FF00; display: inline-block;'"
   const tableStyle = {
-    main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 80%; margin: 0 auto;'",
+    main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 95%; margin: 0 auto;'",
     even: "'background-color: #0f7757; color: whitesmoke;'",
     odd: "'background-color: #6fa192; color: whitesmoke;'",
     header: "'padding: .2rem .8rem;'",
     data: "'padding: .1rem .25rem;'",
     message: "'padding: .1rem .25rem; overflow: scroll; white-space: pre-line;'"
   }
-  const msgBody = `<span style=${spanStyle}><h2 style=${headerStyle}>${blaEmailHeader}</h2>` +
+  const msgBody = `<div style=${spanStyle}><h1 style=${headerStyle}>${blaEmailHeader}</h1>` +
                   `<br><br>` +
-                  `<span style=${messageStyle}>` +
+                  `<div style=${messageStyle}>` +
+                  `<h2 style=${subHeaderStyle}>${subHeaderText}</h2>` +
+                  `<br/>` +
                   `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
+                  `</div>` +
                   `<br><br>` +
-                  `<p><strong> Respond to:   </strong style="color:lightblue">${email}</p>` +
-                  `</span>`
+                  `<p><strong> Respond to:   </strong></p>${email}</p>` +
+                  `</div>`
   const msgTable =  `<table style=${tableStyle.main}>` + 
                     `<tr style=${tableStyle.even}><th style=${tableStyle.header}>Subject</th><td style=${tableStyle.data}>${subject}</td></tr>` +
                     `<tr style=${tableStyle.odd}><th style=${tableStyle.header}>First Name</th><td style=${tableStyle.data}>${firstName}</td></tr>` +
