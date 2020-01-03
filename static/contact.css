@@ -1,3 +1,20 @@
+/* General Form Styling */
+.form_header {
+    text-align: center;
+    color: rgb(147, 180, 71);
+    background-color: rgb(79, 100, 22);
+    margin: 1rem 2rem;
+    padding: .5rem 0;
+}
+
+/* .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+} */
+
+/* Contact Icons and Links */
 .contacts {
     display: flex;
     flex-direction: row;
@@ -22,12 +39,7 @@
     transition-duration: .2s;
 }
 
-/* .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-} */
+
 
 /* Form Styling */
 .contact_body {
