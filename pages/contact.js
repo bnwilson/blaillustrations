@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import css from '../static/contact.css';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
@@ -9,6 +9,29 @@ import * as yup from 'yup';
 
 
 export default function Contact () {
+    const [loadingText, setLoadingText] = useState("Loading")
+    const [formState, setFormState] = useState({
+        isFormComplete: false,
+        isFormLoading: false
+    })
+
+    const loadingText = () => {
+        let loaderText = setTimeout(() => {
+            setLoadingText("Loading .")
+            loaderText = setTimeout(() => {
+                setLoadingText("Loading . .");
+                loaderText = setTimeout(() => {
+                    setLoadingText("Loading . . .")
+                }, 40)
+            }, 40)
+        }, 10)
+    }
+
+    const formSubmitText = {
+        loading: <h2 className={css.form_header}>{loadingText}</h2>,
+        complete: <h2 className={css.form_header}>The form was submitted successfully!</h2>
+    }
+
     const validSchema = yup.object().shape({
         firstName: yup.string().required(),
         lastName: yup.string().notRequired(),
@@ -24,6 +47,8 @@ export default function Contact () {
     })
 
     const onSubmit = (data) => {
+        loadingText();
+        setFormState({...formState, isFormLoading: true})
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
             headers: {
@@ -31,87 +56,75 @@ export default function Contact () {
             },
             body: JSON.stringify(data)
         })
-            .then(res => {
-                console.log(res);
-                return res.json();
-            })
-            .then(msgData => {
-                console.log(msgData);
-            })
-        
-        // console.log(resData);
+        .then(res => {
+            console.log(res);
+            setFormState({isFormLoading: false, isFormComplete: true})
+            return res.json();
+        })
+        .then(msgData => {
+            console.log(msgData);
+        })
     }
 
     const contacts = [
-        {
-            title: "Instagram",
-            url: "",
-            image: ""
-        },
-        {
-            title: "Facebook",
-            url: "",
-            image: ""
-        },
-        {
-            title: "Etsy",
-            url: "",
-            image: ""
-        },
-        {
-            title: "Email",
-            url: "",
-            image: ""
-        }
+        {title: "Instagram", url: "", image: ""},
+        {title: "Facebook", url: "", image: ""},
+        {title: "Etsy", url: "", image: ""},
+        {title: "Email", url: "", image: ""}
     ]
+
     const subjectOptions = [
         "Commission Request", "General Question", "Special Order Inquery"
     ]
 
     return (
         <div className={css.wrapper}>
-            <form className={css.contact_form} onSubmit={handleSubmit(onSubmit)}>
-                <h1 style={{textAlign: "center"}}> Contact Form for Brittany</h1>
-                <ul style={{listStyle: "none"}}>
-                    <li>
-                        <label htmlFor="first_name">First Name: </label>
-                        <input id="first_name" className={css.contact_input} name="firstName" ref={register} />
-                        {errors.firstName && <p className={css.contact_error}>{errors.firstName.message}</p>}
-                    </li>
-                    <li>
-                        <label htmlFor="last_name">Last Name: </label>
-                        <input id="last_name" className={css.contact_input} name="lastName" ref={register} />
-                        {errors.lastName && <p className={css.contact_error}>{errors.lastName.message}</p>}
-                    </li>
-                    <li>
-                        <label htmlFor="email">Email Address: </label>
-                        <input className={css.contact_input} name="email" ref={register} />
-                        {errors.email && <p className={css.contact_error}>{errors.email.message}</p>}
-                    </li>
-                    <li>
-                        <label htmlFor="subject">Select a subject: </label>
-                        <select id="subject" className={css.contact_selection} name="subject" ref={register}>
-                            {subjectOptions.map((item, index) => (
-                                <option value={item} key={index}>{item}</option>
-                                ))}
-                        </select>
-                    </li>
-                    <li>
-                        <label htmlFor="message_body">Enter your message: </label>
-                        <textarea id="message_body" className={css.contact_body} name="messageBody" ref={register}>
-                            Please Enter your message body here...
-                        </textarea>
-                        {errors.messageBody && <p className={css.contact_error}>{errors.messageBody.message}</p>}
-                    </li>
-                    <button className={css.contact_button}>sSubmit</button>
-                </ul>
-            </form>
-
-            <div className={css.contacts}>
-                {contacts.map((item, index) => (
-                    <a className={css.contactItem} key={index} href={item.url || "https://google.com"}>{item.title}</a>
-                    ))}
-            </div>
+            {!formState.isFormLoading && !formState.isFormComplete ?
+                <form className={css.contact_form} onSubmit={handleSubmit(onSubmit)}>
+                    <h1 style={{textAlign: "center"}}> Contact Form for Brittany</h1>
+                    <ul style={{listStyle: "none"}}>
+                        <li>
+                            <label htmlFor="first_name">First Name: </label>
+                            <input id="first_name" className={css.contact_input} name="firstName" ref={register} />
+                            {errors.firstName && <p className={css.contact_error}>{errors.firstName.message}</p>}
+                        </li>
+                        <li>
+                            <label htmlFor="last_name">Last Name: </label>
+                            <input id="last_name" className={css.contact_input} name="lastName" ref={register} />
+                            {errors.lastName && <p className={css.contact_error}>{errors.lastName.message}</p>}
+                        </li>
+                        <li>
+                            <label htmlFor="email">Email Address: </label>
+                            <input className={css.contact_input} name="email" ref={register} />
+                            {errors.email && <p className={css.contact_error}>{errors.email.message}</p>}
+                        </li>
+                        <li>
+                            <label htmlFor="subject">Select a subject: </label>
+                            <select id="subject" className={css.contact_selection} name="subject" ref={register}>
+                                {subjectOptions.map((item, index) => (
+                                    <option value={item} key={index}>{item}</option>
+                                    ))}
+                            </select>
+                        </li>
+                        <li>
+                            <label htmlFor="message_body">Enter your message: </label>
+                            <textarea id="message_body" className={css.contact_body} name="messageBody" ref={register}>
+                                Please Enter your message body here...
+                            </textarea>
+                            {errors.messageBody && <p className={css.contact_error}>{errors.messageBody.message}</p>}
+                        </li>
+                        <button className={css.contact_button}>sSubmit</button>
+                    </ul>
+                </form>
+                 : formState.isFormComplete ? 
+                    formSubmitText.complete : formSubmitText.loading
+            }
+                <div className={css.contacts}>
+                    {contacts.map((item, index) => (
+                        <a className={css.contactItem} key={index} href={item.url || "https://google.com"}>{item.title}</a>
+                        ))}
+                </div>
+             
         </div>
     )
 }
