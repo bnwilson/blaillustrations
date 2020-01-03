@@ -72,7 +72,7 @@ function buildHtmlBody (formData) {
   const tableStyle = {
     main: "font-family:arial sans-serif;border-collapse: collapse; width:100%;",
     even: "background-color:#0f7757;color:whitesmoke;",
-    odd: "background-color:6fa192;color:whitesmoke;",
+    odd: "background-color:#6fa192;color:whitesmoke;",
     header: "padding:.2rem .4rem;",
     data: "padding:.1rem .25rem;",
     message: "padding:.1rem .25rem;overflow:scroll"
