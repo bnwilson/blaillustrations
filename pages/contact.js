@@ -48,7 +48,9 @@ export default function Contact () {
 
     const onSubmit = (data) => {
         loadingTextAnimation();
-        setFormState({...formState, isFormLoading: true})
+        setFormState(prevState => {
+            return {...prevState, isFormLoading: true}
+        })
         fetch("/.netlify/functions/form_email", {
             method: 'POST',
             headers: {
@@ -59,11 +61,16 @@ export default function Contact () {
         })
         .then(res => {
             console.log(res);
-            setFormState({isFormLoading: false, isFormComplete: true})
-            res.json();
-        })
-        .then(msgData => {
-            console.log(msgData);
+            try {
+                setFormState({isFormLoading: false, isFormComplete: true});
+                return res.json();
+            } catch(error) {
+                console.warn(error);
+                if (!formState.isFormLoading && !formState.isFormComplete) {
+                    setFormState({isFormLoading: false, isFormComplete: true});
+                    throw new Error(error);
+                }
+            }
         })
         .catch(err => {
             setFormState({isFormLoading: false, isFormComplete: true});
@@ -85,7 +92,7 @@ export default function Contact () {
     return (
         <div className={css.wrapper}>
             {!formState.isFormLoading && !formState.isFormComplete ?
-                <form className={css.contact_form} onSubmit={handleSubmit(onSubmit)}>
+                (<form className={css.contact_form} onSubmit={handleSubmit(onSubmit)}>
                     <h1 style={{textAlign: "center"}}> Contact Form for Brittany</h1>
                     <ul style={{listStyle: "none"}}>
                         <li>
@@ -123,10 +130,10 @@ export default function Contact () {
                         </li>
                         <button className={css.contact_button}>sSubmit</button>
                     </ul>
-                </form>
+                </form>)
                 // Render Loading or Success banner after submit
                 : formState.isFormComplete ? 
-                    formSubmitText.complete : formSubmitText.loading
+                    (formSubmitText.complete) : (formSubmitText.loading)
             }
             <div className={css.contacts}>
                 {contacts.map((item, index) => (
