@@ -61,11 +61,16 @@ export default function Contact () {
         })
         .then(res => {
             console.log(res);
-            setFormState({isFormLoading: false, isFormComplete: true})
-            res.json();
-        })
-        .then(msgData => {
-            console.log(msgData);
+            try {
+                setFormState({isFormLoading: false, isFormComplete: true});
+                return res.json();
+            } catch(error) {
+                console.warn(error);
+                if (!formState.isFormLoading && !formState.isFormComplete) {
+                    setFormState({isFormLoading: false, isFormComplete: true});
+                    throw new Error(error);
+                }
+            }
         })
         .catch(err => {
             setFormState({isFormLoading: false, isFormComplete: true});
