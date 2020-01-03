@@ -69,6 +69,9 @@ exports.handler = (event, context, callback) => {
 
 function buildHtmlBody (formData) {
   const {firstName, lastName, subject, messageBody, email} = formData;
+  const blaEmailHeader = "BLAIllustrations Form Inquery"
+  const spanStyle = "'background-color: #99BF33; margin: 0 auto; padding: .5rem 5rem; color: whitesmoke; font-size: 1.1rem; border: 2px solid #B3FF00;'"
+  const headerStyle = "'align-text: center; color: #B3FF00;'"
   const tableStyle = {
     main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 80%; margin: 0 auto;'",
     even: "'background-color: #0f7757; color: whitesmoke;'",
@@ -77,7 +80,9 @@ function buildHtmlBody (formData) {
     data: "'padding: .1rem .25rem;'",
     message: "'padding: .1rem .25rem; overflow: scroll; white-space: pre-line;'"
   }
-  const msgBody = `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
+  const msgBody = `<span style=${spanStyle}><h2 style=${headerStyle}>${blaEmailHeader}</h2>` +
+                  `<br><br>`
+                  `<p>${messageBody.replace(/(\r\n|\n|\r)/gm, "<br>")}</p>` + 
                   `<br><br>` +
                   `<p><strong> Respond to: </strong>${email}</p>`
   const msgTable =  `<table style=${tableStyle.main}>` + 
