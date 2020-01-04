@@ -27,12 +27,9 @@
     background-color: #f5f5f580;
 }
 
-/* .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-} */
+.wrapper {
+    font-family: 'Chewy', cursive;
+}
 
 /* Contact Icons and Links */
 .contacts {

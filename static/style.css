@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Boogaloo|Chewy|Knewave|Love+Ya+Like+A+Sister|Princess+Sofia&display=swap');
+
+
+/* font-family: 'Princess Sofia', cursive;
+font-family: 'Knewave', cursive;
+font-family: 'Love Ya Like A Sister', cursive;
+font-family: 'Boogaloo', cursive;
+font-family: 'Chewy', cursive; */
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,6 +17,7 @@
 /* Default 20pixels to 1ine-height with default sans-serif font of user’s Browser */
 html {
     font: 20px/1 sans-serif;
+    font-family: 'Princess Sofia', cursive;
     background-color: rgba(228, 242, 246, 0.651);
 }
 
