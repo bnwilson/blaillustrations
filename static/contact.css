@@ -27,12 +27,9 @@
     background-color: #f5f5f580;
 }
 
-/* .wrapper {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-} */
+.wrapper {
+    font-family: 'Boogaloo', cursive;
+}
 
 /* Contact Icons and Links */
 .contacts {
@@ -96,7 +93,6 @@
 
 .contact_form>ul>li>* {
     padding: .2rem 1rem;
-    margin: .3rem 1.5rem;
 }
 
 .contact_input {
@@ -110,5 +106,11 @@
     background-color: #707099;
     color: #c8ecd4;
     font-size: 1rem;
+}
 
+.contact_message {
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 2px 4px rgba(50, 97, 158, 0.712);
+    border: 3px outset #f5f5f580;
 }

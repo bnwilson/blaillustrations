@@ -147,7 +147,7 @@ export default function Contact () {
                                     ))}
                             </select>
                         </li>
-                        <li style={{display: "flex", alignItems: "center", border: "1px groove #f5f5f580"}}>
+                        <li className={css.contact_message}>
                             <label style={{display: "inline-block", textAlign: "center", width: "100%"}} htmlFor="message_body">
                                 Please enter your message below
                                 <p 
