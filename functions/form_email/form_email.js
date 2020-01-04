@@ -78,7 +78,7 @@ function buildHtmlBody (formData) {
   const messageStyle = "'background-color: #0f7757; border: 1px groove #0c4418; padding: .25rem 3rem;'"
   const spanStyle = "'background-color: #99BF33; margin: 0 auto; padding: .5rem 5rem; color: whitesmoke; font-size: 1.1rem; border: 2px solid #B3FF00; display: inline-block;'"
   const tableStyle = {
-    main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 95%; margin: 0 auto;'",
+    main: "'font-family: arial sans-serif; border: solid 2px #0dc28c; border-collapse: collapse; max-width: 95%; min-width: 80%; margin: 0 auto;'",
     even: "'background-color: #0f7757; color: whitesmoke;'",
     odd: "'background-color: #6fa192; color: whitesmoke;'",
     header: "'padding: .2rem .8rem;'",
