@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Boogaloo|Chewy|Knewave|Love+Ya+Like+A+Sister|Princess+Sofia&display=swap');
-
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:700|Big+Shoulders+Display:600|Boogaloo|Chewy|Knewave|Love+Ya+Like+A+Sister|Princess+Sofia|Special+Elite&display=swap');
 
 /* font-family: 'Princess Sofia', cursive;
 font-family: 'Knewave', cursive;
 font-family: 'Love Ya Like A Sister', cursive;
 font-family: 'Boogaloo', cursive;
-font-family: 'Chewy', cursive; */
+font-family: 'Chewy', cursive;
+font-family: 'Special Elite', cursive;
+font-family: 'Amatic SC', cursive;
+font-family: 'Big Shoulders Display', cursive; */
+
+
 
 
 * {
@@ -17,7 +21,7 @@ font-family: 'Chewy', cursive; */
 /* Default 20pixels to 1ine-height with default sans-serif font of user’s Browser */
 html {
     font: 20px/1 sans-serif;
-    font-family: 'Princess Sofia', cursive;
+    font-family: 'Amatic SC', cursive;
     background-color: rgba(228, 242, 246, 0.651);
 }
 
