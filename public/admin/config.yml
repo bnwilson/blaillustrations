@@ -2,20 +2,52 @@ backend:
   name: git-gateway
   branch: master
 
+# Folder Locations
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
+
+# URL and Logo
+site_url: https://blaillustrations.netlify.com
+display_url: https://blaillustrations.netlify.com
+logo_url: https://blaillustrations.netlify.com/icons/16bitCharlie.svg
 
 # Gallery Uploads
 collections:
   - name: "gallery"
-    label: "Gallery"
+    label: "Gallery Item"
     folder: "/public/gallery"
     create: true
     slug: "{{year}}{{month}}-{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish", name: "date", widget: "date"}
-      - {label: "Categories", name: "categories", widget: "hidden", default: "Kitty"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "galleryItem"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
+
+# Sticker Uploads
+  - name: "stickers"
+    label: "Sticker"
+    folder: "/public/stickers"
+    create: true
+    slug: "{{year}}{{month}}--{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish", name: "date", widget: "date"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "galleryItem"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
+
+# Portrait Uploads
+  - name: "portraits"
+    label: "Portrait"
+    folder: "/public/portraits"
+    create: true
+    slug: "{{year}}{{month}}--{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish", name: "date", widget: "date"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "galleryItem"}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
 
