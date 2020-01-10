@@ -1,14 +1,15 @@
 .carousel_wrapper {
-    width: 90%;
+    max-width: 35rem;
     margin: 0 auto;
 }
 
 .carousel {
     display: grid;
     grid-template-areas: "left img right";
-    grid-template-columns: .5fr 4fr .5fr;
-    grid-template-rows: minmax(20rem, 30rem);
-    background-color: rgba(4, 7, 29, 0.418);
+    grid-template-columns: minmax(6vh, .25fr) minmax(21vh, 1.5fr) minmax(6vh, .25fr);
+    grid-template-rows: minmax(60vh, auto);
+    background-color: rgba(4, 7, 29, 0.137);
+    border: .1rem inset rgba(31, 41, 98, 0.678);
 }
 
 .carousel_thumbnail_active {
@@ -21,9 +22,9 @@
 
 .carousel_thumbnail_wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14vh, 1fr));
     /* grid-template-rows: 8rem auto; */
-    grid-auto-rows: 8rem;
+    grid-auto-rows: minmax(20vh, auto);
     gap: 1px;
     align-content: start;
     background-color: rgba(7, 15, 58, 0.678);
@@ -34,18 +35,14 @@
     align-self: center;
 }
 
-.testcss {
-    background-size: 5;
-}
-
 .carousel_thumbnail_wrapper>div:hover {
     cursor: pointer;
     opacity: 1;
 }
 
 .gallery {
-    padding: 2rem 5rem;
-    margin: 1rem auto;
+    /* padding: 2rem 5rem; */
+    margin: .5rem auto;
 }
 
 .gallery_item {
@@ -71,6 +68,7 @@
     padding-right: 1rem;
     text-shadow: .4rem 0 .5rem rgba(31, 41, 98, 0.678);
     transition: text-shadow .7s;
+    max-width: 6vh;
 }
 
 .left:hover {
@@ -84,6 +82,7 @@
     padding-left: 1rem;
     text-shadow: -.4rem 0 .5rem rgba(31, 41, 98, 0.678);
     transition: text-shadow .7s;
+    max-width: 6vh;
 }
 
 .right:hover {
@@ -97,7 +96,7 @@
     justify-self: center;
     flex-direction: row;
     color: slategray;
-    font-size: 4rem;
+    font-size: 7vh;
     transition: color .4s;
 }
 
@@ -112,6 +111,7 @@
 .image_slide {
     grid-area: img;
     padding: 0 .5rem;
+    
 }
 
 /* Carousel Image Hover */
@@ -130,7 +130,7 @@
     padding: 1.5rem 0;
     text-align: center;
     background-color: rgba(31, 41, 98, 0.678);
-    width: 100%;
+    /* width: 100%; */
 }
 
 .image_hover_title {
