@@ -49,6 +49,7 @@ export default class thisApp extends App {
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                     <link href="/static/style.css" rel="stylesheet" />
                     <link href="/static/gallery.css" rel="stylesheet" />
+                    <link href="/static/contact.css" rel="stylesheet" />
                 </Head>
                 <UserContext.Provider value={{isLoggedIn: this.state.user.isLoggedIn, userId: this.state.user.id}}>
                     <Layout>

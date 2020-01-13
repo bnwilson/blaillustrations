@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import matter from 'gray-matter';
 import css from '../static/gallery.css';
 import Carousel from '../components/Carousel/Carousel';

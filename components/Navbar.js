@@ -2,7 +2,7 @@ import React,{useContext} from 'react';
 import Link from 'next/link';
 import UserContext from './userContext';
 
-const BlaLogo = './BLAlogo.png';
+const BlaLogo = './blago.png';
 const NavBackground = './slide1.png';
 
 const styles = {
@@ -91,7 +91,7 @@ function Navbar (props) {
     return (
         <div className="nav-wrapper nav-header" style={navStyle}>
             <Logo/>
-            <h1 className="nav-title" style={navTitleStyle}>BLA Illustrations</h1>
+            <label className="nav-title" ><h2>BLA</h2> <h2>Illustrations</h2></label>
             <nav className="navbar" style={navBarStyle}>
                 <ul className="nav-list" >
                     {navItems.map((item, index) => (

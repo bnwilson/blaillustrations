@@ -149,11 +149,11 @@ export default function Contact () {
                         </li>
                         <li className={css.contact_message}>
                             <label style={{display: "inline-block", textAlign: "center", width: "100%"}} htmlFor="message_body">
-                                Please enter your message below
-                                <p 
+                                Please enter your message below 
+                                <p style={{fontSize: ".7rem", textAlign: "center", padding: ".5rem 0", opacity: ".8"}}>Must be more than {MIN_MESSAGE} characters</p>
+                                <p  className="contact_charcount"
                                     style={{
-                                        color: (charLength >= MIN_MESSAGE && charLength <= MAX_MESSAGE ? styles.goodFont : styles.badFont), 
-                                        textAlign: "right", padding: "1rem 0"
+                                        color: (charLength >= MIN_MESSAGE && charLength <= MAX_MESSAGE ? styles.goodFont : styles.badFont)
                                     }}>
                                     Chars: {charLength}
                                 </p>
@@ -161,7 +161,7 @@ export default function Contact () {
                                     className={css.contact_body} 
                                     name="messageBody" 
                                     ref={register}
-                                    defaultValue={styles.defaultMessage}
+                                    placeholder={styles.defaultMessage}
                                     onChange={handleMessageInput}
                                     // readOnly={false}
                                 />
