@@ -9,8 +9,10 @@ font-family: 'Special Elite', cursive;
 font-family: 'Amatic SC', cursive;
 font-family: 'Big Shoulders Display', cursive; */
 
-
-
+/* Main Colors
+#99BF33, #B3FF00
+rgb(153, 191, 51), rgb(179, 255, 0)
+*/
 
 * {
     box-sizing: border-box;
@@ -93,6 +95,57 @@ html {
     width: 60%;
 }
 
+.nav-logo {
+    width: 6rem;
+    height: 6rem;
+    background-color:  rgba(191, 190, 195, 0.8);
+    box-shadow: rgba(240, 255, 255, .6) 0 0 .8rem;
+    border-radius: 50%;
+    padding: .2rem;
+}
+
 .nav-list a:any-link {
     font-style: normal;
 }
+
+.nav-title {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    border-bottom: 2px solid rgba(37, 148, 46, 0.5);
+    margin: .1rem 0 .2rem;
+}
+
+.nav-title>h2:nth-child(n + 2) {
+    color: #B3FF00;
+    padding-left: .1rem;
+    font-style: italic;
+}
+
+.nav-title>h2:first-child {
+    color: #99BF33;
+    font-weight: bolder;
+}
+
+
+/* Home Page */
+.home-title {
+    text-align: center;
+}
+
+.home-body {
+    text-align: center;
+}
+
+@media (min-width: 600px) {
+    .home-wrapper {
+        margin: 5rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .home-wrapper {
+        margin: 1.5rem 1rem;
+    }
+}
+

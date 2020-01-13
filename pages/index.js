@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import Link from 'next/link';
 // import netlifyIdentity from 'netlify-identity-widget';
 
 const Home = () => {
@@ -19,9 +20,23 @@ const Home = () => {
     return (
         <div>
             <div className="app-wrapper">
-                <label className="main-body">
-                    Dis is the Home page!
-                </label>
+                <section className="home-wrapper">
+                    <h2 className="home-title">
+                        Thank you for visiting BLAIllustrations!
+                    </h2>
+                    <br/><br/>
+                    <h4 className="home-body">
+                        The site is currently a work in progress, but feel free to check out the 
+                        <Link>
+                            <a href="/gallery"> Gallery </a>
+                        </Link>
+                        or drop Brittany a line in the 
+                        <Link>
+                            <a href="/contact"> Contact Page </a>
+                        </Link>
+                        !
+                    </h4>
+                </section>
             </div>
         </div>
     )
