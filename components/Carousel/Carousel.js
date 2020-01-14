@@ -86,6 +86,7 @@ function Carousel (props) {
                         return (<div className={imgClassName}
                                     onClick={handlePictureSelect}
                                     onTouchEnd={handlePictureSelect}
+                                    key={i}
                                     style={{
                                         backgroundImage: `url(${imgItem.imgUrl})`,
                                         backgroundSize: "cover",
