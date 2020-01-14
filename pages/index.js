@@ -27,12 +27,12 @@ const Home = () => {
                     <br/><br/>
                     <h4 className="home-body">
                         The site is currently a work in progress, but feel free to check out the 
-                        <Link>
-                            <a href="/gallery"> Gallery </a>
+                        <Link href="/gallery">
+                            <a > Gallery </a>
                         </Link>
                         or drop Brittany a line in the 
-                        <Link>
-                            <a href="/contact"> Contact Page </a>
+                        <Link href="/contact">
+                            <a > Contact Page </a>
                         </Link>
                         !
                     </h4>

@@ -9,5 +9,8 @@ module.exports =
             })
             return config;
         },
-        cssModules: true
+        cssModules: true,
+        env: {
+            RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY || "6LfHvc4UAAAAAI275hg7EJ1PTh306xm_5R9PyKoO"
+        }
     })
