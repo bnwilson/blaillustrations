@@ -1,5 +1,19 @@
+.main_about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    margin: .25rem;
+}
+
 .about {
     font-size: 2rem;
     color: blue;
     font-weight: bold;
+}
+
+.about_charlie {
+    width: 5rem;
+    height: 5rem;
 }
