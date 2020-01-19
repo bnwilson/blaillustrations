@@ -1,11 +1,12 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import css from '../static/style.css';
+const backgroundUrl = "/speckle_background.jpg";
 
 function Layout(props) {
 
     return (
-        <div className={css.app}>
+        <div style={{backgroundImage: `url(${backgroundUrl})`, backgroundSize: "cover"}} className={css.app}>
            
             <Navbar />
             <div className={css.main}>
