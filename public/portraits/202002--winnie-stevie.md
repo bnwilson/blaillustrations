@@ -6,7 +6,6 @@ tags:
   - cat
   - dog
   - portrait
-  - ''
-galleryImage: /images/uploads/Attachment-1 (4).png
+galleryImage: /images/uploads/Attachment-1 (6).png
 ---
 
