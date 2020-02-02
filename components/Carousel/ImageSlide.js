@@ -23,10 +23,20 @@ function ImageSlide (props) {
         setIsHover(!isHover)
     }
 
+    // const styles = {
+    //     backgroundImage: `url(${props.imageUrl})`,
+    //     backgroundSize: 'cover',
+    //     backgroundPosition: 'center'
+    // }
+
     const styles = {
         backgroundImage: `url(${props.imageUrl})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        overflow: 'hidden',
+        margin: '.5rem .25rem'
+
     }
 
     return (
