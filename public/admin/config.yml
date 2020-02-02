@@ -34,7 +34,20 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish", name: "date", widget: "date"}
-      - {label: "Categories", name: "categories", widget: "hidden", default: "galleryItem"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "stickerItem"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
+
+# Prints
+  - name: "prints"
+    label: "Prints"
+    folder: "/public/prints"
+    create: true
+    slug: "{{year}}{{month}}--{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish", name: "date", widget: "date"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "printItem"}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
 
@@ -47,26 +60,46 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish", name: "date", widget: "date"}
-      - {label: "Categories", name: "categories", widget: "hidden", default: "galleryItem"}
+      - {label: "Categories", name: "categories", widget: "hidden", default: "portraitItem"}
       - {label: "Tags", name: "tags", widget: "list", required: false}
       - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
 
-# Store Uploads
-  - name: "store"
-    label: "Store"
-    folder: "/public/store"
+# Coloring Book Uploads
+  - name: "coloringBook"
+    label: "Coloring Book"
+    folder: "/public/coloring-books"
     create: true
-    slug: "{{year}}{{month}}-{{slug}}"
+    slug: "{{year}}{{month}}--{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish", name: "date", widget: "date"}
-      - {label: "Categories", name: "categories", widget: "hidden", default: "Kitty"}
-      - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
-      - label: "Price"
-        name: "price"
-        widget: "object"
-        fields:
-          - {label: "4x6", name: "small", widget: "number", valueType: "float"}
-          - {label: "5x7", name: "medium", widget: "number", valueType: "float"}
-          - {label: "8x10", name: "large", widget: "number", valueType: "float"}
+      - {label: "Download Link (url)", name: "downloadUrl", widget: "string", pattern: ['^https?', 'Should start with "http" or "https"']}
+
+  - name: "news"
+    label: "Main Page News"
+    folder: "/public/news"
+    create: true
+    slug: "{{year}}{{month}}{{day}}--{{title}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+# Store Uploads
+  # - name: "store"
+  #   label: "Store"
+  #   folder: "/public/store"
+  #   create: true
+  #   slug: "{{year}}{{month}}-{{slug}}"
+  #   fields:
+  #     - {label: "Title", name: "title", widget: "string"}
+  #     - {label: "Publish", name: "date", widget: "date"}
+  #     - {label: "Categories", name: "categories", widget: "hidden", default: "Kitty"}
+  #     - {label: "Tags", name: "tags", widget: "list", required: false}
+  #     - {label: "Artwork", name: "galleryImage", widget: "image", required: true}
+  #     - label: "Price"
+  #       name: "price"
+  #       widget: "object"
+  #       fields:
+  #         - {label: "4x6", name: "small", widget: "number", valueType: "float"}
+  #         - {label: "5x7", name: "medium", widget: "number", valueType: "float"}
+  #         - {label: "8x10", name: "large", widget: "number", valueType: "float"}
+
