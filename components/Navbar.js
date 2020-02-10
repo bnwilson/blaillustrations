@@ -1,5 +1,5 @@
 import React,{useContext} from 'react';
-import Link from 'next/link';
+import Link from './Link';
 import UserContext from './userContext';
 
 const BlaLogo = './blago.png';
@@ -92,10 +92,10 @@ function Navbar (props) {
         <div className="nav-wrapper nav-header" style={navStyle}>
             <Logo/>
             <label className="nav-title" ><h2>BLA</h2> <h2>Illustrations</h2></label>
-            <nav className="navbar" style={navBarStyle}>
+            <nav className="navbar">
                 <ul className="nav-list" >
                     {navItems.map((item, index) => (
-                        <li key={index}>
+                        <li className="nav-list__item" key={index}>
                             <Link href={item.url}>
                                 <a className="nav-item">{item.title}</a>
                             </Link> 

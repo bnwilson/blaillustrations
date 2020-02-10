@@ -70,14 +70,6 @@ export default function Contact () {
         complete: <h2 className={css.form_header}>Thank you for your submission!</h2>
     };
 
-    /*** Social Media Content ***/
-    const contacts = [
-        {title: "Instagram", url: "", image: ""},
-        {title: "Facebook", url: "", image: ""},
-        {title: "Etsy", url: "", image: ""},
-        {title: "Email", url: "", image: ""}
-    ]
-
     const subjectOptions = [
         "Commission Request", "General Question", "Special Order Inquery"
     ]
@@ -230,11 +222,6 @@ export default function Contact () {
                 : formState.isFormComplete ? 
                     (formSubmitText.complete) : (formSubmitText.loading)
             }
-            <div className={css.contacts}>
-                {contacts.map((item, index) => (
-                    <a className={css.contactItem} key={index} href={item.url || "https://google.com"}>{item.title}</a>
-                    ))}
-            </div> 
         </div>
     )
 }

@@ -66,13 +66,13 @@
     grid-area: left;
     justify-content: left;
     padding-right: 1rem;
-    text-shadow: .4rem 0 .5rem rgba(31, 41, 98, 0.678);
+    text-shadow: .4rem 0 .5rem rgba(31, 41, 98, 0.1);
     transition: text-shadow .7s;
     max-width: 6vh;
 }
 
 .left:hover {
-    text-shadow: .8rem 0 1.2rem rgba(11, 19, 70, 0.801);
+    text-shadow: .8rem 0 1.2rem rgba(11, 19, 70, 0.4);
 }
 
 
@@ -80,13 +80,13 @@
     grid-area: right;
     justify-content: right;
     padding-left: 1rem;
-    text-shadow: -.4rem 0 .5rem rgba(31, 41, 98, 0.678);
+    text-shadow: -.4rem 0 .5rem rgba(31, 41, 98, 0.1);
     transition: text-shadow .7s;
     max-width: 6vh;
 }
 
 .right:hover {
-    text-shadow: -.8rem 0 1.2rem rgba(11, 19, 70, 0.801);
+    text-shadow: -.8rem 0 1.2rem rgba(11, 19, 70, 0.4);
 }
 
 
@@ -98,12 +98,15 @@
     color: rgba(112, 128, 144, 0.411);
     font-size: 5rem;
     transition: color .4s;
+    transition: opacity .5s;
+    opacity: .1;
     z-index: 10;
 }
 
 .slide_arrow:hover {
     color: rgba(207, 208, 221, 0.76);
     cursor: pointer;
+    opacity: .6;
 }
 
 /* Carousel Image */
@@ -135,4 +138,26 @@
 
 .image_hover_title {
     color: yellow;
+}
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+    .slide_arrow {
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        flex-direction: row;
+        color: rgba(112, 128, 144, 0.411);
+        font-size: 2rem;
+        transition: color .4s;
+        transition: opacity .5s;
+        opacity: .4;
+        z-index: 10;
+    }
+
+    .slide_arrow:hover {
+        color: rgba(207, 208, 221, 0.76);
+        cursor: pointer;
+        opacity: .4;
+    }
 }
