@@ -50,6 +50,7 @@ export default class thisApp extends App {
                     <link href="/static/style.css" rel="stylesheet" />
                     <link href="/static/gallery.css" rel="stylesheet" />
                     <link href="/static/contact.css" rel="stylesheet" />
+                    <link href="/static/about.css" rel="stylesheet" />
                 </Head>
                 <UserContext.Provider value={{isLoggedIn: this.state.user.isLoggedIn, userId: this.state.user.id}}>
                     <Layout>

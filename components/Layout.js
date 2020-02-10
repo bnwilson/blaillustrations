@@ -1,7 +1,7 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import css from '../static/style.css';
-const backgroundUrl = "/speckle_background.jpg";
+const backgroundUrl = "/speckle_background.bmp";
 
 function Layout(props) {
 
