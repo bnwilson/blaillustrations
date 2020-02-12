@@ -58,12 +58,6 @@ function AdminLink () {
 
 function Navbar (props) {
     const { isLoggedIn } = useContext(UserContext)
-
-    /* * Style Objects * */
-    const navListStyle = styles.navListStyle;
-    const navItemStyle = styles.navItemStyle;
-    const navTitleStyle = styles.navTitleStyle;
-    const navBarStyle = styles.navBarStyle;
     
     const navItems = [
         {
