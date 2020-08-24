@@ -1,4 +1,4 @@
-import css from '../static/about.css';
+// import css from '../static/about.css';
 const charlieLogo = "/16bitCharlie.png";
 
 function About () {

@@ -75,6 +75,7 @@ function Navbar (props) {
             value: "about",
             url: "/about"
         }
+        
     ]
 
     const navStyle = {
@@ -95,6 +96,10 @@ function Navbar (props) {
                             </Link> 
                         </li>
                     ))}
+                    <a className="nav-item" 
+                        href="https://blaillustrations.myshopify.com">
+                        Shop
+                    </a>
                     {isLoggedIn ? (<li><AdminLink/></li>) : ""}
                 </ul>
             </nav>

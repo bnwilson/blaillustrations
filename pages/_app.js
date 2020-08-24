@@ -1,9 +1,11 @@
 import App from 'next/app';
 import Layout from '../components/Layout';
-import netlifyIdentity from 'netlify-identity-widget';
 import {loginUser, logoutUser} from '../utils/netlifyIdActions'
 import UserContext from '../components/userContext';
 import Head from 'next/head';
+
+// Netlify CMS
+//import netlifyIdentity from 'netlify-identity-widget';
 
 // Local Storage User Key
 const USER_KEY = "currentBlaUser"
@@ -19,7 +21,8 @@ export default class thisApp extends App {
         userInfo: {}
     }
 
-    componentDidMount = () => {
+    async componentDidMount() {
+        const {default: netlifyIdentity } = await import('netlify-identity-widget');
         netlifyIdentity.init();
         let currentUser = localStorage.getItem(USER_KEY);
         if (currentUser) {

@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import netlifyIdentity from 'netlify-identity-widget';
+//import netlifyIdentity from 'netlify-identity-widget';
 import {loginUser, logoutUser} from '../utils/netlifyIdActions'
 
 // Local Storage User Key
@@ -42,7 +42,7 @@ function Main (props) {
         const value = event.target.getAttribute('value');
         setState(prevState => ({...prevState, page: mainPages[value]}));
     }
-
+    /*
     // Netlify Event Listeners
     netlifyIdentity.on("login", (netlifyUser) => {
         let currentState = state;
@@ -57,7 +57,7 @@ function Main (props) {
         setState(prevState => ({...prevState, user: {isLoggedIn: false, id: null}, userInfo: null}));
         logoutUser();
     })
-
+    */
 
     return (
         <div className="main-wrapper">

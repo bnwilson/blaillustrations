@@ -1,9 +1,10 @@
 // Shamelessly copied from --> https://www.netlify.com/blog/2017/10/30/how-to-add-netlify-identity-service-to-react-projects/
-import netlifyIdentity from 'netlify-identity-widget';
+// import netlifyIdentity from 'netlify-identity-widget';
 
 const USER_KEY = "currentBlaUser"
 
-export function loginUser () {
+export async function loginUser () {
+    const {default: netlifyIdentity } = await import('netlify-identity-widget');
         if (netlifyIdentity && netlifyIdentity.currentUser()) {
             const {
                 app_metadata, created_at, confirmed_at, email, id, user_metadata 
