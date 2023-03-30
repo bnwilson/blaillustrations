@@ -1,0 +1,9 @@
+.nav-selected {
+    text-decoration: underline;
+    font-weight: bolder;
+    text-shadow: -2px 2px 5px var(--slate-blue);
+}
+
+.nav-selected:hover {
+    color: var(--slate-blue);
+}
