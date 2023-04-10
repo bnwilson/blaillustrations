@@ -18,7 +18,6 @@ export interface FooterProps {
 }
 
 export function Footer (props: FooterProps) {
-    console.log(props)
     const {contacts} = props
     return (
         <footer className={styles.footer}>

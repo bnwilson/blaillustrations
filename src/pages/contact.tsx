@@ -8,16 +8,6 @@ import ReCAPTCHA from 'react-google-recaptcha';
 // TODO:  Replace 'react-hook-form' + 'yup' with ChakraUI components
 //  ref: https://github.com/sendgrid/sendgrid-nodejs/tree/master/packages/mail
 
-/*** Global Values ***/
-const RECAPTCHA_SITE_KEY = process.env.RECAPTCHA_SITE_KEY || "";
-const MIN_MESSAGE = 15; // Minimum message char count
-const MAX_MESSAGE = 1000; // Max message char count
-const styles = {
-    goodFont: "#4b834b",
-    badFont: "#8d1f1f",
-    defaultMessage: "Please Enter your message body here..."
-}
-
 /*** Iterator for Loading 'animation' ***/
 function* loadingIterator() {
     let loadMsg = ""
@@ -30,6 +20,16 @@ function* loadingIterator() {
 }
 
 export default function Contact () {
+    /*** Global Values ***/
+    const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || process.env.RECAPTCHA_SITE_KEY || "";
+    const MIN_MESSAGE = 15; // Minimum message char count
+    const MAX_MESSAGE = 1000; // Max message char count
+    const styles = {
+        goodFont: "#4b834b",
+        badFont: "#8d1f1f",
+        defaultMessage: "Please Enter your message body here..."
+    }
+    console.log(`* SITE KEY * --=---> ${RECAPTCHA_SITE_KEY}`)
     /*** Contact Form State ***/
     const [loadingText, setLoadingText] = useState("Loading");
 
@@ -229,6 +229,7 @@ export default function Contact () {
                                             onErrored={handleCaptchaErrorNoMessage}
                                             theme="dark"
                                             onErrorCapture={handleCaptchaError}
+                                        
                                         />
                                     </div>)
                                 }

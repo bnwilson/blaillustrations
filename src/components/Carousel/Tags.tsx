@@ -45,11 +45,11 @@ function buildTagProps (tagData: TagsProps): TagProps[] {
 
 /* Components - Tag, Tags */
 export function Tag (props:TagProps) {
-    const {tagText, tagColor, isUpperCase=false} = props
+    const {tagText, tagColor, isUpperCase} = props
     // Convert '(0, 255, 0)' to => 'rgba(0, 255, 0, 0.8)'
     const tagFontColor = 'rgba' + tagColor.replace(/ *\)$/, ', 0.8)') 
     return (
-        <span className={isUpperCase ? 'tag_item tag_uppercase' : 'tag_item'}>
+        <span className={`tag_item`}>
             {tagText}
             <style jsx>{`
                 .tag_item {
@@ -58,13 +58,15 @@ export function Tag (props:TagProps) {
                     padding-inline-start: 0.25rem;
                     padding-inline-end: 0.25rem;
                     font-size: 0.75rem;
-                    border-radius: 0.25rem;
+                    border-radius: 0.275rem;
                     font-weight: 700;
                     color: ${tagFontColor};
                     box-shadow: ${tagFontColor};
-                }    
-                .tag_uppercase: {
-                    font-transform: uppercase;
+                    text-transform: ${isUpperCase ? 'uppercase' : 'capitalize'};
+                    background: rgba(226, 232, 240, 0.66);
+                    min-height: 1.25rem;
+                    min-width: 1.5rem;
+                    margin: .2rem .25rem
                 }
             `}</style>
         </span>

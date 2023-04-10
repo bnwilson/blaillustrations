@@ -133,6 +133,8 @@
     padding: 1.5rem 0;
     text-align: center;
     background-color: rgba(31, 41, 98, 0.822);
+    border-radius: .2rem;
+    box-shadow: .5rem .8rem .8rem .5rem rgba(0,50,55,.4);
     /* width: 100%; */
 }
 

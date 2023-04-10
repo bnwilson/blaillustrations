@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Tags } from './Tags';
 // data: {…}
 //      categories: "Kitty"
 //      date: Date Fri Dec 20 2019 18:20:35 GMT-0500 (Eastern Standard Time)
@@ -61,8 +62,14 @@ export function ImageSlide (props: ImageSlideProps) {
                         <h2 className="image_hover_title">
                             {props.imageTitle}
                         </h2>
-                        <p className="image_body">
+                        {/* <p className="image_body">
                             {props.imageTags && props.imageTags.join(" ")}
+                        </p> */}
+                        <p className="image_body">
+                            {props.imageTags ? 
+                                <Tags tags={props.imageTags} isUpperCase={false} /> :
+                                ""
+                            }
                         </p>
                     </div>
                 </div>
