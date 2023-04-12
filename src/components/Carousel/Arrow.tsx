@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Arrow (props) {
+function Arrow (props: any) {
     return (
         <div
             className={`slide_arrow ${props.direction}`}
