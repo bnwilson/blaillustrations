@@ -1,0 +1,76 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--light-green2);
+    color: #36493e;
+    border: 5px solid black;
+}
+
+.nav-item {
+    font-size: 1.2rem;
+    color: var(--dark-green);
+    text-decoration: none;
+
+}
+
+.nav-item:hover {
+    color: yellow;
+    cursor: pointer;
+}
+
+.nav-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 10rem;
+}
+
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.nav-logo {
+    width: 6rem;
+    height: 6rem;
+    background-color:  rgba(191, 190, 195, 0.8);
+    box-shadow: rgba(240, 255, 255, .6) 0 0 .8rem;
+    border-radius: 50%;
+    padding: .2rem;
+}
+
+.nav-list a:any-link {
+    font-style: normal;
+}
+
+.nav-selected {
+    text-decoration: underline;
+    font-weight: bolder;
+    text-shadow: -2px 2px 5px var(--slate-blue);
+}
+
+.nav-selected:hover {
+    color: var(--slate-blue);
+}
+
+.nav-title {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    border-bottom: 2px solid rgba(37, 148, 46, 0.5);
+    margin: .1rem 0 .2rem;
+}
+
+.nav-title>h2:nth-child(n + 2) {
+    color: #B3FF00;
+    padding-left: .1rem;
+}
+
+.nav-title>h2:first-child {
+    color: #99BF33;
+    font-weight: bolder;
+}
