@@ -1,13 +1,24 @@
+// Stylesheets (global)
 import '@/styles/globals.css'
 import '@/styles/gallery.css'
+import '@/styles/store.css'
+// Providers
 import { ChakraProvider } from '@chakra-ui/react'
+import { ShopifyProvider } from '@shopify/hydrogen-react'
+// Netlify + CMS login context
+import * as netlifyIdentity from 'netlify-identity-widget'
 import { loginUser, logoutUser } from '@/utils/netlifyIdActions'
 import UserContext, {NetlifyLoginContext} from '@/components/userContext'
 import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import * as netlifyIdentity from 'netlify-identity-widget'
-import { useState, useEffect, useReducer } from 'react'
+// React | NextJS
+import { useEffect, useReducer } from 'react'
 import { Layout } from '@/components/Layout'
+/* TODO:  implement 'reconciliation'
+ * - - - - - - - - - - - - - - - - - - - - -
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+ */
+
 netlifyIdentity.currentUser()
 // Local-Storage user key
 const USER_KEY_DEFAULT = "currentBlaUser"
@@ -27,7 +38,15 @@ interface ReducerLoginAction {
   type: ReducerAdminLoginType
   payload?: netlifyIdentity.User | {[key: string]: any}
 }
+/* TODO:  implement 'reconciliation' for state persistence
+ * - - - - - - - - - - - - - - - - - - - - -
+type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+}; */
 
 // Initial state
 const initialLoginState: AdminLoginState = {
@@ -101,13 +120,24 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   },[])
   
+  // TODO -- implement 'reconciliation' 
+  //    (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)
+  // const getLayout = Component?.getLayout ?? ((page: any) => page)
   
   return (
     <UserContext.Provider value={{isLoggedIn: adminLoginState.user.isLoggedIn, userId: adminLoginState.user.id} as NetlifyLoginContext}>
       <ChakraProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ShopifyProvider
+          storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || ''}
+          storefrontToken={process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''}
+          storefrontApiVersion={process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || '2023-04'}
+          countryIsoCode='US'
+          languageIsoCode='EN'
+        >
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ShopifyProvider>
       </ChakraProvider>
     </UserContext.Provider>
   )

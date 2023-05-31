@@ -39,15 +39,10 @@ const navItems: NavItem[] = [
         href: "/contact"
     },
     {
-        title: "About",
-        value: "about",
-        href: "/about"
-    },
-    {
         title: "Store",
         value: "store",
-        href: "https://blaillustrations.myshopify.com",
-        isExternal: true
+        href: "/store",
+        isExternal: false
     }
 ]
 
@@ -75,7 +70,7 @@ export function NavBar (navBarProps: NavBarProps) {
     
     return (
         <div className={styles['nav-header']} style={{backgroundImage, backgroundSize}}>
-            <Link href={"/"}>
+            <Link href={"/"} title="Back to the landing page...... :)">
                 <BlaLogo />
             </Link>
             <label className={styles['nav-title']}>

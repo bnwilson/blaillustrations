@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 
+
 export default function Home() {
   return (
     <div>
@@ -31,3 +32,16 @@ export default function Home() {
     </div>
   )
 }
+
+/* TODO -- implement 'reconciliation' 
+   (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)
+--------------------------------------------------------------------------------------
+Home.getLayout = function getLayout(page:any) {
+  return (
+    <Layout>
+      // { If a nested layout were to be implemented: <NestedLayout>{page}</NestedLayout>}
+      {page}
+    </Layout>
+  )
+}
+ */

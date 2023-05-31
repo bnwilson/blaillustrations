@@ -1,0 +1,106 @@
+.store_item_wrapper {
+    background-color: rgba(var(--medium-green-rgb), .80);
+    border: 1px solid rgba(0, 0, 139, .80);
+    border-radius: 5px;
+    padding: .15em;
+    margin: 2px 5px;
+    box-shadow: 1px 1px 15px;
+    min-width: 200px;
+    min-height: 180px;
+    transition: box-shadow 1s;
+}
+
+.store_item_wrapper:hover {
+    box-shadow: 2px 4px 15px rgba(0, 0, 139, .80);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.25s;
+    -moz-transition: -moz-transform 0.25s;
+    -ms-transition:  -ms-transform 0.25s;
+    transition:  transform 0.25s;
+    cursor: pointer;
+      
+}
+
+.store_item_card {
+    min-width: 180px;
+    min-height: 170px;
+    margin: auto;
+  
+    transition: box-shadow .4s, min-width .5s, min-height .5s;
+}
+
+.store_item_card:hover {
+    box-shadow: 3px 3px 15px;
+    min-width: 180px;
+    min-height: 170px;
+}
+
+.store_product_card {
+    min-width: 220px;
+    min-height: 180px;
+   
+    transition: box-shadow .4s
+}
+
+.store_product_card:hover {
+    box-shadow: 3px 3px 15px;
+}
+
+.store_collection_title_text {
+    background-color: rgba(var(--light-blue-rgb),.85);
+    text-align: center;
+    padding: 4px 0;
+    margin: 4px;
+    border: 2px solid var(--medium-blue);
+    color: rgba(var(--medium-blue-rgb), .95);
+    text-transform: capitalize;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+/* Products */
+.store_item_wrapper__product {
+    /* background-color: rgba(var(--medium-green-rgb), .80); */
+    border: 8px solid rgba(var(--dark-green-rgb) .80);
+    border-radius: 10px;
+    padding: .15em;
+    margin: 2px 4px;
+    /* box-shadow: 1px 1px 15px; */
+    min-width: 220px;
+    min-height: 180px;
+    max-width: 400px;
+    max-height: 380px;
+    /* transition: box-shadow 1s; */
+}
+
+.store_item_wrapper__product:hover {
+    cursor: pointer;
+}
+
+.store_item_wrapper__product_unused:hover {
+    box-shadow: 2px 4px 15px rgba(0, 0, 139, .80);
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.25s;
+    -moz-transition: -moz-transform 0.25s;
+    -ms-transition:  -ms-transform 0.25s;
+    transition:  transform 0.25s;
+    cursor: pointer;
+      
+}
+
+.store_product_modal_body {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.store_product_modal_body_tags {
+    display: flex;
+    flex-flow: row wrap;
+}

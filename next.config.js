@@ -6,6 +6,13 @@ const nextConfig = {
       {
         test: /\.md$/,
         loader: 'gray-matter-loader',
+      },
+      {
+
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+  
       }
     )
     return cfg;

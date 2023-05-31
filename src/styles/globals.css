@@ -117,14 +117,31 @@ html {
     --neon-green: #b3ff00;
     --olive: #98bf33;
 
+    /* Blues */
+    --light-blue: rgb(148, 156, 240);
+    --light-blue-rgb: 148, 156, 240;
+    --medium-blue: #2538a3;
+    --medium-blue-rgb: 37, 56, 163;
+    --dark-blue: rgb(12, 22, 79);
+    --dark-blue-rgb: 12, 22, 79;
+
     /* Turquoises */
     --turquoise: #b1f1d8;
     --turquoise2: #b1d1c5;
 
     /* Darker Greens and Blue(s) */
     --medium-green: #84a485;
+    --medium-green-rgb: 132, 164, 133;
     --dark-green: #36493e;
+    --dark-green-rgb: 54, 73, 62;
     --slate-blue: #767da7;
+    --slate-blue-rgb: 118, 125, 167;
+
+    /* Captured Store Colors */
+    --store-pink: #ee9df3;
+    --store-yellow: #dcb239;
+    --store-font-family: Abel, sans-serif;
+    --store-font-fatface: "Abril Fatface", serif;
 
     /* Box Styles */
     --border-style: 4px solid black;
