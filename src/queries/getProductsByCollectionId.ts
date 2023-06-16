@@ -35,8 +35,13 @@ export const getCollectionProductsById = gql`
                     description
                     descriptionHtml
                     handle
+                    productType
                     tags
                     totalInventory
+                    options {
+                        name
+                        values
+                    }
                     priceRange {
                         minVariantPrice {
                             amount

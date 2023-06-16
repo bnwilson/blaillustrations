@@ -28,9 +28,11 @@ export function ProductItem (props: ProductItemProps) {
                 // maxHeight={"14.5rem"}
                 // maxWidth={["20rem", "17.5rem", "18rem"]}
                 // minWidth={["33rem", "22.5rem", "22rem"]}
-                bg={"orange.300"} 
+                bg={"green.300"} 
                 className={"store_product_card"}
                 direction="column"
+                border={"2px solid"}
+                borderColor={"blue.800"}
             >
                 <CardBody padding="0.5rem">
                     <Flex direction={"row"} gap="3" flex-wrap={"wrap"} minWidth="0" >
@@ -39,7 +41,7 @@ export function ProductItem (props: ProductItemProps) {
                             src={imageData?.url || imageData?.src || ""}
                             alt={imageData?.altText || title}
                             borderRadius={"2xl"}
-                            padding="2px 1px"
+                            padding={"2px 1px"}
                             maxWidth={"150px"}
                             maxHeight={"150px"}
                             flex={"1 1 150px"}
@@ -69,7 +71,8 @@ export function ProductItem (props: ProductItemProps) {
                             <Divider  colorScheme="blue" variant={"dashed"} />
                             {tags && tags?.length ?
                                 <Wrap spacing={"1.5"} direction="row" margin="0px auto" overflow="hidden" maxBlockSize={"min-content"} padding={"0 1px 2px 0"}>
-                                    {tags.map((t,i) => <Tag key={i} textTransform="lowercase" size="sm" colorScheme="green" variant="solid">{t}</Tag>).slice(0,4)} 
+                                    {tags.map(
+                                        (t,i) => <Tag key={i} textTransform="lowercase" opacity={"70%"} size="sm" colorScheme="green" padding={"2px 6px"} variant="solid">{t}</Tag>).slice(0,4)} 
                                 </Wrap> : 
                                 <Tag/>
                             }
@@ -103,9 +106,11 @@ export function ProductItem (props: ProductItemProps) {
                         </HStack> 
                 : <label/>
                 }
-                <Divider width="95%"  variant={"solid"}  size="md" alignContent={"center"} opacity="0.8" />
+
+                <Divider width="95%"  variant={"solid"}  size="md" alignSelf={"center"} opacity="0.8" />
+
                 {/* Description */}
-                <Text textOverflow={"ellipsis"}  padding="2px 5px 5px" textColor={"blue.600"} fontSize="sm">
+                <Text textOverflow={"ellipsis"} noOfLines={3} fontWeight="semibold" padding="3px 10px 5px" textColor={"blue.700"} fontSize="sm">
                     {description || ""}
                 </Text>
             </Card>

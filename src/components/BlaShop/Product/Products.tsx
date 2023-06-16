@@ -8,7 +8,7 @@ export function Products (props: any) {
             
             spacing="2rem" 
             margin={"0px auto"} 
-            padding={"2px 2rem"} 
+            padding={["2px .15rem", "2px 1.25rem", "2px 2rem"]} 
             
         >
             {/* ...<CollectionItem {prop[index]} */}

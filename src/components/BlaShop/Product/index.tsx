@@ -1,5 +1,5 @@
 export {ProductItem} from './ProductItem'
 export {ProductModal} from './ProductModal'
-// export {productModalForm} from './ProductModalForm'
+export {productModalForm, ProductModalInputNumber} from './ProductModalForm'
 export {Products} from './Products'
 export {ProductSelectContext} from './ProductSelectContext'

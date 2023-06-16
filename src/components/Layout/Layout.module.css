@@ -5,11 +5,26 @@
     max-width: 100rem;
     min-width: 8rem;
     margin: 0 auto;
-    background-image: url('/speckle_background.bmp');
+    background-image: 
+        linear-gradient(
+            rgba(var(--medium-blue-rgb), 0.15),
+            rgba(var(--slate-blue-rgb), 0.35)
+        ),
+        url('/speckle_background.bmp');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    
 }
+/* background-image: 
+    linear-gradient(
+        rgba(var(--dark-blue-rgb), 0.25),
+        rgba(var(--dark-green-rgb), 0.25),
+        rgba(var(--medium-blue-rgb), 0.25),
+        rgba(var(--slate-blue-rgb), 0.25)
+    ),
+    url('/speckle_background.bmp');
+background-repeat: no-repeat; */
 
 .main {
     padding: 1px;

@@ -139,7 +139,9 @@ html {
 
     /* Captured Store Colors */
     --store-pink: #ee9df3;
+    --store-pink-rgb: 238, 157, 243;
     --store-yellow: #dcb239;
+    --store-yellow-rgb: 220, 178, 57;
     --store-font-family: Abel, sans-serif;
     --store-font-fatface: "Abril Fatface", serif;
 
@@ -152,7 +154,7 @@ html {
 .app {
     min-height: 100vh;
     max-width: 100rem;
-    min-width: 8rem;
+    min-width: 10rem;
     margin: 0 auto;
     
 }
