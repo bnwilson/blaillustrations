@@ -9,7 +9,7 @@ export function CartIconBag() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
-        fill="currentColor"
+        fill="blue"
         className="cart_icon_bag"
       >
         <title>Bag</title>

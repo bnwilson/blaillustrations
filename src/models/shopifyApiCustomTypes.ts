@@ -73,7 +73,7 @@ export type ShopifyProductData = {
 }
 
 /*  *  *  *  Variants (of Product)  *  *  *  */
-type ShopifyProductVariantDataPrototype = Omit<ProductVariant, "amount" | "availableForSale" | "price" | "selectedOptions" | "image"> & {
+type ShopifyProductVariantDataPrototype = Omit<ProductVariant, "amount" | "availableForSale" | "price" | "selectedOptions" | "image" | "quantityAvailable"> & {
     availableForSale: boolean
     price: {
         amount?: string
@@ -83,6 +83,7 @@ type ShopifyProductVariantDataPrototype = Omit<ProductVariant, "amount" | "avail
         value?: string
     }[]
     image: ShopifyImageType
+    quantityAvailable: number
 }
 
 /**

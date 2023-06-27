@@ -4,21 +4,26 @@ import { CartIconBag } from "./CartIconBag"
 
 const cartButtonStyle = {
     position: 'fixed',
-    bottom: '0',
-    right: '0',
+    top: '2rem',
+    right: '2rem',
     margin: '0 1rem 1rem 0',
-    width: '2rem',
-    height: '2rem',
+    width: '2.5rem',
+    height: '2.5rem',
     opacity: '0.9',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: '9999px',
+    backgroundColor: 'rgba(238, 157, 243,0.8)'
 
 } as CSSProperties
 
-export function CartButton (props: any) {
+interface CartButtonProps {
+    onclick: () => void
+}
+
+export function CartButton (props: CartButtonProps) {
     const {onclick} = props
-    let placeholder = "Placeholder for actual Shopping Cart Image (probably  SVG)"
 
     return (
         <button onClick={onclick} style={cartButtonStyle}>

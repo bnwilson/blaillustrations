@@ -7,8 +7,8 @@ const cartBadgeColorTheme = {
         backgroundColor: "white"
     } as CSSProperties,
     "light": {
-        color: "pearl",
-        backgroundColor: "black"
+        color: "white",
+        backgroundColor: "rgba(0,0,200,0.6)"
     } as CSSProperties,
 }
 
@@ -28,7 +28,7 @@ export function CartBadge(props: CartBadgeProps) {
         // Note:  Below is copied from an example using tailwind, 
         //        need to convert this to standard css and plug into the CartIcon
       <div className={`cart_icon_badge`} >
-          <span>{totalQuantity}</span>
+          <span style={cartBadgeColorTheme[colorTheme]}>{totalQuantity}</span>
       </div>
     );
 }

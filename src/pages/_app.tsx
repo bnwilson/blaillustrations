@@ -3,8 +3,8 @@ import '@/styles/globals.css'
 import '@/styles/gallery.css'
 import '@/styles/store.css'
 // Providers
-import { ChakraProvider } from '@chakra-ui/react'
-import { ShopifyProvider } from '@shopify/hydrogen-react'
+import { ChakraProvider, useDisclosure } from '@chakra-ui/react'
+import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react'
 // Netlify + CMS login context
 import * as netlifyIdentity from 'netlify-identity-widget'
 import { loginUser, logoutUser } from '@/utils/netlifyIdActions'
@@ -13,6 +13,9 @@ import type { AppProps } from 'next/app'
 // React | NextJS
 import { useEffect, useReducer } from 'react'
 import { Layout } from '@/components/Layout'
+// Components
+import { CartButton, CartDrawer, AddToCartToast } from '@/components/BlaShop/Cart'
+
 /* TODO:  implement 'reconciliation'
  * - - - - - - - - - - - - - - - - - - - - -
 import type { ReactElement, ReactNode } from 'react'
@@ -102,7 +105,7 @@ function loginReducer (netlifyLoginState: AdminLoginState, loginAction: ReducerL
 export default function App({ Component, pageProps }: AppProps) {
   // State
   const [adminLoginState, dispatch] = useReducer(loginReducer, initialLoginState, initLoginState)
-
+  const {isOpen, onClose, onOpen} = useDisclosure()
   useEffect(() => {
     // Netlify Event Listeners
     netlifyIdentity.init()
@@ -134,9 +137,13 @@ export default function App({ Component, pageProps }: AppProps) {
           countryIsoCode='US'
           languageIsoCode='EN'
         >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <CartProvider onLineAdd={() => {}} onLineAddComplete={() => {AddToCartToast}}>
+            <Layout>
+              <CartButton onclick={onOpen} />
+              <CartDrawer onClose={onClose} isOpen={isOpen} />
+              <Component {...pageProps} />
+            </Layout>
+          </CartProvider>
         </ShopifyProvider>
       </ChakraProvider>
     </UserContext.Provider>

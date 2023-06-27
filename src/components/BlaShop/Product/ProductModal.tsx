@@ -6,7 +6,7 @@ import { Button, FormHelperTextProps, Image, Modal, ModalBody, ModalOverlay,
 import { ProductModalTag } from "./ProductModalTag";
 import { ProductModalInputNumber } from "./ProductModalForm";
 /* React - state & context */
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { ProductSelectContext } from "./ProductSelectContext";
 /* Types */
 import { ShopifyProductData } from "@/models/shopifyApiCustomTypes";
@@ -62,13 +62,15 @@ export function ProductModal (props: ProductModalProps) {
     const productImageUrl = product?.featuredImage?.url || product?.featuredImage?.src
     const productVariantData = getVariantData(product)
     const {variants, variantCount, hasDefaultVariants} = productVariantData
-
-
+    
     /* State | Context | Hooks */
     // const {isOpen, onClose, onOpen} = useDisclosure()
     const useFormMethods = useForm()
     const [currentVariantSelection, setCurrentVariantSelection] = useState('0')
-    const [currentTotalInventory, setCurrentTotalInventory] = useState(Number(product?.totalInventory))
+    const [currentTotalInventory, setCurrentTotalInventory] = useState(variants[Number(currentVariantSelection)]?.quantityAvailable || Number(product?.totalInventory) || 15)
+    useEffect(() => {
+        setCurrentTotalInventory(variants[Number(currentVariantSelection)]?.quantityAvailable || Number(product?.totalInventory) || 15)
+    }, [variants, currentVariantSelection, product])
     
     const onAddToCartSubmit = async (cartItemData: CartItemFormData) => {
         // Evaluate data, update state, add to cart (hook)
@@ -76,7 +78,11 @@ export function ProductModal (props: ProductModalProps) {
 
     const onVariantSelection = (val: string) => {
         setCurrentVariantSelection(val)
-        setCurrentTotalInventory(Number(val))
+        const currentVariant = variants[Number(val)]
+        if (typeof currentVariant?.quantityAvailable === 'number') {
+            setCurrentTotalInventory(currentVariant.quantityAvailable)
+        }
+        //setCurrentTotalInventory(currentVariant && currentVariant?.quantityAvailable || product?.totalInventory)
     }
 
     /* TODO:  Use 2 Forms:  form #1 - variant selection ----- form #2 - addToCart (form returns only quantity and variant data) */
@@ -119,10 +125,10 @@ export function ProductModal (props: ProductModalProps) {
                             
                         {/* Variant info --  */}
                         <form style={{"width":"100%"}}>
-                            <RadioGroup onChange={onVariantSelection} value={currentVariantSelection}>
+                            <RadioGroup onChange={onVariantSelection} value={currentVariantSelection} defaultValue={currentVariantSelection} >
                                 <Stack direction='row' justifyContent={"space-evenly"} gap={"4"}>
                                 {hasDefaultVariants ?
-                                    <Radio disabled={hasDefaultVariants} isDisabled value={currentVariantSelection}>
+                                    <Radio disabled={hasDefaultVariants} value={currentVariantSelection}>
                                         No option available
                                     </Radio> :
                                     variants.map((v, i) => <Radio key={i} value={i.toString()}>{v?.selectedOptions && v.selectedOptions[0]?.value}</Radio>)
