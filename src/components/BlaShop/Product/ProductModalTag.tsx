@@ -7,10 +7,10 @@ export function ProductModalTag (props: ProductModalProps) {
     const {children} = props
     return (
         <Tag 
-            paddingRight=".15rem" 
+            paddingRight=".2rem" 
             marginTop="4px" 
             marginBottom="4px"
-            paddingLeft=".15rem" 
+            paddingLeft=".2rem" 
             textAlign="center" 
             variant="outline" 
             colorScheme={"green"} 

@@ -11,10 +11,11 @@ import { loginUser, logoutUser } from '@/utils/netlifyIdActions'
 import UserContext, {NetlifyLoginContext} from '@/components/userContext'
 import type { AppProps } from 'next/app'
 // React | NextJS
-import { useEffect, useReducer } from 'react'
-import { Layout } from '@/components/Layout'
+import { ReactElement, ReactNode, useEffect, useReducer } from 'react'
+import { Layout, StoreLayout } from '@/components/Layout'
 // Components
 import { CartButton, CartDrawer, AddToCartToast } from '@/components/BlaShop/Cart'
+import { NextPage } from 'next'
 
 /* TODO:  implement 'reconciliation'
  * - - - - - - - - - - - - - - - - - - - - -
@@ -42,14 +43,14 @@ interface ReducerLoginAction {
   payload?: netlifyIdentity.User | {[key: string]: any}
 }
 /* TODO:  implement 'reconciliation' for state persistence
- * - - - - - - - - - - - - - - - - - - - - -
-type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
+ * - - - - - - - - - - - - - - - - - - - - - */
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+ 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-}; */
+  Component: NextPageWithLayout
+}
 
 // Initial state
 const initialLoginState: AdminLoginState = {
@@ -102,7 +103,7 @@ function loginReducer (netlifyLoginState: AdminLoginState, loginAction: ReducerL
   }
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // State
   const [adminLoginState, dispatch] = useReducer(loginReducer, initialLoginState, initLoginState)
   const {isOpen, onClose, onOpen} = useDisclosure()
@@ -126,26 +127,32 @@ export default function App({ Component, pageProps }: AppProps) {
   // TODO -- implement 'reconciliation' 
   //    (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)
   // const getLayout = Component?.getLayout ?? ((page: any) => page)
-  
+  const getLayout = Component.getLayout ?? ((page) => page)
+
   return (
     <UserContext.Provider value={{isLoggedIn: adminLoginState.user.isLoggedIn, userId: adminLoginState.user.id} as NetlifyLoginContext}>
       <ChakraProvider>
         <ShopifyProvider
-          storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN || ''}
+          storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || ''}
           storefrontToken={process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''}
           storefrontApiVersion={process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || '2023-04'}
           countryIsoCode='US'
           languageIsoCode='EN'
         >
           <CartProvider onLineAdd={() => {}} onLineAddComplete={() => {AddToCartToast}}>
-            <Layout>
-              <CartButton onclick={onOpen} />
-              <CartDrawer onClose={onClose} isOpen={isOpen} />
-              <Component {...pageProps} />
-            </Layout>
+            {getLayout(<Component {...pageProps} />)} 
           </CartProvider>
         </ShopifyProvider>
       </ChakraProvider>
     </UserContext.Provider>
   )
 }
+
+/* <Layout>
+<CartButton onclick={onOpen} />
+<CartDrawer onClose={onClose} isOpen={isOpen} />
+<StoreLayout>
+<Component {...pageProps} />
+
+</StoreLayout>
+</Layout> */

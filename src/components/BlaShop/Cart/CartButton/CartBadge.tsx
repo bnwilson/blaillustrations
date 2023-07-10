@@ -1,4 +1,4 @@
-import { useCart } from "@shopify/hydrogen-react";
+import { useCart, useCartLine } from "@shopify/hydrogen-react";
 import { CSSProperties } from "react";
 
 const cartBadgeColorTheme = {
@@ -16,19 +16,20 @@ interface CartBadgeProps {
     colorTheme?: "dark" | "light"
 }
 
+/**
+ * 
+ * @param props 
+ * @returns null
+ */
 export function CartBadge(props: CartBadgeProps) {
-    const { totalQuantity } = useCart();
+    const { totalQuantity, lines } = useCart();
     const {colorTheme="light"} = props;
-  
-    if (totalQuantity && totalQuantity < 1) {
-      return null;
-    }
+    const lineCount = lines?.length
 
     return (
-        // Note:  Below is copied from an example using tailwind, 
-        //        need to convert this to standard css and plug into the CartIcon
+
       <div className={`cart_icon_badge`} >
-          <span style={cartBadgeColorTheme[colorTheme]}>{totalQuantity}</span>
+          <span style={cartBadgeColorTheme[colorTheme]}>{lineCount || totalQuantity || 0}</span>
       </div>
     );
 }

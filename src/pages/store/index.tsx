@@ -1,5 +1,5 @@
 /* Framework Imports */
-import React, { CSSProperties, MouseEventHandler, ReactEventHandler, useState } from "react";
+import React, { CSSProperties, MouseEventHandler, ReactElement, ReactEventHandler, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Spinner } from "@chakra-ui/react"
 /* Shopify */
@@ -10,6 +10,7 @@ import {getAllCollectionsQuery, getAllCollections} from '../../queries/getAllCol
 import {Collections} from '../../components/BlaShop/Collections'
 import {CollectionItem} from '../../components/BlaShop/CollectionItem'
 import { StoreBanner } from "@/components/BlaShop/StoreBanner";
+import { Layout, StoreLayout } from "@/components/Layout";
 
 const responseHeaderStyle: CSSProperties = {padding: '2.5px', margin: '5px 0px', fontWeight:'bolder', textAlign: 'center'}
 
@@ -224,6 +225,16 @@ export async function getServerSideProps(context: any) {
             collections: [...shopifyQueryResponse?.collections?.edges?.map((edge: any) => edge?.node)]
         }
     }
+}
+
+StorePage.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            <StoreLayout>
+                {page}
+            </StoreLayout>
+        </Layout>
+    )
 }
 
 /** __ToDo's__ 

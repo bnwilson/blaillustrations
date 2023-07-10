@@ -116,8 +116,3 @@ export type ShopifyApiResponseErrors = {
         fieldName: string
     }
 }[]
-
-
-function testTypeProps (k: ShopifyProductVariantData) {
-    // k.product.
-}

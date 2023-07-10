@@ -1,7 +1,7 @@
 // Import -- Framework | Context | UI
 import { GetServerSidePropsContext, GetServerSidePropsResult, Redirect } from "next"
 import { useDisclosure } from "@chakra-ui/react"
-import { useState, useContext } from "react"
+import { useState, useContext, ReactElement } from "react"
 // Import -- Shopify-related
 import { shopifyQueryRequest } from "@/utils/shopifyGraphQLRequest"
 import {getCollectionProductsById, GetCollectionProductsByIdResponse} from '@/queries/getProductsByCollectionId'
@@ -9,6 +9,7 @@ import type { ShopifyProductData } from "@/models/shopifyApiCustomTypes"
 /* Import -- Components */
 import { Products, ProductItem, ProductModal, ProductSelectContext } from "@/components/BlaShop"
 import { FourOhFour } from "@/components/ErrorMessages"
+import { Layout, StoreLayout } from "@/components/Layout"
 
 interface GetServerSidePropsData {
     collectionProducts?: GetCollectionProductsByIdResponse
@@ -66,10 +67,10 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
                 }
 
                 {/* Testing output data */}
-                <pre>
+                <pre style={{paddingLeft: "5px",maxWidth: "100vw", maxHeight:"50vh", overflow: "scroll", backgroundColor: "rgba(130,180,130,.6)", color: "rgb(40,40,50)"} }>
                     <h2>Response for {collection?.id}</h2>
                     <br/>
-                    <span>{JSON.stringify(props, null, 2)}</span>
+                    <span style={{wordWrap: "normal", overflowWrap: "break-word"}}>{JSON.stringify(props, null, 2)}</span>
                 </pre>
             </ProductSelectContext.Provider>
         </div>
@@ -95,4 +96,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
         props: {collectionProducts:  shopifyQueryResponse}
     }
+}
+
+/** StoreLayout
+ * @description Nested layout for the store page, for initializing the Cart
+ * @param children page props 
+ * @returns 
+ */
+CollectionProducts.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            <StoreLayout>
+                {page}
+            </StoreLayout>
+        </Layout>
+    )
 }

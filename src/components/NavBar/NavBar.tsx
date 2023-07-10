@@ -70,7 +70,7 @@ export function NavBar (navBarProps: NavBarProps) {
     
     return (
         <div className={styles['nav-header']} style={{backgroundImage, backgroundSize}}>
-            <Link href={"/"} title="Back to the landing page...... :)">
+            <Link passHref href={"/"} title="Back to the landing page...... :)">
                 <BlaLogo />
             </Link>
             <label className={styles['nav-title']}>

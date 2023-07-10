@@ -3,7 +3,7 @@ import { Drawer, DrawerOverlay, DrawerCloseButton, DrawerContent, DrawerHeader, 
     DrawerFooter } from "@chakra-ui/react"
 import { CartCheckoutButton } from "./CartCheckoutButton"
 import { useCart, useCartLine } from "@shopify/hydrogen-react"
-import { useRef } from "react"
+import { useRef, useEffect, useState } from "react"
 import { CartEmpty } from "./CartEmpty"
 import { CartLineItem } from "./CartLineItem"
 
@@ -22,9 +22,10 @@ interface CartDrawerProps {
  */
 export function CartDrawer (props: CartDrawerProps) {
     const {isOpen, onClose, headerText=HEADER_TEXT_DEFAULT} = props
-    const {linesRemove, lines, checkoutUrl} = useCart()
+    const {linesRemove, lines, checkoutUrl, error, status, id: cartID} = useCart()
     //const {id: lineId, quantity, merchandise} = useCartLine()
     const closeRef = useRef(null)
+    
     return (
         <>
             <Drawer 
@@ -37,7 +38,17 @@ export function CartDrawer (props: CartDrawerProps) {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton ref={closeRef} />
-                    <DrawerHeader>{headerText}</DrawerHeader>
+                    <DrawerHeader>
+                        {headerText}
+                        {/* Testing - show cart ID */}
+                        <br/>
+                        {`Status:  ${status}`}
+                        <br />
+                        {`Cart ID:  ${cartID || "<none>"}`}
+                        {/* Cart Error ? */}
+                        <br />
+                        <p>{`Error ? --> ${JSON.stringify(error) || "No error"}`}</p>
+                    </DrawerHeader>
                     <DrawerBody>
                     {lines && lines.length ?
                         lines.map(line => <CartLineItem key={line?.id} />) :

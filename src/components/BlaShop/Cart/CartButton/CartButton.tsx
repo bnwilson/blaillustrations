@@ -14,7 +14,8 @@ const cartButtonStyle = {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: '9999px',
-    backgroundColor: 'rgba(238, 157, 243,0.8)'
+    backgroundColor: 'rgba(238, 157, 243,0.8)',
+    zIndex: 999
 
 } as CSSProperties
 

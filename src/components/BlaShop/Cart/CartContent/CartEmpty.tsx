@@ -1,6 +1,6 @@
 
 interface CartEmptyProps {
-    onClose?: () => {}
+    onClose?: () => void
 }
 
 /**

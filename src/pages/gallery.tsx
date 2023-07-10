@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import matter from 'gray-matter';
 import {Carousel,GalleryProps} from '../components/Carousel';
+import { Layout } from '@/components/Layout';
 
 const gallerySections = [
     {
@@ -66,6 +67,14 @@ Gallery.getInitialProps = async function() {
     return {
         galleryItems: gallery
     }
+}
+
+Gallery.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            {page}
+        </Layout>
+    )
 }
 
 export default Gallery;

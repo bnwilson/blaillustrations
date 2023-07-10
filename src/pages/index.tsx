@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
+import { ReactElement } from 'react'
+import { Layout } from '@/components/Layout'
 
 
 export default function Home() {
@@ -30,6 +32,14 @@ export default function Home() {
         </section>
       </div>
     </div>
+  )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+      <Layout>
+          {page}
+      </Layout>
   )
 }
 

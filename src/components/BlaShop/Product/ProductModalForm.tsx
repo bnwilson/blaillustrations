@@ -22,11 +22,15 @@ export function productModalForm(props: any) {
 interface ProductModalInputNumberProps {
     minAmount?: number // default is 1
     maxAmount?: number // default is 30 - should be totalInventory of product/variant
+    handleChangeEnd: (n: number) => void
 }
 export function ProductModalInputNumber (props: ProductModalInputNumberProps) {
-    const {minAmount=1, maxAmount=30} = props
+    const {minAmount=1, maxAmount=30, handleChangeEnd} = props
     const [currentVal, setCurrentVal] = useState(minAmount)
-    const handleChange = (newValString: string, newValNum: number) => setCurrentVal(newValNum)
+    const handleChange = (newValString: string, newValNum: number) => {
+        setCurrentVal(newValNum)
+        handleChangeEnd(newValNum)
+    }
     const handleChangeSlider = (newValNum: number) => setCurrentVal(newValNum)
 
     return (
@@ -36,7 +40,7 @@ export function ProductModalInputNumber (props: ProductModalInputNumberProps) {
                 maxW={"120px"} mr='2rem' 
                 value={currentVal} 
                 defaultValue={minAmount}
-            >
+                >
                 <NumberInputField />
                 <NumberInputStepper >
                     <NumberIncrementStepper />
@@ -48,6 +52,7 @@ export function ProductModalInputNumber (props: ProductModalInputNumberProps) {
                 focusThumbOnChange={false}
                 value={currentVal}
                 onChange={handleChangeSlider}
+                onChangeEnd={handleChangeEnd}
                 max={maxAmount}
                 min={minAmount}
             
