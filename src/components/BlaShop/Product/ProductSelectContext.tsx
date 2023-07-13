@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { ShopifyProductData, ShopifyImageType } from "@/models/shopifyApiCustomTypes";
 
-export const ProductSelectContext = createContext({
+export const productSelectContextDefault = {
     title: '',
     id: '',
     featuredImage: undefined,
@@ -9,4 +9,6 @@ export const ProductSelectContext = createContext({
     variants: {
         nodes: []
     }
-} as ShopifyProductData | undefined)
+} as ShopifyProductData | undefined
+
+export const ProductSelectContext = createContext(productSelectContextDefault)

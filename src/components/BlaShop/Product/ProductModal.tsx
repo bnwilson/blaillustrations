@@ -1,20 +1,18 @@
 /* ChakraUI components & hooks */
 import { Button, FormHelperTextProps, Image, Modal, ModalBody, ModalOverlay, 
-    ModalHeader, ModalFooter, ModalCloseButton, useDisclosure, 
+    ModalHeader, ModalFooter, ModalCloseButton, 
     ModalContent, Tag, Flex, Divider, Stack, VStack, Text, 
     Heading, Tooltip, StackDivider, Radio, RadioGroup } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ProductModalTag } from "./ProductModalTag";
 import { ProductModalInputNumber } from "./ProductModalForm";
 /* React - state & context */
-import { useState, useContext, useEffect, FormEventHandler, FormEvent } from "react";
+import { useState, useContext, FormEvent, useRef, useEffect } from "react";
 import { ProductSelectContext } from "./ProductSelectContext";
 /* Types */
-import { ShopifyProductData } from "@/models/shopifyApiCustomTypes";
+import { ShopifyProductData, ShopifyProductVariantData } from "@/models/shopifyApiCustomTypes";
 import { AddToCartButtonProps, AddToCartButtonPropsBase } from "@shopify/hydrogen-react/dist/types/AddToCartButton";
-import {useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { useCart,  } from "@shopify/hydrogen-react";
-import { SubmitHandler } from "react-hook-form/dist/types";
 import { CartLineInput } from "@shopify/hydrogen-react/storefront-api-types";
 
 /* Interfaces - local types */
@@ -52,62 +50,86 @@ interface ProductModalProps {
 
 /** **`ProductModal`** - _Component_; utilizes `useContext()` for 'selected' product state
  * @description Modal that displays product/product variant info & provides "Add To Cart" functionality
- * @param props 
+ * @param {ProductModalProps} props 
  * @returns ProductModal
  */
 export function ProductModal (props: ProductModalProps) {
-    /* Init */
-    const initialProductProps = {name: '', title: '', id: ''}
+    /* Defaults */
+    const defaultTotal        = 25
+    const defaultQuantity     = 1
+    const defaultVariantIndex = 0
+    
+    /* Props | Context */
     const {onClose, isOpen} = props
-
-    /* Props */
-    //const product = props.selectedProduct
     const product = useContext(ProductSelectContext)
     const productImageUrl = product?.featuredImage?.url || product?.featuredImage?.src
-    const productVariantData = getVariantData(product)
-    const {variants, variantCount, hasDefaultVariants} = productVariantData
-    
-    /* State | Context | Hooks */
-    // useForm - may not be needed
-    const useFormMethods = useForm()
+
+    // const defaultVariant = variants[defaultVariantIndex]
     // Component State - variant, total inv, currentQuantity
-    const defaultVariant = '0'
-    const [currentVariantSelection, setCurrentVariantSelection] = useState(defaultVariant)
-    const [currentVariantId, setCurrentVariantId] = useState('')
-    const [currentTotalInventory, setCurrentTotalInventory] = useState(variants[Number(currentVariantSelection)]?.quantityAvailable || Number(product?.totalInventory) || 15)
-    const [currentQuantity, setCurrentQuantity] = useState(1)
-    // Component Mount - obtain current total inventory
+    const [currentVariantSelection, setCurrentVariantSelection] = useState<string|undefined>('') // ID of variant
+    const [currentVariant, setCurrentVariant] = useState<ShopifyProductVariantData|undefined>(undefined)
+    const [currentTotalInventory, setCurrentTotalInventory] = useState(defaultTotal)
+    const hasDefaultVariants = useRef(true)
+    const variants = useRef([] as ShopifyProductVariantData[])
+
+    // const [currentTotalInventory, setCurrentTotalInventory] = useState(defaultVariant?.quantityAvailable || Number(product?.totalInventory) || 99)
+    const [currentQuantity, setCurrentQuantity] = useState(defaultQuantity)
     useEffect(() => {
-        setCurrentTotalInventory(variants[Number(currentVariantSelection)]?.quantityAvailable || Number(product?.totalInventory) || 15)
-    }, [variants, currentVariantSelection, product])
+        const productVariantData = getVariantData(product)
+        variants.current = productVariantData.variants
+        const initialVariant = productVariantData.variants[defaultVariantIndex]
+        hasDefaultVariants.current = productVariantData.hasVariantDefaults   
+        setCurrentVariantSelection(initialVariant?.id)
+        setCurrentVariant(initialVariant)
+        setCurrentTotalInventory(initialVariant?.quantityAvailable || Number(product?.totalInventory) || 18)
+    }, [product])
+    /* State | Hooks */
+
+    /* ******** TODO ******** 
+        State Update should NOT be in the body of the component
+        Replace with ref's (i.e. "useRef()" hook)
+    */
+
+    // Component Mount - obtain current total inventory
+/*     useEffect(() => {
+        const defaultVariant = variants[defaultVariantIndex]
+        if (defaultVariant) {
+            setCurrentVariantSelection(defaultVariant.id)
+            setCurrentVariant(defaultVariant)
+            setCurrentTotalInventory(defaultVariant?.quantityAvailable || Number(product?.totalInventory) || 15)
+        }
+
+    }, [variants, product?.totalInventory]) */
+    
     // useCart hook
     const {linesAdd, status} = useCart()
     
     const onAddToCartSubmit = async () => {
         // Evaluate data, update state, add to cart (hook)
         const cartLineItems = [
-            {merchandiseId: currentVariantId, quantity: currentQuantity}
+            {merchandiseId: currentVariantSelection, quantity: currentQuantity}
         ] as CartLineInput[]
         linesAdd(cartLineItems)
-        
     }
 
     const onVariantSelection = (val: string) => {
+        // currentVariantSelection.current = val
+        console.log(val)
         setCurrentVariantSelection(val)
-        const currentVariant = variants[Number(val)]
-        if (typeof currentVariant?.quantityAvailable === 'number') {
-            setCurrentTotalInventory(currentVariant.quantityAvailable)
-        }
-        setCurrentVariantId(currentVariant?.id || '')
+        const selectedVariant = variants.current?.find(v => v.id === val.trim()) || variants.current[Number(val)]
+        console.log(`* * Selected Variant ==> \n   ${JSON.stringify(selectedVariant, null, 2)}\n * *`)
+        // currentVariant.current = (selectedVariant !== undefined) ? selectedVariant : currentVariant
+        setCurrentVariant((selectedVariant !== undefined) ? selectedVariant : currentVariant)
+        setCurrentTotalInventory(selectedVariant?.quantityAvailable || currentTotalInventory)
+        
         //setCurrentTotalInventory(currentVariant && currentVariant?.quantityAvailable || product?.totalInventory)
     }
 
     const onCartAddFormSubmit = (e: FormEvent) => {
         const cartLineItems = [
-            {merchandiseId: currentVariantId, quantity: currentQuantity}
+            {merchandiseId: currentVariant?.id, quantity: currentQuantity}
         ] as CartLineInput[]
         linesAdd(cartLineItems)
-
     }
 
     /* TODO:  Use 2 Forms:  form #1 - variant selection ----- form #2 - addToCart (form returns only quantity and variant data) */
@@ -115,7 +137,7 @@ export function ProductModal (props: ProductModalProps) {
         <Modal colorScheme={"cyan"} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay/>
             <ModalContent backgroundColor={"orange.300"} className="store_product_modal">
-            <FormProvider {...useFormMethods}>
+            
                 <ModalHeader fontFamily={"cursive"} className="store_product_modal_title" padding={"5px 5px 2px"} >
                     {product?.title || product?.handle}
                 </ModalHeader>
@@ -152,13 +174,14 @@ export function ProductModal (props: ProductModalProps) {
                         
                         {/* Variant info --  */}
                         <form onSubmit={onCartAddFormSubmit} id={"add_to_cart_form"} style={{"width":"100%"}}>
-                            <RadioGroup onChange={onVariantSelection} id="variant_selection" value={currentVariantSelection} defaultValue={defaultVariant} >
+                            {/* <RadioGroup onChange={onVariantSelection} id="variant_selection" value={currentVariantSelection} defaultValue={defaultVariant?.id} > */}
+                            <RadioGroup onChange={onVariantSelection} id="variant_selection" value={currentVariantSelection} >
                                 <Stack direction='row' justifyContent={"space-evenly"} gap={"4"}>
-                                {hasDefaultVariants ?
-                                    <Radio colorScheme={"orange"} isDisabled={hasDefaultVariants} value={currentVariantSelection}>
+                                {hasDefaultVariants.current ?
+                                    <Radio defaultChecked={true} colorScheme={"orange"} isDisabled={hasDefaultVariants.current} value={currentVariantSelection}>
                                         <span color="grey" style={{fontStyle: "italic"}}>No options available</span>
                                     </Radio> :
-                                    variants.map((v, i) => <Radio key={i} value={i.toString()}>{v?.selectedOptions && v.selectedOptions[0]?.value}</Radio>)
+                                    variants.current.map((v, i) => <Radio defaultChecked={hasDefaultVariants && i===0} key={i} value={v.id  || i.toString()}>{v?.selectedOptions && v.selectedOptions[0]?.value}</Radio>)
                                 }
                                 </Stack>
                             </RadioGroup>
@@ -176,7 +199,8 @@ export function ProductModal (props: ProductModalProps) {
                     >
                         Cancel
                     </Button>
-                    <Button isLoading={(status !== "idle" && status !== "uninitialized")} 
+                    <Button 
+                        isLoading={(status !== "idle" && status !== "uninitialized")} 
                         loadingText={status} 
                         colorScheme={"orange"} 
                         // onClick={onClose}
@@ -185,8 +209,6 @@ export function ProductModal (props: ProductModalProps) {
                         Add to Cart
                     </Button>
                 </ModalFooter>
-
-            </FormProvider>
             </ModalContent>
         </Modal>
     )
@@ -202,9 +224,9 @@ const getVariantData = (product?: ShopifyProductData) => {
     const productVariants = product?.variants?.nodes || []
     const variantCount    = productVariants.length
     const defaultValRegEx = /(Default ?)?Title$/i
-    let hasDefaultVariants = false
+    let hasVariantDefaults = false
 
-    const variants = productVariants.map(variant => {
+    const variants: ShopifyProductVariantData[] = productVariants.map(variant => {
         const hasDefaultValues = !!(
             variant?.title?.match(defaultValRegEx) || 
             (
@@ -215,7 +237,7 @@ const getVariantData = (product?: ShopifyProductData) => {
                 })
             )
         )
-        hasDefaultVariants = hasDefaultVariants || hasDefaultValues ? hasDefaultValues : hasDefaultVariants
+        hasVariantDefaults = hasVariantDefaults || hasDefaultValues ? hasDefaultValues : hasVariantDefaults
         const hasOnlyDefaultVariant = hasDefaultValues && variant?.selectedOptions?.length === 1
         return {
             ...variant,
@@ -226,7 +248,7 @@ const getVariantData = (product?: ShopifyProductData) => {
     const variantData = {
         variants,
         variantCount,
-        hasDefaultVariants
+        hasVariantDefaults
     }
 
     return variantData

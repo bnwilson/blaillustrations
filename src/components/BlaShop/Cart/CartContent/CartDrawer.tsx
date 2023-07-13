@@ -2,7 +2,7 @@ import { Drawer, DrawerOverlay, DrawerCloseButton, DrawerContent, DrawerHeader, 
     FormLabel,
     DrawerFooter } from "@chakra-ui/react"
 import { CartCheckoutButton } from "./CartCheckoutButton"
-import { useCart, useCartLine } from "@shopify/hydrogen-react"
+import { CartLineProvider, useCart, useCartLine } from "@shopify/hydrogen-react"
 import { useRef, useEffect, useState } from "react"
 import { CartEmpty } from "./CartEmpty"
 import { CartLineItem } from "./CartLineItem"
@@ -50,10 +50,14 @@ export function CartDrawer (props: CartDrawerProps) {
                         <p>{`Error ? --> ${JSON.stringify(error) || "No error"}`}</p>
                     </DrawerHeader>
                     <DrawerBody>
+                    {/* Line Item(s) */}
                     {lines && lines.length ?
-                        lines.map(line => <CartLineItem key={line?.id} />) :
-                        <CartEmpty />
-                    }
+                        lines.map(line => 
+                            line !== undefined && 
+                                <CartLineProvider key={line?.id} line={line}>
+                                    <CartLineItem />
+                                </CartLineProvider>)
+                    : <CartEmpty />}
                     </DrawerBody>
                     <DrawerFooter borderTopWidth={'1px'} >
                         <CartCheckoutButton disabled={!!(lines && lines.length)} />

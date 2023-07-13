@@ -5,14 +5,22 @@ import {
     Stack, Heading, Text,
     Divider, Wrap, Tag, Flex, HStack 
 } from "@chakra-ui/react"
+import React from "react"
     
 
 interface ProductItemProps {
-    onClick: any
+    onClick: React.MouseEventHandler<HTMLDivElement>
+    onHover?: (e: any) => void
     productData: ShopifyProductData
     uid?: number
 }
 
+/**
+ * @name ProductItem
+ * @description Individual product card, assigns `uuid` to _data-product-list-id_ attribute, which should be picked up on the `onClick` callback
+ * @param {ProductItemProps} props `onClick`, `onHover?`, `productData`, `uid`
+ * @returns 
+ */
 export function ProductItem (props: ProductItemProps) {
     const {productData, uid} = props
     const { id, images, featuredImage, description, tags, title } = productData
@@ -23,7 +31,7 @@ export function ProductItem (props: ProductItemProps) {
     const isOutOfStock = isProductOutOfStock(productData)
 
     return (
-        <div className='store_item_wrapper__product' onClick={props.onClick} data-product-list-id={uid}>
+        <div className='store_item_wrapper__product' onPointerEnter={props?.onHover} onClick={props.onClick} data-product-list-id={uid}>
             <Card 
                 // maxHeight={"14.5rem"}
                 // maxWidth={["20rem", "17.5rem", "18rem"]}

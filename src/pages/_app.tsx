@@ -140,7 +140,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           languageIsoCode='EN'
         >
           <CartProvider onLineAdd={() => {}} onLineAddComplete={() => {AddToCartToast}}>
-            {getLayout(<Component {...pageProps} />)} 
+            <Layout>
+              {getLayout(<Component {...pageProps} />)} 
+            </Layout>
           </CartProvider>
         </ShopifyProvider>
       </ChakraProvider>

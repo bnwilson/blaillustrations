@@ -69,13 +69,7 @@ Gallery.getInitialProps = async function() {
     }
 }
 
-Gallery.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout>
-    )
-}
+
 
 export default Gallery;
 

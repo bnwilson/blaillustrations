@@ -229,11 +229,9 @@ export async function getServerSideProps(context: any) {
 
 StorePage.getLayout = function getLayout(page: ReactElement) {
     return (
-        <Layout>
-            <StoreLayout>
-                {page}
-            </StoreLayout>
-        </Layout>
+        <StoreLayout>
+            {page}
+        </StoreLayout>
     )
 }
 

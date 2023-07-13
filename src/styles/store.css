@@ -184,6 +184,10 @@
 
 .cart_details_line_image {
     border-radius: 11px;
+    border: 1px solid rgba(var(--dark-green-rgb), .80);
+    max-width: 80px;
+    max-height: 80px;
+
 }
 
 .cart_details_line_container {

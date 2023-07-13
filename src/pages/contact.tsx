@@ -245,11 +245,3 @@ export default function Contact () {
         </div>
     )
 }
-
-Contact.getLayout = function getLayout(page: ReactElement) {
-    return (
-        <Layout>
-            {page}
-        </Layout>
-    )
-}

@@ -1,6 +1,6 @@
 import { AddToCartToast, CartButton, CartDrawer } from "../BlaShop/Cart"
 import { useDisclosure } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { getCartId } from "@/utils/cartSession"
 import { CartProvider, useCart } from "@shopify/hydrogen-react"
 
@@ -21,10 +21,10 @@ interface StoreLayoutProps {
 export function StoreLayout ({children}: StoreLayoutProps ) {
     const {cartCreate, status} = useCart()
     const {isOpen, onClose, onOpen} = useDisclosure()
-    const [cartId, setCartId] = useState('')
-    const [isCartInit, setIsCartInit] = useState(false)
-    const [isCartFetching, setIsCartFetching] = useState(false)
-    useEffect(() => {
+    // const [cartId, setCartId] = useState('')
+    // const [isCartInit, setIsCartInit] = useState(false)
+    // const [isCartFetching, setIsCartFetching] = useState(false)
+   /*  useEffect(() => {
             const localCartId = getCartId()
             if (!localCartId) {
                 setIsCartFetching(true)
@@ -33,12 +33,13 @@ export function StoreLayout ({children}: StoreLayoutProps ) {
                 setCartId(localCartId)
             }
         
-    }, [cartCreate])
-
+    }, [cartCreate]) */
+    const onClickCallback = useCallback(onOpen, [onOpen])
+    const onCloseCallback = useCallback(onClose, [onClose])
     return (
         <>
-            <CartButton onclick={onOpen} />
-            <CartDrawer onClose={onClose} isOpen={isOpen} />
+            <CartButton onclick={onClickCallback} />
+            <CartDrawer onClose={onCloseCallback} isOpen={isOpen} />
             {children}
         </>
     )

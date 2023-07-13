@@ -1,10 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
-import { ReactElement } from 'react'
-import { Layout } from '@/components/Layout'
+// import { ReactElement } from 'react'
+// import { Layout } from '@/components/Layout'
 
 
 export default function Home() {
@@ -35,13 +33,13 @@ export default function Home() {
   )
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-      <Layout>
-          {page}
-      </Layout>
-  )
-}
+// Home.getLayout = function getLayout(page: ReactElement) {
+//   return (
+//       <Layout>
+//           {page}
+//       </Layout>
+//   )
+// }
 
 /* TODO -- implement 'reconciliation' 
    (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)

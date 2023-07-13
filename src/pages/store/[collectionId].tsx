@@ -1,26 +1,25 @@
 // Import -- Framework | Context | UI
 import { GetServerSidePropsContext, GetServerSidePropsResult, Redirect } from "next"
 import { useDisclosure } from "@chakra-ui/react"
-import { useState, useContext, ReactElement } from "react"
+import { useState, useContext, ReactElement, useRef } from "react"
 // Import -- Shopify-related
 import { shopifyQueryRequest } from "@/utils/shopifyGraphQLRequest"
 import {getCollectionProductsById, GetCollectionProductsByIdResponse} from '@/queries/getProductsByCollectionId'
 import type { ShopifyProductData } from "@/models/shopifyApiCustomTypes"
 /* Import -- Components */
-import { Products, ProductItem, ProductModal, ProductSelectContext } from "@/components/BlaShop"
+import { Products, ProductItem, ProductModal, ProductSelectContext, productSelectContextDefault } from "@/components/BlaShop"
 import { FourOhFour } from "@/components/ErrorMessages"
 import { Layout, StoreLayout } from "@/components/Layout"
 
+/**
+ * **GetServerSidePropsData** - describes expected output from `getServerSideProps()` func
+ * * output is passed as `props` in `CollectionProducts`
+ */
 interface GetServerSidePropsData {
     collectionProducts?: GetCollectionProductsByIdResponse
     notFound?: boolean
     redirect?: Redirect
 }
-
-const responseHeaderStyle = {
-    padding: '2.5px', margin: '5px 0px', 
-    fontWeight:'bolder', textAlign: 'center'} as CSSStyleDeclaration
-    
 
 export default function CollectionProducts (props: GetServerSidePropsData) {
     /* Props */
@@ -31,14 +30,26 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
     /* State | Hooks | Context */
     const {isOpen, onOpen, onClose} = useDisclosure()
     const [selectedProduct, setSelectedProduct] = useState<ShopifyProductData | undefined>(undefined)
-    const onProductSelection = (event: React.MouseEvent<HTMLDivElement>) => {
+    // const selectedProduct = useRef(productSelectContextDefault)
+    const handleClickProductSelect: React.MouseEventHandler<HTMLDivElement> = (event: React.MouseEvent<HTMLDivElement>) => {
         // Product click -> Update state / context of product selection
         const productListIdAttribute = event.currentTarget.dataset["productListId"]
         const productListId = !(typeof productListIdAttribute === "undefined") ?
             Number(productListIdAttribute) : 0
         const currentProductSelection = productsList && productsList[productListId]
-        
         setSelectedProduct(currentProductSelection)
+        console.log(JSON.stringify(currentProductSelection, null, 2))
+        onOpen()
+    }
+    const handleClickProductHover = (event: React.PointerEvent<HTMLDivElement>) => {
+        // Product click -> Update state / context of product selection
+        //const productListIdAttribute = event.currentTarget.dataset["productListId"]
+        const productListIdAttribute = event.currentTarget.dataset["productListId"]
+        const productListId = !(typeof productListIdAttribute === "undefined") ?
+            Number(productListIdAttribute) : 0
+        const currentProductSelection = productsList && productsList[productListId]
+        setSelectedProduct(currentProductSelection)
+        console.log(selectedProduct)
         onOpen()
     }
     
@@ -47,32 +58,37 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
             <ProductSelectContext.Provider value={selectedProduct}>
                 {/* <ProductModal isOpen={isOpen} onClose={onClose} selectedProduct={selectedProduct} /> */}
                 <ProductModal isOpen={isOpen} onClose={onClose} />
-                
-                {isNoProducts ?
-                    /* Error 404 - No products for collection */
-                    <FourOhFour/> :
+             </ProductSelectContext.Provider>    
+            {isNoProducts ?
+                /* Error 404 - No products for collection */
+                <FourOhFour/> :
 
-                    <Products>
-                    {productsList?.map(
-                        (productItem, i) => 
-                            <ProductItem 
-                                onClick={onProductSelection} 
-                                productData={productItem} 
-                                key={i} 
-                                uid={i} 
-                            />
-                        )
-                    }
-                    </Products>
+                <Products>
+                {productsList?.map(
+                    (productItem, i) => 
+                        <ProductItem 
+                            // onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                            //     handleClickProductSelect(e)
+                            //     onToggle()
+                            // }} 
+                            onClick={handleClickProductSelect}
+                            // onHover={handleClickProductSelect}
+                            productData={productItem} 
+                            key={i} 
+                            uid={i} 
+                        />
+                    )
                 }
+                </Products>
+            }
 
-                {/* Testing output data */}
-                <pre style={{paddingLeft: "5px",maxWidth: "100vw", maxHeight:"50vh", overflow: "scroll", backgroundColor: "rgba(130,180,130,.6)", color: "rgb(40,40,50)"} }>
-                    <h2>Response for {collection?.id}</h2>
-                    <br/>
-                    <span style={{wordWrap: "normal", overflowWrap: "break-word"}}>{JSON.stringify(props, null, 2)}</span>
-                </pre>
-            </ProductSelectContext.Provider>
+            {/* Testing output data */}
+            <pre onClick={onClose} style={{paddingLeft: "5px",maxWidth: "100vw", maxHeight:"50vh", overflow: "scroll", backgroundColor: "rgba(130,180,130,.6)", color: "rgb(40,40,50)"} }>
+                <h2>Response for {collection?.id}</h2>
+                <br/>
+                <span style={{wordWrap: "normal", overflowWrap: "break-word"}}>{JSON.stringify(props, null, 2)}</span>
+            </pre>
+           
         </div>
 
     )
@@ -105,10 +121,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
  */
 CollectionProducts.getLayout = function getLayout(page: ReactElement) {
     return (
-        <Layout>
-            <StoreLayout>
-                {page}
-            </StoreLayout>
-        </Layout>
+        <StoreLayout>
+            {page}
+        </StoreLayout>
     )
 }
