@@ -36,7 +36,7 @@ export function Footer (props: FooterProps) {
                     </ul>
                 </div>
             }
-            BLA Illustrations&copy;
+            {/* BLA Illustrations&copy; */}
         </footer>
     )
 }

@@ -118,13 +118,30 @@
 }
 
 /* Shopping Cart */
-
-.cart_icon_bag {
-    height: 1.5rem;
-    width: 1.5rem;
+.cart_modal_content {
+    background-color: rgba(157, 53, 255, 0.84);
 }
 
-.cart_icon_badge {
+.cart_icon_bag {
+    height: 1.75rem;
+    width: 1.75rem;
+}
+
+.cart_icon_bag:hover {
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    transform: scale(1.15);
+    -webkit-transition: -webkit-transform 0.25s;
+    -moz-transition: -moz-transform 0.25s;
+    -ms-transition:  -ms-transform 0.25s;
+    transition:  transform 0.25s;
+    cursor: pointer;
+}
+
+/* Cart Icon/Button
+ -> Moved to CartButton/Cartbadge.module.css
+ .cart_icon_badge {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     align-items: center;
@@ -144,13 +161,28 @@
     right: 0.25rem;
     text-align: center;
     width: auto;
-}
+} */
 
 /* Cart Details */
 .cart_details_checkout_button {
+    /* align-content: center; */
+    align-self: center;
+    background-color: rgba(163, 42, 151, 0.638);
+    border-radius: 12px;
+    border-width: .05rem;
+    border-style: solid;
+    border-color: rgb(95, 107, 215);
+    color:rgba(13, 36, 72, 0.938);
     cursor: pointer;
     display: flex;
-    align-content: center;
+    justify-content: center;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.15rem;
+    /* font-style: oblique; */
+    margin: .1rem .15rem;
+    min-width: 80%;
+    padding: .4rem .55rem;
     text-align: center;
 }
 
@@ -158,11 +190,13 @@
     white-space: pre-wrap;
     max-width: 65ch;
     font-weight: bold;
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: 2.05rem;
+    line-height: 2.25rem;
     align-self: center;
     text-align: center;
     font-style: italic;
+    padding: .25rem;
+    margin: .25rem auto;
 }
 
 .cart_details_continue_button {
@@ -175,19 +209,22 @@
 }
 
 .cart_details_list_item {
-    display: flex;
+    margin: 0px auto;
+    width: 100%;
 }
 
 .cart_details_line_thumbnail {
-    flex-shrink: 0;
+    flex-shrink: 2;
+    border-radius: 8px;
+    border: 2px solid black;
+    max-width: 2rem;
+    max-height: 2rem;
 }
 
 .cart_details_line_image {
     border-radius: 11px;
     border: 1px solid rgba(var(--dark-green-rgb), .80);
-    max-width: 80px;
-    max-height: 80px;
-
+    
 }
 
 .cart_details_line_container {
@@ -219,4 +256,64 @@
     justify-content: center;
     align-items: center;
     padding: 0.125rem 1rem;
+}
+
+.cart_details_header {
+    color: var(--dark-green);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    padding-inline-start: .05rem;
+    padding-inline-end: .05rem;
+}
+
+.cart_details_subheader {
+    font-size: x-small;
+    color: rgb(40, 140, 85);
+    padding-inline-start: .25rem;
+    padding-inline-end: .25rem;
+}
+
+/* Line Item (table) */
+.cart_details_line_body {
+    width: 100%;
+    padding-bottom: .1rem;
+}
+
+.cart_details_line_capture {
+    font-size: 1rem;
+    margin-bottom: .1rem;
+    margin-top: .1rem;
+    text-align: left;
+    width: 100%;
+}
+
+.cart_details_lines_wrapper {
+    display: flex;
+    flex-flow: column;
+    font-style: italic;
+    font-variant-ligatures: additional-ligatures;
+    justify-items: space-around;
+    width: 100%;
+}
+
+.cart_details_line_body tr td {
+    font-size: medium;
+    margin: 2px auto;
+    padding-top: .15rem;
+    padding-bottom: .15rem;
+}
+
+.cart_details_line_category {
+    font-weight: bold;
+}
+
+.cart_details_line_table {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+.cart_details_line_table caption{
+    font-style: italic;
+    font-weight: 400;
+
 }

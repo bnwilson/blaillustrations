@@ -1,6 +1,10 @@
 import { useToast } from "@chakra-ui/react";
 
-interface AddToCartToastProps {
+
+/* TODO - Implement createStandaloneToast to make use of this function
+        - useToast is not usable outside the body of a React component 
+*/
+export interface AddToCartToastProps {
     messageTitle?: string
     messageDescription?: string
     messagePosition?: "bottom" | "bottom-left" | "bottom-right" | "top" | "top-left" | "top-right"

@@ -2,7 +2,7 @@
 import { Button, FormHelperTextProps, Image, Modal, ModalBody, ModalOverlay, 
     ModalHeader, ModalFooter, ModalCloseButton, 
     ModalContent, Tag, Flex, Divider, Stack, VStack, Text, 
-    Heading, Tooltip, StackDivider, Radio, RadioGroup } from "@chakra-ui/react";
+    Heading, Tooltip, StackDivider, Radio, RadioGroup, useToast, UseToastOptions } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ProductModalTag } from "./ProductModalTag";
 import { ProductModalInputNumber } from "./ProductModalForm";
@@ -14,6 +14,7 @@ import { ShopifyProductData, ShopifyProductVariantData } from "@/models/shopifyA
 import { AddToCartButtonProps, AddToCartButtonPropsBase } from "@shopify/hydrogen-react/dist/types/AddToCartButton";
 import { useCart,  } from "@shopify/hydrogen-react";
 import { CartLineInput } from "@shopify/hydrogen-react/storefront-api-types";
+import { AddToCartToast, AddToCartToastProps } from "../Cart";
 
 /* Interfaces - local types */
 interface CartItemFormData {
@@ -69,6 +70,7 @@ export function ProductModal (props: ProductModalProps) {
     const [currentVariantSelection, setCurrentVariantSelection] = useState<string|undefined>('') // ID of variant
     const [currentVariant, setCurrentVariant] = useState<ShopifyProductVariantData|undefined>(undefined)
     const [currentTotalInventory, setCurrentTotalInventory] = useState(defaultTotal)
+    const [isNoInventory, setIsNoInventory] = useState(false)
     const hasDefaultVariants = useRef(true)
     const variants = useRef([] as ShopifyProductVariantData[])
 
@@ -78,12 +80,26 @@ export function ProductModal (props: ProductModalProps) {
         const productVariantData = getVariantData(product)
         variants.current = productVariantData.variants
         const initialVariant = productVariantData.variants[defaultVariantIndex]
-        hasDefaultVariants.current = productVariantData.hasVariantDefaults   
+        hasDefaultVariants.current = productVariantData.hasVariantDefaults
+        const inventoryTotal = productVariantData.hasVariantDefaults ?
+            Number(product?.totalInventory) :
+            initialVariant?.quantityAvailable || Number(product?.totalInventory) || Number(product?.totalInventory) === 0 ? 0 : 1
         setCurrentVariantSelection(initialVariant?.id)
         setCurrentVariant(initialVariant)
-        setCurrentTotalInventory(initialVariant?.quantityAvailable || Number(product?.totalInventory) || 18)
+        setCurrentTotalInventory(inventoryTotal)
+        setIsNoInventory(product?.totalInventory === 0)
     }, [product])
+
     /* State | Hooks */
+        const defaultToastOptions = {
+            title: "Success!",
+            description: "Item added to cart!",
+            position: "bottom",
+            status: "success",
+            duration: 5000
+        } as UseToastOptions
+        const toast = useToast()
+        
 
     /* ******** TODO ******** 
         State Update should NOT be in the body of the component
@@ -102,7 +118,7 @@ export function ProductModal (props: ProductModalProps) {
     }, [variants, product?.totalInventory]) */
     
     // useCart hook
-    const {linesAdd, status} = useCart()
+    const {linesAdd, status, error} = useCart()
     
     const onAddToCartSubmit = async () => {
         // Evaluate data, update state, add to cart (hook)
@@ -110,6 +126,21 @@ export function ProductModal (props: ProductModalProps) {
             {merchandiseId: currentVariantSelection, quantity: currentQuantity}
         ] as CartLineInput[]
         linesAdd(cartLineItems)
+        // Clone toast option defaults & activate toast with success/error msg
+        const toastProps = Object.assign({}, defaultToastOptions)
+        setTimeout(() => {
+            toastProps.duration = 3000
+            if (error) {
+                toastProps.status = 'error'
+                toastProps.title = 'Sorry :('
+                toastProps.description = 'Unfortunately, the product could not be added to the cart.  Please refresh the page and try again.'
+            } else {
+                toastProps.description = `${product?.title} added to cart!`
+            }
+            // AddToCartToast(toastProps)
+            toast(toastProps)
+            onClose()
+        }, 350 )
     }
 
     const onVariantSelection = (val: string) => {
@@ -196,6 +227,7 @@ export function ProductModal (props: ProductModalProps) {
                         variant={"ghost"} 
                         mr={3} 
                         onClick={onClose}
+                        _hover={{'bgColor': 'rgba(100, 150, 100, .5)'}}
                     >
                         Cancel
                     </Button>
@@ -205,6 +237,7 @@ export function ProductModal (props: ProductModalProps) {
                         colorScheme={"orange"} 
                         // onClick={onClose}
                         onClick={onAddToCartSubmit}
+                        isDisabled={isNoInventory}
                     >
                         Add to Cart
                     </Button>

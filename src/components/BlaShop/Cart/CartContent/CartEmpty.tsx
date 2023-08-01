@@ -12,9 +12,9 @@ export function CartEmpty (props: CartEmptyProps) {
     const {onClose} = props
     return (
         <>
-            <h2 className="cart_details_empty_text">
+            <h3 className="cart_details_empty_text">
                 Your cart is empty
-            </h2>
+            </h3>
             {onClose &&
                 <button 
                     onClick={onClose}

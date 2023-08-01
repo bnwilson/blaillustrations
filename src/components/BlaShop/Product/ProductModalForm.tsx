@@ -20,26 +20,30 @@ export function productModalForm(props: any) {
 
 
 interface ProductModalInputNumberProps {
+    disabled?: boolean // default is false
     minAmount?: number // default is 1
     maxAmount?: number // default is 30 - should be totalInventory of product/variant
     handleChangeEnd: (n: number) => void
 }
 export function ProductModalInputNumber (props: ProductModalInputNumberProps) {
-    const {minAmount=1, maxAmount=30, handleChangeEnd} = props
+    const {disabled, minAmount=1, maxAmount=30, handleChangeEnd} = props
     const [currentVal, setCurrentVal] = useState(minAmount)
     const handleChange = (newValString: string, newValNum: number) => {
         setCurrentVal(newValNum)
         handleChangeEnd(newValNum)
     }
     const handleChangeSlider = (newValNum: number) => setCurrentVal(newValNum)
+    const isDisabled = disabled !== undefined ? disabled : maxAmount === 0
+    const min = minAmount > maxAmount ? maxAmount : minAmount
 
     return (
         <Flex>
-            <NumberInput max={maxAmount} min={minAmount} 
+            <NumberInput max={maxAmount} min={min} 
                 onChange={handleChange} 
                 maxW={"120px"} mr='2rem' 
                 value={currentVal} 
-                defaultValue={minAmount}
+                defaultValue={min}
+                isDisabled={isDisabled}
                 >
                 <NumberInputField />
                 <NumberInputStepper >
@@ -54,7 +58,8 @@ export function ProductModalInputNumber (props: ProductModalInputNumberProps) {
                 onChange={handleChangeSlider}
                 onChangeEnd={handleChangeEnd}
                 max={maxAmount}
-                min={minAmount}
+                min={min}
+                isDisabled={isDisabled}
             
             >
                 <SliderTrack aria-valuemax={maxAmount}>

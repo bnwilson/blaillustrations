@@ -147,7 +147,14 @@ html {
 
     /* Box Styles */
     --border-style: 4px solid black;
-}
+
+    /* Component colors */
+    --cart_modal_background: rgb(199, 152, 201);
+    --cart_modal_background2: rgb(218, 180, 220);
+
+    /* Fonts */
+    --store-cart-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
 
 /* Main Wrappers */
 

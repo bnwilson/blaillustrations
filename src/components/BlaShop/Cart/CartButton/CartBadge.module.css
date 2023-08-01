@@ -1,0 +1,22 @@
+/* Cart Icon/Button */
+.cart_icon_badge {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    align-items: center;
+    border-radius: 9999px;
+    bottom: 0.25rem;
+    display: flex;
+    font-size: 0.725rem;
+    font-weight: normal;
+    height: 1.2rem;
+    justify-content: center;
+    line-height: 1;
+    min-width: 1.2rem;
+    padding-bottom: 1px;
+    padding-left: 0.125rem;
+    padding-right: 0.125rem;
+    position: absolute;
+    right: 0.25rem;
+    text-align: center;
+    width: auto;
+}

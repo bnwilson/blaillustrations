@@ -38,7 +38,7 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
             Number(productListIdAttribute) : 0
         const currentProductSelection = productsList && productsList[productListId]
         setSelectedProduct(currentProductSelection)
-        console.log(JSON.stringify(currentProductSelection, null, 2))
+        // console.log(JSON.stringify(currentProductSelection, null, 2))
         onOpen()
     }
     const handleClickProductHover = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -49,7 +49,7 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
             Number(productListIdAttribute) : 0
         const currentProductSelection = productsList && productsList[productListId]
         setSelectedProduct(currentProductSelection)
-        console.log(selectedProduct)
+        // console.log(selectedProduct)
         onOpen()
     }
     

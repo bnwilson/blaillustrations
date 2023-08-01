@@ -1,5 +1,6 @@
 import { useCart, useCartLine } from "@shopify/hydrogen-react";
 import { CSSProperties } from "react";
+import styles from "./Cartbadge.module.css"
 
 const cartBadgeColorTheme = {
     "dark": {
@@ -28,7 +29,7 @@ export function CartBadge(props: CartBadgeProps) {
 
     return (
 
-      <div className={`cart_icon_badge`} >
+      <div className={styles.cart_icon_badge} >
           <span style={cartBadgeColorTheme[colorTheme]}>{lineCount || totalQuantity || 0}</span>
       </div>
     );
