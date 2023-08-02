@@ -8,7 +8,7 @@ export type BlaLogoProps = {
 } & typeof defaultProps
 
 const defaultProps = {
-    alt: "Bla Illustrations",
+    alt: "BLAillustrations",
     src: "/blago.png"
 }
 
@@ -17,7 +17,7 @@ export function BlaLogo (props: BlaLogoProps) {
     return (
             <Image 
                 className={styles['nav-logo']}
-                alt={alt || "BLA Illustrations"}
+                alt={alt || "BLAillustrations"}
                 src={blaImage || src}
             />
         )

@@ -1,7 +1,9 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import matter from 'gray-matter';
 import {Carousel,GalleryProps} from '../components/Carousel';
 import { Layout } from '@/components/Layout';
+import { Box, Heading, Text } from '@chakra-ui/react';
+import { WarningIcon } from '@chakra-ui/icons';
 
 const gallerySections = [
     {
@@ -21,24 +23,38 @@ const gallerySections = [
     }
 ]
 
+// Just a flag to render the message banner instead of the (old) Gallery
+const UNDER_CONSTRUCTION = true
+
+function UnderConstructionBanner() {
+    const bannerMessage = "   Sorry!  The Gallery is under construction.   "
+    const bannerSubMessage = "This page is being actively worked on and will be available soon.  Thanks!"
+    
+    return (
+        <Box pb={"2"} bgColor={"red.300"} color={"gray.700"} textAlign={"center"} minW={"80%"}>
+            <Heading mb={"3"} colorScheme={"purple"} >
+                <WarningIcon />{bannerMessage}<WarningIcon />
+            </Heading>
+            <Text fontSize={'xl'}>
+                {bannerSubMessage}
+            </Text>
+        </Box>
+    )
+}
+
 function GalleryPage (props: GalleryProps) {
     const gallerySections = [
         {
             sectionKey: "portraits",
         }
     ]
-    useEffect(() => console.log(props))
-
+    
 
     return (
         <div className="gallery">
-            {props.galleryItems ? 
+            {props.galleryItems && !UNDER_CONSTRUCTION ? 
                 (<Carousel galleryItems={props.galleryItems}/>) :
-                (
-                    <p className="gallery_loading">
-                        Loading Gallery...
-                    </p>
-                )
+                (<UnderConstructionBanner />)
             }
         </div>
     )
@@ -52,14 +68,12 @@ GalleryPage.getInitialProps = function() {
         const galleryContext = [] as {document: any, slug: string}[]
         const keys = context.keys();
         const values: any[] = keys.map(context);
-        console.log(JSON.stringify(context.keys()))
-        // console.log('* * Values:  ' + JSON.stringify(values, null, 2))
         const slugs = keys.map((key, i) => {
             return  key
-            .replace(/^.*[\\/]/, "")
-            .split(".")
-            .slice(0, -1)
-            .join(".")
+                .replace(/^.*[\\/]/, "")
+                .split(".")
+                .slice(0, -1)
+                .join(".")
         })
         values.forEach((v, i) => {
             console.log(JSON.stringify(v.default, null, 2))
@@ -68,24 +82,6 @@ GalleryPage.getInitialProps = function() {
             galleryContext.push({document: v.default, slug})
         })
         return galleryContext
-        /* 
-        const data = keys.map((key, index) => {
-            // slug: "public/gallery/201912-santa-paws.md" -> "201912-santa-paws"
-            const slug = key
-              .replace(/^.*[\\/]/, "")
-              .split(".")
-              .slice(0, -1)
-              .join(".")
-            console.log(JSON.stringify(values[index].default)) 
-            // const document: any = matter(values[index].default);
-            const document: any = matter(values[index].default);
-            // console.log(JSON.stringify(document, null, 2))
-            return {
-                document, slug
-            }
-        })
-        */
-        // console.log(JSON.stringify(data, null, 2))
     }
     
     return {

@@ -165,7 +165,7 @@ export default function Contact () {
         <div className={css.wrapper}>
             {!formState.isFormLoading && !formState.isFormComplete ?
                 (<div style={{display: "flex", justifyContent: "center", alignContent: "center", flexDirection: "column"}}>
-                    <h1 className={css.form_header}> Contact Form for Brittany</h1>
+                    <h1 className={css.form_header}> Contact Form for BLAillustrations</h1>
                         {errors.firstName || errors.lastName || errors.email || errors.messageBody || captchaError.isErrored ? 
                             (<span className={css.form_errors}>
                                 <ul>

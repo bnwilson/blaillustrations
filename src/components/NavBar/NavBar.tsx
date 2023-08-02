@@ -75,7 +75,7 @@ export function NavBar (navBarProps: NavBarProps) {
             </Link>
             <label className={styles['nav-title']}>
                 <h2>BLA</h2>
-                <h2>Illustrations</h2>
+                <h2>illustrations</h2>
             </label>
             <nav className={styles.navbar} >
                 <ul className={styles['nav-list']}>

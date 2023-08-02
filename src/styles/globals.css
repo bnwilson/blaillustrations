@@ -155,7 +155,8 @@ html {
     --store-font-fatface: "Abril Fatface", serif;
 
     /* Box Styles */
-    --border-style: 4px solid black;
+    --border-style: 2px solid black;
+    
 
     /* Component colors */
     --cart_modal_background: rgb(199, 152, 201);
