@@ -303,6 +303,11 @@
     padding-bottom: .15rem;
 }
 
+.cart_details_line_body tr td:last-child {
+    font-size: medium;
+    text-align: end;
+}
+
 .cart_details_line_category {
     font-weight: bold;
 }
@@ -316,4 +321,36 @@
     font-style: italic;
     font-weight: 400;
 
+}
+
+/* Line Item (delete button) */
+.cart_details_line_delete_wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.cart_details_line_delete_button {
+    background-color: rgb(var(--medium-purple-rgb),.65);
+    border: 2px ridge var(--medium-purple);
+    border-bottom: 4px ridge var(--medium-purple);
+    border-radius: 4px;
+    box-shadow: 0 4px 6px 0 rgba(39, 35, 142, 0.5);
+    color: var(--light-green4);
+    font-size: .85rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1rem;
+    margin: 0.05rem 0.25rem;
+    padding: 2px 10px;
+}
+
+.cart_details_line_delete_button:hover {
+    background-color: rgb(var(--medium-blue-rgb), .55);
+}
+
+.cart_details_line_delete_button:active {
+    /* background-color: var(--dark-green); */
+    /* border-bottom: 2px ridge var(--medium-green); */
+    /* margin-bottom: .27rem; */
+    box-shadow: unset;
+    transform: translateY(2px);
 }

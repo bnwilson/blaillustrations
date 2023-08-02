@@ -115,7 +115,8 @@ html {
     --light-green4: #c9dbba;
     --mint: #c4f0c5;
     --neon-green: #b3ff00;
-    --olive: #98bf33;
+    --olive: rgb(152, 191, 51);
+    --olive-rgb: 152, 191, 51;
 
     /* Blues */
     --light-blue: rgb(148, 156, 240);
@@ -124,6 +125,14 @@ html {
     --medium-blue-rgb: 37, 56, 163;
     --dark-blue: rgb(12, 22, 79);
     --dark-blue-rgb: 12, 22, 79;
+
+    /* Reds and purples */
+    --medium-red1: rgb(177, 30, 30);
+    --medium-red1-rgb: 177, 30, 30;
+    --dark-red1: rgb(116, 0, 0);
+    --dark-red1-rgb: 116, 0, 0;
+    --medium-purple: rgba(163, 42, 151, 0.638);
+    --medium-purple-rgb: 163, 42, 151;
 
     /* Turquoises */
     --turquoise: #b1f1d8;

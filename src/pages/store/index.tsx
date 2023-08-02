@@ -11,8 +11,9 @@ import {Collections} from '../../components/BlaShop/Collections'
 import {CollectionItem} from '../../components/BlaShop/CollectionItem'
 import { StoreBanner } from "@/components/BlaShop/StoreBanner";
 import { Layout, StoreLayout } from "@/components/Layout";
-
-const responseHeaderStyle: CSSProperties = {padding: '2.5px', margin: '5px 0px', fontWeight:'bolder', textAlign: 'center'}
+/* Import -- Disabled; used for testing locally
+    import { CollectionsDisplayStoreApi } from "@/components/BlaShop/Testing/collectionsDisplayStoreApi";
+*/
 
 let serverSidePropsExample = {
     "shop": {
@@ -111,6 +112,7 @@ function StorePage (props: any) {
             })
         }
     }
+    
     return (
         /* Wrapper */
         <div style={{margin: '0px auto', minWidth: '80%'}}>
@@ -135,64 +137,8 @@ function StorePage (props: any) {
             }
             
             {/* Testing -- fetch + graphQl responses for transparency */}
-            <div style={{margin: '0px auto', padding: '1em 1.5em'}}>
-                <Box 
-                    maxW={'lg'}
-                    maxH={'lg'}
-                    minH={'md'}
-                    minW={'1000px'}
-                    borderWidth={'1px'}
-                    overflow={'scroll'}
-                    p={'5'}
-                    color={'gray.500'}
-                    fontWeight={'semibold'}
-                    letterSpacing={'wide'}
-                    fontFamily={'monospace'}
-                    margin={'0 auto'}
-                    background={'ivory'}
-                >
-                    {/* * * * Build & Testing -- Info blocks * * * */}
-                    {/* Status - Html Response Status Code */}
-                    <div style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>Status</h2>
-                        <br/>
-                        <span style={{padding: '4px 5px'}}>{props && JSON.stringify(props.status)}</span>
-                    </div>
-                    {/* Headers for Fetch request */}
-                    <div style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>Headers</h2>
-                        <br/>
-                        <span style={{padding: '4px 5px'}}>{props && JSON.stringify(props.headers)}</span>
-                    </div>
-                    {/* Fetch response object (JSON) */}
-                    <pre style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>Response</h2>
-                        <br/>
-                        <span style={{padding: '4px 5px'}}>{props && JSON.stringify(props.response, null, 2)}</span>
-                    </pre>
-                    {/* Query (str) used in request */}
-                    <div style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>Query</h2>
-                        <br/>
-                        <span style={{padding: '4px 5px'}}>{props && JSON.stringify(props.query)}</span>
-                    </div>
-                    {/* GraphQLClient Response object (currently used in addition to fetch req) */}
-                    <div style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>GraphQL-Request response</h2>
-                        <br/>
-                        <pre style={{padding: '4px 5px'}}>{props && JSON.stringify(props.graphQlResponse, null, 2)}</pre>
-                    </div>
-                    <br/><br/>
-                    {/* 'Collections' from response (array of collections, nested in response object) */}
-                    <div style={{padding: '5px', margin: '2rem'}}>
-                        <h2 style={responseHeaderStyle}>Collections</h2>
-                        <br/>
-                        <pre style={{padding: '4px 5px'}}>{props && JSON.stringify(props.collections, null, 2)}</pre>
-                    </div>
-                    <br/><br/>
-                    {/* JSON.stringify(props) */}
-                </Box>
-            </div>
+            {/* <CollectionsDisplayStoreApi data={props} /> */}
+            
         </div>
         
     )

@@ -62,7 +62,7 @@ export function CartLineItem (props: CartLineItemProps) {
                         <Tr>
                             {/* Quantity */}
                             <Td className="cart_details_table_category">Quantity</Td>
-                            <Td>{quantity}</Td>
+                            <Td>{`x ${quantity}`}</Td>
                         </Tr>
                         {/* Subtotal */}
                         {cost?.totalAmount !== undefined ?
@@ -75,8 +75,17 @@ export function CartLineItem (props: CartLineItemProps) {
                             </Tr>
                         
                         }
+                        
                     </Tbody>
                 </Table>
+                {/* Delete item */}
+                <div className="cart_details_line_delete_wrapper">
+                    <button 
+                        className="cart_details_line_delete_button"
+                        onClick={() => linesRemove([lineId || merchandise?.id || String(props.key)])}>
+                            Delete
+                    </button>
+                </div>
             </TableContainer>
         </div>
     )

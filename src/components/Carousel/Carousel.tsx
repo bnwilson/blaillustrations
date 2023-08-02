@@ -49,7 +49,7 @@ function Carousel (props: GalleryProps) {
         const galleryArray: GalleryState[] = [];
         
         if (props.galleryItems && props.galleryItems.length > 0) {
-            props.galleryItems.map(item => {
+            props.galleryItems.forEach(item => {
                 const galleryItem = {
                     imgUrl: item.document.data.galleryImage,
                     tags: item.document.data.tags,
@@ -59,7 +59,6 @@ function Carousel (props: GalleryProps) {
                 galleryArray.push(galleryItem);
             })
             setImageState(galleryArray);
-            setCurrentIndex(0);
         }
     }, [props])
 

@@ -10,6 +10,9 @@ import type { ShopifyProductData } from "@/models/shopifyApiCustomTypes"
 import { Products, ProductItem, ProductModal, ProductSelectContext, productSelectContextDefault } from "@/components/BlaShop"
 import { FourOhFour } from "@/components/ErrorMessages"
 import { Layout, StoreLayout } from "@/components/Layout"
+/* Import -- Disabled; used for testing locally
+    import { ProductsDisplayStoreApi } from "@/components/BlaShop/Testing/productsDisplayStoreApi"
+*/
 
 /**
  * **GetServerSidePropsData** - describes expected output from `getServerSideProps()` func
@@ -81,14 +84,9 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
                 }
                 </Products>
             }
-
             {/* Testing output data */}
-            <pre onClick={onClose} style={{paddingLeft: "5px",maxWidth: "100vw", maxHeight:"50vh", overflow: "scroll", backgroundColor: "rgba(130,180,130,.6)", color: "rgb(40,40,50)"} }>
-                <h2>Response for {collection?.id}</h2>
-                <br/>
-                <span style={{wordWrap: "normal", overflowWrap: "break-word"}}>{JSON.stringify(props, null, 2)}</span>
-            </pre>
-           
+            {/* <ProductsDisplayStoreApi collectionId={collection?.id} data={props} /> */}
+                       
         </div>
 
     )
