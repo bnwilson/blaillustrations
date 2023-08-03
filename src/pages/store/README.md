@@ -18,7 +18,7 @@
   * Add `pages/store/[collections]/index.tsx`
     * `pages/store/[collections]/` folder created 
     * nested `index.tsx` file will contain most of the business logic present in the Phase 1 landing page
-  * Each collection displayed will navigate to `/pages
+  * Each collection displayed will navigate to `/pages`
 ----------
 
 ## **Phase 3**:
