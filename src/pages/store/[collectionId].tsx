@@ -1,6 +1,6 @@
 // Import -- Framework | Context | UI
 import { GetServerSidePropsContext, GetServerSidePropsResult, Redirect } from "next"
-import { useDisclosure } from "@chakra-ui/react"
+import { Box, Heading, useDisclosure, Tooltip } from "@chakra-ui/react"
 import { useState, useContext, ReactElement, useRef } from "react"
 // Import -- Shopify-related
 import { shopifyQueryRequest } from "@/utils/shopifyGraphQLRequest"
@@ -10,6 +10,7 @@ import type { ShopifyProductData } from "@/models/shopifyApiCustomTypes"
 import { Products, ProductItem, ProductModal, ProductSelectContext, productSelectContextDefault } from "@/components/BlaShop"
 import { FourOhFour } from "@/components/ErrorMessages"
 import { Layout, StoreLayout } from "@/components/Layout"
+import { InfoIcon } from "@chakra-ui/icons"
 /* Import -- Disabled; used for testing locally
     import { ProductsDisplayStoreApi } from "@/components/BlaShop/Testing/productsDisplayStoreApi"
 */
@@ -55,9 +56,26 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
         // console.log(selectedProduct)
         onOpen()
     }
-    
+    const headingInfoTooltip = "This section is still under construction; to navigate back to the list of collections: just hit 'back' in your browser, or click 'Store' in the nav menu above."
     return (
-        <div style={{margin: '0px auto', padding: '1em 1.5em'}}>
+        <div style={{margin: '0px auto', padding: '.1em 1.5em'}}>
+            {/* Collections banner message */}
+            
+            <Heading 
+                bg={"blackAlpha.600"} 
+                color={"whiteAlpha.900"}
+                padding={".15em 0"}
+                fontWeight={"hairline"} 
+                letterSpacing={"wide"} 
+                fontFamily={"var(--store-cart-font-family)"} lineHeight={"normal"} 
+                paddingInlineStart={".45em"} 
+                size="md"
+                textAlign={"center"}
+                mb={"1"}  >
+                    {`Products from the '${collection?.title}' collection `} 
+                <Tooltip label={headingInfoTooltip} ><InfoIcon paddingTop={".15em"} verticalAlign={"center"} /></Tooltip>
+            </Heading>
+            
             <ProductSelectContext.Provider value={selectedProduct}>
                 {/* <ProductModal isOpen={isOpen} onClose={onClose} selectedProduct={selectedProduct} /> */}
                 <ProductModal isOpen={isOpen} onClose={onClose} />
