@@ -1,13 +1,28 @@
+// Stylesheets (global)
 import '@/styles/globals.css'
 import '@/styles/gallery.css'
-import { ChakraProvider } from '@chakra-ui/react'
+import '@/styles/store.css'
+// Providers
+import { ChakraProvider, useDisclosure } from '@chakra-ui/react'
+import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react'
+// Netlify + CMS login context
+import * as netlifyIdentity from 'netlify-identity-widget'
 import { loginUser, logoutUser } from '@/utils/netlifyIdActions'
 import UserContext, {NetlifyLoginContext} from '@/components/userContext'
 import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import * as netlifyIdentity from 'netlify-identity-widget'
-import { useState, useEffect, useReducer } from 'react'
-import { Layout } from '@/components/Layout'
+// React | NextJS
+import { ReactElement, ReactNode, useEffect, useReducer } from 'react'
+import { Layout, StoreLayout } from '@/components/Layout'
+// Components
+import { CartButton, CartDrawer, AddToCartToast } from '@/components/BlaShop/Cart'
+import { NextPage } from 'next'
+
+/* TODO:  implement 'reconciliation'
+ * - - - - - - - - - - - - - - - - - - - - -
+import type { ReactElement, ReactNode } from 'react'
+import type { NextPage } from 'next'
+ */
+
 netlifyIdentity.currentUser()
 // Local-Storage user key
 const USER_KEY_DEFAULT = "currentBlaUser"
@@ -27,7 +42,15 @@ interface ReducerLoginAction {
   type: ReducerAdminLoginType
   payload?: netlifyIdentity.User | {[key: string]: any}
 }
-
+/* TODO:  implement 'reconciliation' for state persistence
+ * - - - - - - - - - - - - - - - - - - - - - */
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+ 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
 
 // Initial state
 const initialLoginState: AdminLoginState = {
@@ -80,10 +103,10 @@ function loginReducer (netlifyLoginState: AdminLoginState, loginAction: ReducerL
   }
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // State
   const [adminLoginState, dispatch] = useReducer(loginReducer, initialLoginState, initLoginState)
-
+  const {isOpen, onClose, onOpen} = useDisclosure()
   useEffect(() => {
     // Netlify Event Listeners
     netlifyIdentity.init()
@@ -101,14 +124,37 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   },[])
   
-  
+  // TODO -- implement 'reconciliation' 
+  //    (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)
+  // const getLayout = Component?.getLayout ?? ((page: any) => page)
+  const getLayout = Component.getLayout ?? ((page) => page)
+
   return (
     <UserContext.Provider value={{isLoggedIn: adminLoginState.user.isLoggedIn, userId: adminLoginState.user.id} as NetlifyLoginContext}>
       <ChakraProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ShopifyProvider
+          storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || ''}
+          storefrontToken={process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''}
+          storefrontApiVersion={process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || '2023-04'}
+          countryIsoCode='US'
+          languageIsoCode='EN'
+        >
+          <CartProvider onLineAdd={() => {}} onLineAddComplete={() => {AddToCartToast}}>
+            <Layout>
+              {getLayout(<Component {...pageProps} />)} 
+            </Layout>
+          </CartProvider>
+        </ShopifyProvider>
       </ChakraProvider>
     </UserContext.Provider>
   )
 }
+
+/* <Layout>
+<CartButton onclick={onOpen} />
+<CartDrawer onClose={onClose} isOpen={isOpen} />
+<StoreLayout>
+<Component {...pageProps} />
+
+</StoreLayout>
+</Layout> */

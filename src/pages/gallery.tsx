@@ -1,6 +1,9 @@
-import React from 'react';
-import matter from 'gray-matter';
+import React, { useEffect } from 'react';
+// import matter from 'gray-matter';
 import {Carousel,GalleryProps} from '../components/Carousel';
+import { Layout } from '@/components/Layout';
+import { Box, Heading, Text } from '@chakra-ui/react';
+import { WarningIcon } from '@chakra-ui/icons';
 
 const gallerySections = [
     {
@@ -20,23 +23,38 @@ const gallerySections = [
     }
 ]
 
-function Gallery (props: GalleryProps) {
+// Just a flag to render the message banner instead of the (old) Gallery
+const UNDER_CONSTRUCTION = true
+
+function UnderConstructionBanner() {
+    const bannerMessage = "   Sorry!  The Gallery is under construction.   "
+    const bannerSubMessage = "This page is being actively worked on and will be available soon.  Thanks!"
+    
+    return (
+        <Box pb={"2"} bgColor={"red.300"} color={"gray.700"} textAlign={"center"} minW={"80%"}>
+            <Heading mb={"3"} colorScheme={"purple"} >
+                <WarningIcon />{bannerMessage}<WarningIcon />
+            </Heading>
+            <Text fontSize={'xl'}>
+                {bannerSubMessage}
+            </Text>
+        </Box>
+    )
+}
+
+function GalleryPage (props: GalleryProps) {
     const gallerySections = [
         {
             sectionKey: "portraits",
         }
     ]
-
+    
 
     return (
         <div className="gallery">
-            {props.galleryItems ? 
+            {props.galleryItems && !UNDER_CONSTRUCTION ? 
                 (<Carousel galleryItems={props.galleryItems}/>) :
-                (
-                    <p className="gallery_loading">
-                        Loading Gallery...
-                    </p>
-                )
+                (<UnderConstructionBanner />)
             }
         </div>
     )
@@ -44,31 +62,36 @@ function Gallery (props: GalleryProps) {
 
 
 /* Load files in '/public/gallery/*.md' into context */
-Gallery.getInitialProps = async function() {
-    const gallery = (context => {
-        
+GalleryPage.getInitialProps = function() {
+    // const matter = require('gray-matter')
+    const getGallery = (context: __WebpackModuleApi.RequireContext) => {  
+        const galleryContext = [] as {document: any, slug: string}[]
         const keys = context.keys();
         const values: any[] = keys.map(context);
-        const data = keys.map((key, index) => {
-            const slug = key
-              .replace(/^.*[\\\/]/, "")
-              .split(".")
-              .slice(0, -1)
-              .join(".")
-            const value = values[index]
-            const document = matter(value.default);
-            return {
-                document, slug
-            }
+        const slugs = keys.map((key, i) => {
+            return  key
+                .replace(/^.*[\\/]/, "")
+                .split(".")
+                .slice(0, -1)
+                .join(".")
         })
-        return data
-    })(require.context("../../public/gallery", true, /\.md$/))
+        values.forEach((v, i) => {
+            console.log(JSON.stringify(v.default, null, 2))
+            let slug = slugs[i]
+            // let document: any = matter(v.default)
+            galleryContext.push({document: v.default, slug})
+        })
+        return galleryContext
+    }
+    
     return {
-        galleryItems: gallery
+        galleryItems: getGallery(require.context("public/gallery", false, /^public[\\/]gallery[\\/].*\.md$/))
     }
 }
 
-export default Gallery;
+
+
+export default GalleryPage;
 
 /* Example content from 'matter' 
 > matter
@@ -85,3 +108,24 @@ export default Gallery;
   excerpt: ''
 }
  */
+
+/* Example content from 'values' 
+{
+    "default": {
+      "content": "\r\n",
+      "data": {
+        "title": "Santa Paws",
+        "date": "2019-12-25T23:45:35.366Z",
+        "categories": "Kitty",
+        "tags": [
+          "christmas",
+          "holidayspirit",
+          "kitty"
+        ],
+        "galleryImage": "/images/uploads/untitled_artwork-30-.jpg"
+      },
+      "isEmpty": false,
+      "excerpt": ""
+    }
+  }
+*/

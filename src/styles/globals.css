@@ -115,7 +115,24 @@ html {
     --light-green4: #c9dbba;
     --mint: #c4f0c5;
     --neon-green: #b3ff00;
-    --olive: #98bf33;
+    --olive: rgb(152, 191, 51);
+    --olive-rgb: 152, 191, 51;
+
+    /* Blues */
+    --light-blue: rgb(148, 156, 240);
+    --light-blue-rgb: 148, 156, 240;
+    --medium-blue: #2538a3;
+    --medium-blue-rgb: 37, 56, 163;
+    --dark-blue: rgb(12, 22, 79);
+    --dark-blue-rgb: 12, 22, 79;
+
+    /* Reds and purples */
+    --medium-red1: rgb(177, 30, 30);
+    --medium-red1-rgb: 177, 30, 30;
+    --dark-red1: rgb(116, 0, 0);
+    --dark-red1-rgb: 116, 0, 0;
+    --medium-purple: rgba(163, 42, 151, 0.638);
+    --medium-purple-rgb: 163, 42, 151;
 
     /* Turquoises */
     --turquoise: #b1f1d8;
@@ -123,19 +140,38 @@ html {
 
     /* Darker Greens and Blue(s) */
     --medium-green: #84a485;
+    --medium-green-rgb: 132, 164, 133;
     --dark-green: #36493e;
+    --dark-green-rgb: 54, 73, 62;
     --slate-blue: #767da7;
+    --slate-blue-rgb: 118, 125, 167;
+
+    /* Captured Store Colors */
+    --store-pink: #ee9df3;
+    --store-pink-rgb: 238, 157, 243;
+    --store-yellow: #dcb239;
+    --store-yellow-rgb: 220, 178, 57;
+    --store-font-family: Abel, sans-serif;
+    --store-font-fatface: "Abril Fatface", serif;
 
     /* Box Styles */
-    --border-style: 4px solid black;
-}
+    --border-style: 2px solid black;
+    
+
+    /* Component colors */
+    --cart_modal_background: rgb(199, 152, 201);
+    --cart_modal_background2: rgb(218, 180, 220);
+
+    /* Fonts */
+    --store-cart-font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
 
 /* Main Wrappers */
 
 .app {
     min-height: 100vh;
     max-width: 100rem;
-    min-width: 8rem;
+    min-width: 10rem;
     margin: 0 auto;
     
 }
@@ -170,4 +206,17 @@ html {
   vertical-align: super;
   font-size: smaller;
   padding-bottom: .25rem;
+}
+
+/* Screenreader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

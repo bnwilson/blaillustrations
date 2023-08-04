@@ -26,18 +26,17 @@ export function Footer (props: FooterProps) {
                     <ul className={styles.footer__list}>
                         {contacts.map((contact, index) => (
                             <li key={index} className={styles.footer__item}>
-                                <Link className={styles.footer__link}
+                                <a className={styles.footer__link}
                                     href={contact.externalUrl || ""}
                                 >
                                     {contact.title}<ExternalLinkIcon className='superscript' />
-                                </Link>
+                                </a>
                             </li>
                         ))}
                     </ul>
                 </div>
             }
-            
-            BLA Illustrations&copy;
+            {/* BLA Illustrations&copy; */}
         </footer>
     )
 }

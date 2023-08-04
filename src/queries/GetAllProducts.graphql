@@ -1,0 +1,63 @@
+# Note:  Will most likely deleted these queries and fall back on graphql-tags + graphQL client
+query GetAllProductsAndFields {
+    products {
+        edges {
+            node {
+                ...allProductFields
+            }
+        }
+    }
+}
+
+query getAllProductsLimitedFields {
+    products {
+        edges {
+            node {
+                id
+                description
+                descriptionHtml
+            }
+        }
+    }
+}
+
+fragment allProductFields on Products {
+    availableForSale
+    createdAt
+    description
+    descriptionHtml
+    featuredImage {
+        altText
+        height
+        width
+        id
+        url
+    }
+    handle
+    id
+    metafields
+    options
+    priceRange {
+        maxVariantPrice
+        minVariantPrice
+    }
+    tags
+    title
+    totalInventory
+    updatedAt
+    variantBySelectedOptions
+    
+    # Connections
+    collections {
+        id
+        description
+        descriptionHtml
+    }
+    images {
+        altText
+        id
+        height
+        width
+        url
+    }
+}

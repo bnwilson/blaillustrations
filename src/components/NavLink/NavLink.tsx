@@ -2,22 +2,24 @@ import React, { ReactElement } from 'react'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import styles from './NavLink.module.css'
-import { ClassNamesProps } from '@emotion/react'
 
-// Modeled after guide @ https://flaviocopes.com/nextjs-active-link/
-//    Updated for typescript
 interface LinkProps {
     className?: string | undefined,
     href: string,
     children: ReactElement
 }
-
+/**
+ * 
+ * @summary Modeled after guide {@link https://flaviocopes.com/nextjs-active-link/}
+ * * Updated for typescript
+ * 
+*/
 const NavLink = (props: LinkProps) => {
     const {href, children, className} = props
     const router = useRouter()
 
     let classNameChild = children.props.className
-    if (router.pathname === href) {
+    if (router.pathname === href || router.pathname.includes(href)) {
         classNameChild = styles['nav-selected']
     }
 

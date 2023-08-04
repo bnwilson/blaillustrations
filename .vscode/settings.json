@@ -1,0 +1,6 @@
+{
+    "yaml.schemas": {
+        "https://unpkg.com/graphql-config/config-schema.json": "file:///c%3A/Projects/BLAillustrations/blaillustrations_v2.0/graphql.config.yml"
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}

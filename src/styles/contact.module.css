@@ -49,8 +49,8 @@
         background-color: var(--medium-green);
         margin: 1rem 2rem;
         padding: .5rem 0;
-        box-shadow: 4px 5px 8px rgba(3, 56, 20, 0.8);
-        border: 4px solid black;
+        box-shadow: 2px 0 8px rgba(3, 56, 20, 0.466);
+        border: 1px ridge black;
     }
 
     .contact_body {
@@ -71,7 +71,7 @@
     .contact_form {
         background-color: var(--slate-blue);
         border: var(--border-style);
-        box-shadow: 4px 5px 8px rgba(3, 56, 20, 0.8);
+        box-shadow: 4px 3px 8px 0 rgba(6, 77, 28, 0.579);
         color: whitesmoke;
         display: inline-block;
         flex-direction: column;
@@ -84,8 +84,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: .2rem 1rem;
-        margin: .5rem 1rem;
+        padding: .15rem 1rem;
+        margin: .35rem 1rem;
     }
     
     .contact_form>ul>li>* {
@@ -103,6 +103,7 @@
         background-color: #707099;
         color: #c8ecd4;
         font-size: 1rem;
+        cursor: pointer;
     }
     
     .contact_message {

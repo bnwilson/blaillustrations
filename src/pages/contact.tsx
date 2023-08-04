@@ -1,9 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {ReactElement, useRef, useState} from 'react';
 import css from '@/styles/contact.module.css';
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup'
 import ReCAPTCHA from 'react-google-recaptcha';
+import { Layout } from '@/components/Layout';
 
 // TODO:  Replace 'react-hook-form' + 'yup' with ChakraUI components
 //  ref: https://github.com/sendgrid/sendgrid-nodejs/tree/master/packages/mail
@@ -164,7 +165,7 @@ export default function Contact () {
         <div className={css.wrapper}>
             {!formState.isFormLoading && !formState.isFormComplete ?
                 (<div style={{display: "flex", justifyContent: "center", alignContent: "center", flexDirection: "column"}}>
-                    <h1 className={css.form_header}> Contact Form for Brittany</h1>
+                    <h1 className={css.form_header}> Contact Form for BLAillustrations</h1>
                         {errors.firstName || errors.lastName || errors.email || errors.messageBody || captchaError.isErrored ? 
                             (<span className={css.form_errors}>
                                 <ul>

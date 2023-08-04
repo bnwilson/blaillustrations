@@ -1,0 +1,6 @@
+# GraphQL config - schema file | applicable files
+schema: "node_modules/@shopify/hydrogen-react/storefront.schema.json"
+documents: "src/queries/*.{graphql,gql,ts,js}"
+extensions:
+  languageService:
+    useSchemaFileDefinitions: true
