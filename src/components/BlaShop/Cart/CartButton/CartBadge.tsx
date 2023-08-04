@@ -1,6 +1,6 @@
 import { useCart, useCartLine } from "@shopify/hydrogen-react";
 import { CSSProperties } from "react";
-import styles from "./Cartbadge.module.css"
+import styles from "./CartBadge.module.css"
 
 const cartBadgeColorTheme = {
     "dark": {
