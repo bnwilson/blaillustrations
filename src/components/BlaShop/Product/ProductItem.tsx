@@ -3,9 +3,10 @@ import { Money } from "@shopify/hydrogen-react"
 import { 
     Card, CardBody, Image as ChakraImage, 
     Stack, Heading, Text,
-    Divider, Wrap, Tag, Flex, HStack 
+    Divider, Wrap, Tag, Flex, HStack, StyleProps, CardProps
 } from "@chakra-ui/react"
-import React from "react"
+import {styled} from "@chakra-ui/react/dist"
+import React, { Attributes, ReactPropTypes } from "react"
     
 
 interface ProductItemProps {
@@ -14,6 +15,20 @@ interface ProductItemProps {
     productData: ShopifyProductData
     uid?: number
 }
+
+type CardStyles = CardProps 
+ & {
+    className: string;
+}
+
+const CardStyles = {
+    bg:"whiteAlpha.200",
+    className:"store_product_card",
+    direction: "column",
+    border:"1px rigid",
+    borderColor:"blue.800",
+    boxShadow:"dark-lg"
+} as CardStyles
 
 /**
  * @name ProductItem
@@ -36,11 +51,12 @@ export function ProductItem (props: ProductItemProps) {
                 // maxHeight={"14.5rem"}
                 // maxWidth={["20rem", "17.5rem", "18rem"]}
                 // minWidth={["33rem", "22.5rem", "22rem"]}
-                bg={"green.300"} 
-                className={"store_product_card"}
-                direction="column"
-                border={"2px solid"}
-                borderColor={"blue.800"}
+                bg={CardStyles.bg} 
+                className={CardStyles.className}
+                direction={CardStyles.direction}
+                border={CardStyles.border}
+                borderColor={CardStyles.borderColor}
+                
             >
                 <CardBody padding="0.5rem">
                     <Flex direction={"row"} gap="3" flex-wrap={"wrap"} minWidth="0" >

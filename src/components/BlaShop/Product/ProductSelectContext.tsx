@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { ShopifyProductData, ShopifyImageType } from "@/models/shopifyApiCustomTypes";
 
+
 export const productSelectContextDefault = {
     title: '',
     id: '',

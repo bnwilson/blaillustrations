@@ -1,8 +1,9 @@
 .nav-logo {
     width: 6rem;
     height: 6rem;
-    background-color:  rgba(191, 190, 195, 0.8);
+    background-color: var(--light-grey-2);
     box-shadow: rgba(240, 255, 255, .6) 0 0 .8rem;
     border-radius: 50%;
-    padding: .2rem;
+    padding: .1rem;
+    margin-top: .25rem;
 }

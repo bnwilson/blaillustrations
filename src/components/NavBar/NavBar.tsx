@@ -29,20 +29,20 @@ enum navBarDefaults {
 /* - excludes homepage icon, admin */
 const navItems: NavItem[] = [
     {
-        title: "Gallery",
+        title: "Gallery.",
         value: "gallery",
         href: "/gallery"
     },
     {
-        title: "Contact",
-        value: "contact",
-        href: "/contact"
-    },
-    {
-        title: "Store",
+        title: "Store.",
         value: "store",
         href: "/store",
         isExternal: false
+    },
+    {
+        title: "Contact.",
+        value: "contact",
+        href: "/contact"
     }
 ]
 
@@ -69,13 +69,15 @@ export function NavBar (navBarProps: NavBarProps) {
     const {isLoggedIn} = useContext(UserContext)
     
     return (
-        <div className={styles['nav-header']} style={{backgroundImage, backgroundSize}}>
+        // Disabling background img <div className={styles['nav-header']} style={{backgroundImage, backgroundSize}}>
+        <div className={styles['nav-header']} >
             <Link passHref href={"/"} title="Back to the landing page...... :)">
                 <BlaLogo />
             </Link>
             <label className={styles['nav-title']}>
-                <h2>BLA</h2>
-                <h2>illustrations</h2>
+                <h2>{"@"}</h2>
+                <h2>{"BLA"}</h2>
+                <h2>{"illustrations"}</h2>
             </label>
             <nav className={styles.navbar} >
                 <ul className={styles['nav-list']}>
