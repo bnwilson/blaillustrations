@@ -82,6 +82,7 @@ interface StorePageProps {
  * 
  * _Utilizes NextJs `getServerSideProps` functionality to query Shopify collections prior to render._
  * - **styles** -- global stylesheet can be found in `/styles/store.css`
+ *   * _**Note:  TS does not like `interface StorePageProps`, using `any` type for now**_
  * 
  * @param {StorePageProps} props - Generated from `getServerSideProps`
  * @returns 

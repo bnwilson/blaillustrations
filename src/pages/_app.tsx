@@ -1,5 +1,6 @@
 // Stylesheets (global)
-import '@/styles/globals.css'
+import '@/styles/store.css'
+import '../styles/globals.css'
 import '@/styles/gallery.css'
 import '@/styles/store.css'
 // Providers

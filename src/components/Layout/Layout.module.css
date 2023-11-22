@@ -2,19 +2,21 @@
 
 .app {
     min-height: 100vh;
-    max-width: 100rem;
+    max-width: 90rem;
     min-width: 8rem;
     margin: 0 auto;
-    background-image: 
+    /* background-image: 
         linear-gradient(
             rgba(var(--medium-blue-rgb), 0.15),
             rgba(var(--slate-blue-rgb), 0.35)
         ),
-        url('/speckle_background.bmp');
+        url('/speckle_background.bmp'); 
+    
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
-    
+    background-size: cover; 
+    */
+    background-color: ghostwhite;
 }
 /* background-image: 
     linear-gradient(
@@ -29,7 +31,8 @@ background-repeat: no-repeat; */
 .main {
     padding: 1px;
     min-height: 75vh;
-    margin-top: .5rem;
+    /* margin-top: .5rem; */
+    margin-bottom: .5rem;
     /* display: flex;
     justify-content: center; */
     /* grid-template-areas: "nav nav nav"

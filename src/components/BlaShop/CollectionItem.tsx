@@ -10,6 +10,24 @@ export interface CollectionItemProps {
     tags?: string[];
 }
 
+function CollectionItemHeading (props: {collectionTitle?: string}) {
+
+    return (
+        <Heading 
+            /* Center text */
+            top={"50%"} left={"50%"} position={"absolute"} transform={"translate(-50%, -50%)"}
+            /* Font Color */
+            // color={"blackAlpha.800"} textShadow={"2px 2px 2px ghostwhite, 0 0 1em white, 0 0 0.2em gray"}
+            color={"whiteAlpha.900"} textShadow={"2px 2px 5px black, 0 0 1em white, 0 0 0.3em darkblue"}
+            /* Font Style & Size */
+            fontStyle={"normal"} fontFamily={"sans-serif"} 
+            size={"xl"} textAlign={"center"}
+        >
+                {props?.collectionTitle}
+        </Heading>
+    )
+}
+
 export function CollectionItem (props: CollectionItemProps) {
     const {
         imageData,
@@ -25,28 +43,29 @@ export function CollectionItem (props: CollectionItemProps) {
     return (
         <div className='store_item_wrapper'>
             <Card 
-                maxHeight={"13.25rem"}
-                textAlign={"center"} 
-                bg={"blackAlpha.500"} 
-                onClick={onclick} 
-                data-collection-id={id}
+                bg={"white"} 
+                borderRadius={"full"}
                 className={"store_item_card"}
-            >
+                data-collection-id={id}
+                onClick={onclick} 
+                textAlign={"center"} 
+                >
                 {hasImageData ?
-                    (<CardBody padding="0.5rem">
+                    (<CardBody  padding="0.5rem">
                         <ChakraImage
+                            borderRadius={"full"}
                             src={imageData?.url || imageData?.src || ""}
                             alt={imageData?.altText || title}
-                            borderRadius={"md"}
                         />
-                        <Stack mt={"1.25"} spacing={".5"}>
+                        <CollectionItemHeading collectionTitle={props.title} />
+                        {/* <Stack mt={"1.25"} spacing={".5"}>
                             <Heading fontStyle={"italic"} fontFamily={"sans-serif"} size="md" textAlign={"center"} color="darkgoldenrod">
                                 {title}
                             </Heading>
                             <Text>
                                 {description || ""}
                             </Text>
-                        </Stack>
+                        </Stack> */}
                     </CardBody>) :
                     (<label  className='store_collection_title_text'>
                         {title}
@@ -54,13 +73,13 @@ export function CollectionItem (props: CollectionItemProps) {
                     </label>)
                 }
                 
-                <Divider margin="-2px 3px 5px 4px" variant={"solid"}  size="md" alignContent={"center"} opacity="0.8" />
+                {/* <Divider margin="-2px 3px 5px 4px" variant={"solid"}  size="md" alignContent={"center"} opacity="0.8" />
                 {tags && tags?.length ?
                     <Wrap spacing={"1.5"} direction="row" margin="0px auto" overflow="hidden" maxBlockSize={"min-content"} padding={"0 1px 2px 0"}>
                         {tags.map((t,i) => <Tag key={i} textTransform="lowercase" size="sm" colorScheme="red" variant="outline">{t}</Tag>).slice(0,4)} 
                     </Wrap> :
                     (<Tag/>)
-                }
+                } */}
             </Card>
             
         </div>
