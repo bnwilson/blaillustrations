@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Arrow from './Arrow';
+import Arrow from './arrow';
 import {ImageSlide} from './imageSlide';
 import { GrayMatterFile } from 'gray-matter';
 import styles from './carousel.module.css'
