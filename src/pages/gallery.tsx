@@ -1,31 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import matter from 'gray-matter';
-import {Carousel,GalleryProps} from '../components/Carousel';
+import {Carousel} from '../components/Carousel';
 import { Layout } from '@/components/Layout';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import { WarningIcon } from '@chakra-ui/icons';
+import { GrayMatterFile } from 'gray-matter';
 
-const gallerySections = [
-    {
-        name: "gallery",
-        title: "Gallery",
-        menuText: "Gallery"
-    },
-    {
-        name: "portraits",
-        title: "Portraits",
-        menuText: "Portraits"
-    },
-    {
-        name: "stickers",
-        title: "Stickers",
-        menuText: "Stickers"
-    }
-]
-
-// Just a flag to render the message banner instead of the (old) Gallery
-const UNDER_CONSTRUCTION = true
-
+// UnderConstructionBanner - to be removed... was ugly, anyways.
 function UnderConstructionBanner() {
     const bannerMessage = "   Sorry!  The Gallery is under construction.   "
     const bannerSubMessage = "This page is being actively worked on and will be available soon.  Thanks!"
@@ -42,7 +23,30 @@ function UnderConstructionBanner() {
     )
 }
 
-function GalleryPage (props: GalleryProps) {
+// Interfaces - GalleryMatter, GalleryPageProps
+interface GalleryMatter {
+    document: GrayMatterFile<any>; 
+    slug: string;
+}
+interface GalleryPageProps {
+    galleryItems: GalleryMatter[];
+}
+
+/** GalleryPage
+ * 
+ * @param {GalleryPageProps} props Generated from NextJS's `getInitialProps` and `require.context`
+ *  - `galleryItems`- `[...GalleryMatter]`
+ * @returns `{{url}}/gallery` page
+ */
+function GalleryPage (props: GalleryPageProps) {
+    const {isOpen, onOpen, onClose} = useDisclosure()
+    const [clickedItemIndex, setClickedItemIndex] = useState<number | undefined>()
+
+    const handlePictureSelect = (pictureIndex: number) => {
+        setClickedItemIndex(pictureIndex)
+        onOpen()
+    }
+
     const gallerySections = [
         {
             sectionKey: "portraits",
@@ -51,12 +55,34 @@ function GalleryPage (props: GalleryProps) {
     
 
     return (
-        <div className="gallery">
-            {props.galleryItems && !UNDER_CONSTRUCTION ? 
-                (<Carousel galleryItems={props.galleryItems}/>) :
-                (<UnderConstructionBanner />)
+        <>
+        <Modal isOpen={isOpen} onClose={onClose} >
+            <ModalOverlay />
+            <ModalCloseButton />
+            <ModalContent height={["800px", "800px", "700px"]}>
+                <Carousel galleryItems={props.galleryItems} activeItemIndex={clickedItemIndex} />
+                {/* <ModalBody paddingInlineEnd={0} paddingInlineStart={0} >
+                    
+                    </ModalBody> 
+                */}
+            </ModalContent>
+        </Modal>
+        <SimpleGrid className='gallery' columns={[1, 2, 3]} spacing='10px' gap={1}  >
+            {
+            props?.galleryItems?.length && 
+                props.galleryItems.map((gItem, gIndx) =>
+                    <Image boxSize={['350px', '375px', '300px']}
+                        className='gallery_item'
+                        alt={gItem.document.data.title} 
+                        key={gItem?.slug} 
+                        objectFit='cover'
+                        onClick={() => handlePictureSelect(gIndx)}
+                        src={gItem.document.data.galleryImage} 
+                    />
+                )
             }
-        </div>
+        </SimpleGrid>
+        </>
     )
 }
 
@@ -76,7 +102,7 @@ GalleryPage.getInitialProps = function() {
                 .join(".")
         })
         values.forEach((v, i) => {
-            console.log(JSON.stringify(v.default, null, 2))
+            // console.log(JSON.stringify(v.default, null, 2))
             let slug = slugs[i]
             // let document: any = matter(v.default)
             galleryContext.push({document: v.default, slug})
@@ -88,8 +114,6 @@ GalleryPage.getInitialProps = function() {
         galleryItems: getGallery(require.context("public/gallery", false, /^public[\\/]gallery[\\/].*\.md$/))
     }
 }
-
-
 
 export default GalleryPage;
 

@@ -16,6 +16,11 @@ const nextConfig = {
       }
     )
     return cfg;
+  },
+  async rewrites() {
+    return {
+      fallback: [{source: "/:path*", destination: "/_404/:path*"}]
+    }
   }
 }
 
