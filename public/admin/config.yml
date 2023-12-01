@@ -1,3 +1,4 @@
+# TODO -- Update config and index.html to use "DecapCMS" (new Netlify headless CMS)
 # Publish mode - Add 'confirmation' step
 publish_mode: editorial_workflow
 

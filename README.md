@@ -16,14 +16,29 @@ Currently, this site leverages the following (_"JAM"_) stack:
 * Languages & Packages
     * React (_inherent to Next.js_)
       * `react-hook-form`, `yup`
-    * Typescript (_`.tsx` for web components_)
-    * `NodeJS`
       * [`chakra-ui`](https://chakra-ui.com/docs/components)
+      * Typescript (_`.tsx` for components_)
+    * `NodeJS`
+      `webpack`, `babel`, `eslint`
     * Shopify
       * [Hydrogen.js](https://shopify.dev/docs/api/hydrogen-react) - a Shopify API React-based SDK/component-library
       * [Storefront API](https://shopify.dev/docs/api/storefront)
       * `graphQL` - query language for storefront API interaction
-    * Good ol' fashioned `html` and `css`
+    * Styling
+      * `styled-jsx`
+      * `*.module.css`
+      * styled components / inline-styles
+      * Good ol' fashioned `css`, well.. _`css3`_
+      ###### _Dev Note: I used this project to play around with different styling approaches... sorry in advance_
+* Recommended extensions (VSCode)
+  * `CSS Modules` by clinyong
+  * `ESLint` by Microsoft
+  * `GraphQL: Syntax Highlighting` by GraphQL Foundation
+  * `styled-jsx` by niceSprite
+  * `YAML` by Red Hat
+  * `Iconify IntelliSense` (_optional_) by Anthony Fu
+  * `Image preview` (_optional_) by Kiss Tamás
+  * `node-readme` (_optional_) bybengreenier
 
 ## Getting Started
 1. First, run the development server:
