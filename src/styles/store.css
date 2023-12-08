@@ -1,3 +1,7 @@
+.store-products__wrapper {
+    margin: 0 auto;
+    padding: .25rem 0;
+}
 .store_item_wrapper {
     /* background-color: rgba(var(--medium-green-rgb), .80); */
     /* border: 1px solid rgba(0, 0, 139, 0.202); */
@@ -69,7 +73,7 @@
     border-radius: 10px;
     /* padding: .15em; */
     margin: 2px 4px;
-    /* box-shadow: 1px 1px 15px; */
+    /* box-shadow: 1px 1px 15px rgba(113,113,113,.4); */
     min-width: 220px;
     min-height: 180px;
     max-width: 400px;
@@ -101,9 +105,10 @@
 
 .store_product_modal_title {
     color: var(--dark-blue);
-    text-shadow: 2px 2px 5px rgba(39, 35, 142, 0.3);
+    /* text-shadow: 2px 2px 5px rgba(39, 35, 142, 0.3); */
     font-weight: 100;
     text-align: center;
+    font-family: 'Special Elite', cursive;
 }   
 
 .store_product_modal_body {

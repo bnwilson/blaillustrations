@@ -30,7 +30,7 @@ export default function Contact () {
         badFont: "#8d1f1f",
         defaultMessage: "Please Enter your message body here..."
     }
-    console.log(`* SITE KEY * --=---> ${RECAPTCHA_SITE_KEY}`)
+    
     /*** Contact Form State ***/
     const [loadingText, setLoadingText] = useState("Loading");
 

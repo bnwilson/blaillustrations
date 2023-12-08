@@ -1,0 +1,28 @@
+.cart_button {
+    align-items: center;
+    border-radius: 9999px;
+    background-color: rgba(238, 157, 243,0.8);
+    position: fixed;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    margin: 0 1.25rem 1.25rem 0;
+    opacity: 0.9;
+    right: 2rem;
+    top: 2rem;
+    width: 3rem;
+    z-index: 999
+}
+
+@media screen and (max-width: 500px) {
+    .cart_button {
+        position: fixed;
+        top: .5rem;
+        right: .25rem;
+        margin-right: .5rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        opacity: 0.9;
+    }
+
+}

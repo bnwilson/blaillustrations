@@ -33,6 +33,7 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
 
     /* State | Hooks | Context */
     const {isOpen, onOpen, onClose} = useDisclosure()
+    const tooltipDisclosure = useDisclosure()
     const [selectedProduct, setSelectedProduct] = useState<ShopifyProductData | undefined>(undefined)
     // const selectedProduct = useRef(productSelectContextDefault)
     const handleClickProductSelect: React.MouseEventHandler<HTMLDivElement> = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -58,7 +59,9 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
     }
     const headingInfoTooltip = "This section is still under construction; to navigate back to the list of collections: just hit 'back' in your browser, or click 'Store' in the nav menu above."
     return (
-        <div style={{margin: '0px auto', padding: '.1em 1.5em'}}>
+        <div className="store-products__wrapper" 
+            // style={{margin: '0px auto', padding: '.1em 1.5em'}}
+        >
             {/* Collections banner message */}
             
             <Heading 
@@ -73,7 +76,24 @@ export default function CollectionProducts (props: GetServerSidePropsData) {
                 textAlign={"center"}
                 mb={"1"}  >
                     {`Products from the '${collection?.title}' collection `} 
-                <Tooltip label={headingInfoTooltip} ><InfoIcon paddingTop={".15em"} verticalAlign={"center"} /></Tooltip>
+                <Tooltip isOpen={tooltipDisclosure.isOpen} 
+                    
+                    closeDelay={400} 
+                    aria-label={headingInfoTooltip} 
+                    label={headingInfoTooltip} 
+                    maxWidth={["350px", "425px", "500px"]}
+                    // offset={[25,5]}
+                    direction={"rtl"}
+                    >
+                    <InfoIcon 
+                        onMouseEnter={tooltipDisclosure.onOpen}
+                        onMouseLeave={tooltipDisclosure.onClose}
+                        onTouchStart={tooltipDisclosure.onToggle}
+                        // onTouchEnd={tooltipDisclosure.onClose}
+                        paddingTop={".15em"} 
+                        verticalAlign={"center"} 
+                    />
+                </Tooltip>
             </Heading>
             
             <ProductSelectContext.Provider value={selectedProduct}>
