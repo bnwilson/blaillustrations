@@ -1,6 +1,7 @@
 import { CSSProperties } from "react"
 import { CartBadge } from "./CartBadge"
 import { CartIconBag } from "./CartIconBag"
+import styles from "./CartButton.module.css"
 
 const cartButtonStyle = {
     position: 'fixed',
@@ -27,7 +28,7 @@ export function CartButton (props: CartButtonProps) {
     const {onclick} = props
 
     return (
-        <button onClick={onclick} style={cartButtonStyle}>
+        <button onClick={onclick} className={styles.cart_button} >
             <CartIconBag />
             <CartBadge />
         </button>

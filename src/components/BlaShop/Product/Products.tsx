@@ -4,11 +4,13 @@ export function Products (props: any) {
     let {children} = props
     return (
         <SimpleGrid 
-            minChildWidth={["400px", "350px", "380px"]}
-            
-            spacing="2rem" 
+            minChildWidth={["350px", "375px", "380px"]}
+            // alignItems="baseline"
+            spacing={["1rem", "1.25rem", "2rem"]}
             margin={"0px auto"} 
-            padding={["2px .15rem", "2px 1.25rem", "2px 2rem"]} 
+            padding={["2px", "2px 10px", "2px 30px"]} 
+            // alignItems="center"
+            justifyItems={"center"}
             
         >
             {/* ...<CollectionItem {prop[index]} */}

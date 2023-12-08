@@ -167,9 +167,9 @@ export function ProductModal (props: ProductModalProps) {
     return (
         <Modal colorScheme={"cyan"} isOpen={isOpen} onClose={onClose}>
             <ModalOverlay/>
-            <ModalContent backgroundColor={"chakra-body-bg"} className="store_product_modal">
+            <ModalContent backgroundColor={"chakra-body-bg"} className="store_product_modal" marginTop={"2rem"}>
             
-                <ModalHeader fontFamily={"cursive"} className="store_product_modal_title" padding={"5px 5px 2px"} >
+                <ModalHeader className="store_product_modal_title" padding={"5px 5px 2px"} >
                     {product?.title || product?.handle}
                 </ModalHeader>
                 <ModalCloseButton/>

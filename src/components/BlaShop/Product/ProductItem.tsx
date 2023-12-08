@@ -16,7 +16,7 @@ interface ProductItemProps {
     uid?: number
 }
 
-type CardStyles = CardProps 
+type CardStyling = CardProps 
  & {
     className: string;
 }
@@ -27,8 +27,9 @@ const CardStyles = {
     direction: "column",
     border:"1px rigid",
     borderColor:"blue.800",
-    boxShadow:"dark-lg"
-} as CardStyles
+    // boxShadow:"dark-lg"
+    boxShadow:"1px 1px 10px rgba(10,10,77,.5)"
+} as CardStyling
 
 /**
  * @name ProductItem
@@ -51,11 +52,12 @@ export function ProductItem (props: ProductItemProps) {
                 // maxHeight={"14.5rem"}
                 // maxWidth={["20rem", "17.5rem", "18rem"]}
                 // minWidth={["33rem", "22.5rem", "22rem"]}
-                bg={CardStyles.bg} 
-                className={CardStyles.className}
-                direction={CardStyles.direction}
-                border={CardStyles.border}
-                borderColor={CardStyles.borderColor}
+                {...CardStyles}
+                // bg={CardStyles.bg} 
+                // className={CardStyles.className}
+                // direction={CardStyles.direction}
+                // border={CardStyles.border}
+                // borderColor={CardStyles.borderColor}
                 
             >
                 <CardBody padding="0.5rem">
@@ -78,8 +80,8 @@ export function ProductItem (props: ProductItemProps) {
 
                         <Stack mt={"1.25"} spacing={".5"} gap="2" flex={"1 2 180px"}>
                             <Heading 
-                                fontStyle={"normal"} 
-                                fontFamily={"cursive"} 
+                                fontStyle={"italic"} 
+                                fontFamily={"'Gill Sans MT', sans-serif"} 
                                 fontWeight="hairline"
                                 size="sm" 
                                 textAlign={"center"} 
