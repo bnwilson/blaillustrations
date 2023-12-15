@@ -90,7 +90,7 @@ function StorePage (props: InferGetServerSidePropsType<typeof getServerSideProps
         } else {
             throw new Error("collectionsContextDispatch is not rendering under <CollectionsContextDispatch.Provider>")
         }
-        console.log(`'/store' page --> collectionContext: ${JSON.stringify(collectionsContext, null, 2)}`)
+        
     // empty-array dep -- prevent re-render as props are created via SSR
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])

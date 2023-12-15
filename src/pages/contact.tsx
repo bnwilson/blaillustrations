@@ -50,7 +50,7 @@ export default function Contact () {
                 errorMessage: "Sorry, your reCAPTCHA token has expired. Please validate that your are a person again, please :)."
             })
         } else {
-            console.log("ReCaptcha success value --->  ", val);
+            
             setCaptchaSuccess(true);
             setCaptchaError({
                 errorMessage: "reCAPTCHA must be validated to submit!",
@@ -60,7 +60,7 @@ export default function Contact () {
     }
     
     const handleCaptchaError = (val: any) => {
-        console.log("ReCaptcha error value --->  ", val);
+        // console.log("ReCaptcha error value --->  ", val);
         if (captchaSuccess) { 
             setCaptchaSuccess(false);
         };
@@ -143,7 +143,7 @@ export default function Contact () {
             body: JSON.stringify(data)
         })
         .then(res => {
-            console.log(res);
+            // console.log(res);
             try {
                 setFormState({isFormLoading: false, isFormComplete: true});
                 return res.json();
