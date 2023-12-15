@@ -177,7 +177,7 @@
     border-style: solid;
     border-color: rgb(95, 107, 215);
     color:rgba(13, 36, 72, 0.938);
-    cursor: pointer;
+    /* cursor: pointer; */
     display: flex;
     justify-content: center;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
@@ -188,6 +188,18 @@
     min-width: 80%;
     padding: .4rem .55rem;
     text-align: center;
+}
+
+.cart_details_checkout_button.checkout_disabled {
+    color: gray;
+    cursor: progress;
+    background-color: darkgray;
+    border-color: gray;
+    border-style: 5px dotted;
+    opacity: .7;
+}
+.cart_details_checkout_button.checkout_disabled:hover {
+    cursor: not-allowed;
 }
 
 .cart_details_empty_text {

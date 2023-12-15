@@ -5,6 +5,11 @@ import { Layout } from '@/components/Layout';
 import { Box, Button, Heading, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, SimpleGrid, Text, useDisclosure } from '@chakra-ui/react';
 import { WarningIcon } from '@chakra-ui/icons';
 import { GrayMatterFile } from 'gray-matter';
+import type { 
+    GetStaticProps, GetStaticPropsContext, 
+    GetStaticPropsResult, InferGetStaticPropsType 
+} from 'next';
+import { ScriptProps } from 'next/script';
 
 // UnderConstructionBanner - to be removed... was ugly, anyways.
 function UnderConstructionBanner() {
@@ -38,7 +43,7 @@ interface GalleryPageProps {
  *  - `galleryItems`- `[...GalleryMatter]`
  * @returns `{{url}}/gallery` page
  */
-function GalleryPage (props: GalleryPageProps) {
+export default function GalleryPage (props: GalleryPageProps): InferGetStaticPropsType<typeof getStaticProps> {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const [clickedItemIndex, setClickedItemIndex] = useState<number | undefined>()
 
@@ -87,13 +92,17 @@ function GalleryPage (props: GalleryPageProps) {
 }
 
 
+// ** Legacy API ** 
+//    GalleryPage.getInitialProps = function() {
+// export function getStaticProps() {
+    
 /* Load files in '/public/gallery/*.md' into context */
-GalleryPage.getInitialProps = function() {
+export const getStaticProps: GetStaticProps = () => {
     // const matter = require('gray-matter')
-    const getGallery = (context: __WebpackModuleApi.RequireContext) => {  
+    const getGallery = (requireContext: __WebpackModuleApi.RequireContext) => {  
         const galleryContext = [] as {document: any, slug: string}[]
-        const keys = context.keys();
-        const values: any[] = keys.map(context);
+        const keys = requireContext.keys();
+        const values: any[] = keys.map(requireContext);
         const slugs = keys.map((key, i) => {
             return  key
                 .replace(/^.*[\\/]/, "")
@@ -111,11 +120,11 @@ GalleryPage.getInitialProps = function() {
     }
     
     return {
-        galleryItems: getGallery(require.context("public/gallery", false, /^public[\\/]gallery[\\/].*\.md$/))
+        props: {
+            galleryItems: getGallery(require.context("public/gallery", false, /^public[\\/]gallery[\\/].*\.md$/))
+        }
     }
 }
-
-export default GalleryPage;
 
 /* Example content from 'matter' 
 > matter
