@@ -1,32 +1,30 @@
 // Stylesheets (global)
 import '@/styles/store.css'
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import '@/styles/gallery.css'
 import '@/styles/store.css'
 // Providers
 import { ChakraProvider, useDisclosure } from '@chakra-ui/react'
 import { CartProvider, ShopifyProvider } from '@shopify/hydrogen-react'
+import { CollectionsContextProvider } from '@/components/BlaShop/collections.context'
+import { getShopifyProviderProps } from '@/utils/getShopifyProviderProps'
 // Netlify + CMS login context
 import * as netlifyIdentity from 'netlify-identity-widget'
 import { loginUser, logoutUser } from '@/utils/netlifyIdActions'
 import UserContext, {NetlifyLoginContext} from '@/components/userContext'
-import type { AppProps } from 'next/app'
 // React | NextJS
-import { ReactElement, ReactNode, useEffect, useReducer } from 'react'
-import { Layout, StoreLayout } from '@/components/Layout'
-// Components
-import { CartButton, CartDrawer, AddToCartToast } from '@/components/BlaShop/Cart'
+import { ReactElement, ReactNode, Suspense, useEffect, useReducer } from 'react'
 import { NextPage } from 'next'
-
-/* TODO:  implement 'reconciliation'
- * - - - - - - - - - - - - - - - - - - - - -
-import type { ReactElement, ReactNode } from 'react'
-import type { NextPage } from 'next'
- */
+import type { AppProps } from 'next/app'
+// Components
+import { AddToCartToast } from '@/components/BlaShop/Cart'
+import { Layout } from '@/components/Layout'
+import { Loading } from '@/components/Loading'
+import { useRouterEventState } from '@/hooks/useRouterEventState'
 
 netlifyIdentity.currentUser()
 // Local-Storage user key
-const USER_KEY_DEFAULT = "currentBlaUser"
+const USER_KEY_DEFAULT = "BLAdministrations_local_oAuth"
 
 /*  Types  */
 interface AdminLoginState {
@@ -43,8 +41,7 @@ interface ReducerLoginAction {
   type: ReducerAdminLoginType
   payload?: netlifyIdentity.User | {[key: string]: any}
 }
-/* TODO:  implement 'reconciliation' for state persistence
- * - - - - - - - - - - - - - - - - - - - - - */
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
@@ -108,6 +105,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // State
   const [adminLoginState, dispatch] = useReducer(loginReducer, initialLoginState, initLoginState)
   const {isOpen, onClose, onOpen} = useDisclosure()
+  const {isRouterLoading, urlToBeLoaded} = useRouterEventState()
+  // const {c} = useRouter()
   useEffect(() => {
     // Netlify Event Listeners
     netlifyIdentity.init()
@@ -124,25 +123,28 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       dispatch({type: "logout"})
     })
   },[])
+
+  const shopifyProviderProps = getShopifyProviderProps()
+    // storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || ''}
+    // storefrontToken={process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''}
+    // storefrontApiVersion={process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || '2023-10'}
+    // countryIsoCode='US'
+    // languageIsoCode='EN'
   
-  // TODO -- implement 'reconciliation' 
-  //    (https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts)
-  // const getLayout = Component?.getLayout ?? ((page: any) => page)
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
     <UserContext.Provider value={{isLoggedIn: adminLoginState.user.isLoggedIn, userId: adminLoginState.user.id} as NetlifyLoginContext}>
       <ChakraProvider>
-        <ShopifyProvider
-          storeDomain={process.env.NEXT_PUBLIC_SHOPIFY_STORE_URL || ''}
-          storefrontToken={process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''}
-          storefrontApiVersion={process.env.NEXT_PUBLIC_SHOPIFY_API_VERSION || '2023-04'}
-          countryIsoCode='US'
-          languageIsoCode='EN'
-        >
+        <ShopifyProvider {...shopifyProviderProps}>
           <CartProvider onLineAdd={() => {}} onLineAddComplete={() => {AddToCartToast}}>
             <Layout>
-              {getLayout(<Component {...pageProps} />)} 
+              <CollectionsContextProvider >
+                {isRouterLoading ?
+                  <Loading routeToBeLoaded={urlToBeLoaded}  /> :
+                  getLayout(<Component {...pageProps} />)
+                }
+              </CollectionsContextProvider>
             </Layout>
           </CartProvider>
         </ShopifyProvider>

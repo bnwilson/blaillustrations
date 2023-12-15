@@ -1,0 +1,1 @@
+export {CollectionsSkeleton, type CollectionsSkeletonProps} from './collectionsSkeleton'

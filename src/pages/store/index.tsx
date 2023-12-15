@@ -1,7 +1,7 @@
 /* Framework Imports */
-import React, { CSSProperties, MouseEventHandler, ReactElement, ReactEventHandler, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { Box, Spinner } from "@chakra-ui/react"
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 /* Shopify */
 import {getPrivateTokenHeaders, getStorefrontApiUrl} from '../../utils/shopifyClient'
 import {shopifyQueryRequest} from '../../utils/shopifyGraphQLRequest'
@@ -10,39 +10,11 @@ import {getAllCollectionsQuery, getAllCollections} from '../../queries/getAllCol
 import {Collections} from '../../components/BlaShop/Collections'
 import {CollectionItem} from '../../components/BlaShop/CollectionItem'
 import { StoreBanner } from "@/components/BlaShop/StoreBanner";
-import { Layout, StoreLayout } from "@/components/Layout";
-/* Import -- Disabled; used for testing locally
-    import { CollectionsDisplayStoreApi } from "@/components/BlaShop/Testing/collectionsDisplayStoreApi";
-*/
-
-let serverSidePropsExample = {
-    "shop": {
-        "name": "BLAillustrations",
-        "id": "gid://shopify/Shop/42078896279"
-    },
-    "collections": {
-        "edges": [
-            {
-                "node": {
-                    "id": "gid://shopify/Collection/203483611287",
-                    "title": "Home page",
-                    "handle": "frontpage",
-                    "updatedAt": "2023-04-27T00:04:03Z",
-                    "description": ""
-                }
-            },
-            {
-                "node": {
-                    "id": "gid://shopify/Collection/203663179927",
-                    "title": "art prints",
-                    "handle": "human-bean-collection",
-                    "updatedAt": "2023-04-27T00:04:03Z",
-                    "description": ""
-                }
-            }
-        ]
-    }
-}
+import { StoreLayout } from "@/components/Layout";
+import { CollectionsContext, 
+         CollectionsDispatchContext, 
+         CollectionsContextState 
+} from "@/components/BlaShop/collections.context";
 
 interface StorePageProps {
     shop?: {
@@ -51,17 +23,15 @@ interface StorePageProps {
         [key: string]: any
     }
     collections?: {
-        edges: {
-            node: {
-                id?: string  // "gid://shopify/Collection/xxxxxxxxxxxx"
-                title?: string  // "art prints"
-                handle?: string // "human-bean-collection"
-                updatedAt?: string // "2023-04-27T00:04:03Z"
-                description?: string
-                [key: string]: any
-            }
-        }[]
-    }
+        id?: string  // "gid://shopify/Collection/xxxxxxxxxxxx"
+        title?: string  // "art prints"
+        handle?: string // "human-bean-collection"
+        updatedAt?: string // "2023-04-27T00:04:03Z"
+        description?: string
+        product?: {nodes: any[]} // product.nodes -> should only have 1 item: [{featuredImage: {url,altText,id}}]
+        products?: {nodes: any[]} 
+        [key: string]: any
+    }[]
     errors?: {
         message: string
         locations?: {
@@ -85,27 +55,54 @@ interface StorePageProps {
  *   * _**Note:  TS does not like `interface StorePageProps`, using `any` type for now**_
  * 
  * @param {StorePageProps} props - Generated from `getServerSideProps`
- * @returns 
+ * @returns {ReactNode}
  */
-function StorePage (props: any) {
+function StorePage (props: InferGetServerSidePropsType<typeof getServerSideProps>) {
     // State
     //      __TO_DO__: 
     //      - possibly replace with useReducer hook, instead of useState()
     //      - ^ only if it's determined that the collections/products listing should be state-ful
+    // const [isLoading, setIsLoading]                       = useState(false)
     const [selectedCollectionId, setSelectedCollectionId] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
-
+    
     // Filter to only collections with associated products
-    const allCollections: any[] = props?.collections
-    const collections = allCollections.filter(collectionItem => collectionItem?.products?.nodes?.length)
-    const router = useRouter()
-
+    const allCollections: any[]      = props?.collections
+    const collections                = allCollections.filter(collectionItem => collectionItem?.products?.nodes?.length)
+    const router                     = useRouter()
+    const collectionsContext         = useContext(CollectionsContext)
+    const collectionsDispatchContext = useContext(CollectionsDispatchContext)
+    const collectionsMemo            = useMemo(() => collections, [collections])
+    // console.log(JSON.stringify(collectionsMemo, null, 2))
+    useEffect(() => {
+        
+        if (collectionsDispatchContext !== null) {
+            const collectionsToAdd = collectionsMemo.map(item => {
+                return {
+                    collectionId: item.id, 
+                    collectionTitle: item.title, 
+                    productCount: item?.products?.nodes?.length || 0
+                }
+            })
+            collectionsDispatchContext({
+                type: 'init', 
+                newCollections: collectionsToAdd
+            })
+        } else {
+            throw new Error("collectionsContextDispatch is not rendering under <CollectionsContextDispatch.Provider>")
+        }
+        
+    // empty-array dep -- prevent re-render as props are created via SSR
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+    
     // collectionClickEvent - handle collection selection from initial listing
     const collectionOnClick = (collectionClickEvent?: React.MouseEvent<HTMLDivElement> ) => {
         let clickedCollectionShopifyId = collectionClickEvent?.currentTarget.dataset['collectionId']
         if (clickedCollectionShopifyId) {
             // setIsLoading(true)
-            setSelectedCollectionId(clickedCollectionShopifyId)
+            // setSelectedCollectionId(clickedCollectionShopifyId)
+            collectionsDispatchContext !== null && 
+                collectionsDispatchContext({type: 'updateActive', newActiveCollectionId: clickedCollectionShopifyId})
             // ... navigate to collection (dynamic) page
             router.push({
                 pathname: '/store/[collectionId]',
@@ -115,64 +112,69 @@ function StorePage (props: any) {
     }
     
     return (
-        /* Wrapper */
-        <div style={{margin: '0px auto', minWidth: '80%'}}>
+        <>
             <StoreBanner/>
+            <div style={{margin: '0px auto', minWidth: '80%'}}>
             {collections && collections.length ? 
                 <Collections>
-                    {...collections.map((cItem: any, i: number) => {
-                        return <CollectionItem
-                            key={i}
-                            title={cItem.title}
-                            id={cItem.id}
-                            description={cItem.description || ""}
-                            onclick={collectionOnClick}
-                            imageData={cItem?.image || cItem?.products?.nodes[0]?.featuredImage || undefined}
-                            tags={cItem?.products?.nodes[0]?.tags || undefined}
-                        />
-
-                    })}
-                        
+                {...collections.map((cItem: any, i: number) => {
+                    return <CollectionItem
+                        key={i}
+                        title={cItem.title}
+                        id={cItem.id}
+                        description={cItem.description || ""}
+                        onclick={collectionOnClick}
+                        imageData={cItem?.image || cItem?.product?.nodes[0]?.featuredImage || undefined}
+                        tags={cItem?.products?.nodes[0]?.tags || undefined}
+                    />
+                })}
                 </Collections>
-            : <div/>
+
+                : <div/>
             }
-            
-            {/* Testing -- fetch + graphQl responses for transparency */}
-            {/* <CollectionsDisplayStoreApi data={props} /> */}
-            
-        </div>
-        
+            </div>
+        </>
     )
 }
 
-export async function getServerSideProps(context: any) {
-    const response = await fetch(getStorefrontApiUrl(), {
-        body: JSON.stringify({
-            query: getAllCollectionsQuery
-        }),
-        // When possible, add the 'buyerIp' param
-        headers: getPrivateTokenHeaders(),
-        method: 'POST'
-    })
-
-    const responseJson = await response.json()
-    const responseStatus = JSON.stringify(response.status)
-    const responseHeaders = JSON.stringify(response.headers)
-
-    const shopifyQueryResponse: any = await shopifyQueryRequest(getAllCollections)
-    
-
-    return {
-        props: {
-            response: responseJson,
-            status: responseStatus,
-            headers: responseHeaders,
-            query: JSON.stringify(getAllCollectionsQuery),
-            graphQlResponse: shopifyQueryResponse,
-            collections: [...shopifyQueryResponse?.collections?.edges?.map((edge: any) => edge?.node)]
-        }
-    }
+type ShopServerSideProps = {
+        response?: string;
+        status?: string;
+        headers?: string;
+        error?: any;
+        query: string;
+        graphQlResponse: any;
+        collections: any[];
 }
+
+export const getServerSideProps = (async (context: any) => {
+    const serverSideProps = {props: {} as ShopServerSideProps}
+    try {
+        const shopifyQueryResponse: any       = await shopifyQueryRequest(getAllCollections)
+        serverSideProps.props.graphQlResponse = shopifyQueryResponse
+        serverSideProps.props.collections     = [...shopifyQueryResponse?.collections?.edges?.map((edge: any) => edge?.node)]
+    } 
+    catch (shopifyQueryError) {    
+        const response = await fetch(getStorefrontApiUrl(), {
+            body: JSON.stringify({
+                query: getAllCollectionsQuery
+            }),
+            // When possible, add the 'buyerIp' param
+            headers: getPrivateTokenHeaders(),
+            method: 'POST'
+        })
+    
+        const responseJSON                = await response.json()
+
+        serverSideProps.props.response    = responseJSON
+        serverSideProps.props.status      = JSON.stringify(response.status)
+        serverSideProps.props.headers     = JSON.stringify(response.headers)
+        serverSideProps.props.error       = JSON.stringify(shopifyQueryError)
+        serverSideProps.props.collections = [...responseJSON?.data?.collections?.edges?.map((edge: any) => edge?.node)]
+    }
+    return serverSideProps
+}) satisfies GetServerSideProps<ShopServerSideProps>
+
 
 StorePage.getLayout = function getLayout(page: ReactElement) {
     return (
@@ -181,14 +183,5 @@ StorePage.getLayout = function getLayout(page: ReactElement) {
         </StoreLayout>
     )
 }
-
-/** __ToDo's__ 
- * 1. Simple components:
- *   a. Toast -- "Item added to cart!"
- *   b. Spinner (Loading screen) -- rendered while waiting for storefront API response
- * 2. Medium-Complex components:
- *   a. Product View | Modal -- responsive (modal for desktop/large screen?)
- *   b. Cart | Drawer or on Navbar -- contains 'checkout' and context/shopify business-logic
- */
 
 export default StorePage

@@ -145,10 +145,10 @@ export function ProductModal (props: ProductModalProps) {
 
     const onVariantSelection = (val: string) => {
         // currentVariantSelection.current = val
-        console.log(val)
+        // console.log(val)
         setCurrentVariantSelection(val)
         const selectedVariant = variants.current?.find(v => v.id === val.trim()) || variants.current[Number(val)]
-        console.log(`* * Selected Variant ==> \n   ${JSON.stringify(selectedVariant, null, 2)}\n * *`)
+        // console.log(`* * Selected Variant ==> \n   ${JSON.stringify(selectedVariant, null, 2)}\n * *`)
         // currentVariant.current = (selectedVariant !== undefined) ? selectedVariant : currentVariant
         setCurrentVariant((selectedVariant !== undefined) ? selectedVariant : currentVariant)
         setCurrentTotalInventory(selectedVariant?.quantityAvailable || currentTotalInventory)

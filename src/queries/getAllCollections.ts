@@ -51,7 +51,8 @@ export const getAllCollections = gql`
                 handle
                 updatedAt
                 description
-                products(first: 1) {
+                # product - alias to retrieve featured img and tags
+                product: products(first: 1) {
                     nodes {
                         tags
                         featuredImage {
@@ -59,6 +60,11 @@ export const getAllCollections = gql`
                             altText
                             id
                         }
+                    }
+                }
+                products(first: 25) {
+                    nodes {
+                        totalInventory
                     }
                 }
                 image {
@@ -84,8 +90,18 @@ export const getAllCollections = gql`
                     handle
                     updatedAt
                     description
+                    products(first: 20) {
+                        nodes {
+                            totalInventory
+                        }
+                    }
+                    image {
+                        url
+                        altText
+                    }
                 }
             }
+
         }
     }
  `

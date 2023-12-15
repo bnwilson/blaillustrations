@@ -1,0 +1,24 @@
+{
+    "shop": {
+        "name": "BLAillustrations",
+        "id": "gid://shopify/Shop/01234567890"
+    },
+    "collections": {
+        "edges": [
+            {
+                "id": "gid://shopify/Collection/012345678910",
+                "title": "Home page",
+                "handle": "frontpage",
+                "updatedAt": "2023-09-27T00:04:03Z",
+                "description": ""
+            },
+            {
+                "id": "gid://shopify/Collection/012345678910",
+                "title": "art prints",
+                "handle": "human-bean-collection",
+                "updatedAt": "2023-09-27T00:04:03Z",
+                "description": ""
+            }
+        ]
+    }
+}
